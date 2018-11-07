@@ -34,6 +34,7 @@ public class Game extends Application {
 	private final String blockRelativePath;
 	private Button resumeButton;
 	private Button pauseButton;
+	private int snakeYPos;
 	private ArrayList<String> input = new ArrayList<String>();
 	private ArrayList<Sprite> allElements = new ArrayList<Sprite>();
 	private Snake snake;
@@ -56,6 +57,7 @@ public class Game extends Application {
 		magnetImagePath = "file:images/magnet.jpg";
 		destroyBlocksPowerUpImagePath = "file:images/bomb.gif";
 		blockRelativePath = "file:images/block/";
+		snakeYPos=450;
 		myAnimation = new Animation(this);
 		score = new IntValue(0);
 		rnd=new Random();
@@ -111,7 +113,7 @@ public class Game extends Application {
 
 		snake = new Snake(screenCoordinates);
 		snake.setImage(new Image(ballImagePath, BALL_SIZE, BALL_SIZE, false, true));
-		snake.setPosition(200, 450);
+		snake.setPosition(200, snakeYPos);
 
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent e) {
