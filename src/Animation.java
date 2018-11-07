@@ -140,6 +140,7 @@ public class Animation extends AnimationTimer {
 			if (element.outOfFrame()) {
 				allElementsIter.remove();
 			}
+			System.out.println("Snake at "+game.getSnake().positionY);
 			if (element.intersects(game.getSnake())) {
 				if (element instanceof Wall)
 					System.out.println("interects");
@@ -153,8 +154,10 @@ public class Animation extends AnimationTimer {
 						try {
 							if (temp.canBeDestroyed(game.getSnake())) {
 								allElementsIter.remove();
+								System.out.println("Setting to "+game.getSnakeYPos());
+								game.getSnake().setPositionY(game.getSnakeYPos());
 								game.getScore().value++;
-								temp.forceSpriteOnBottom(game.getSnake());
+								//temp.forceSpriteOnBottom(game.getSnake());
 							} else {
 								game.getScore().value++;
 								temp.collide(game.getSnake());
