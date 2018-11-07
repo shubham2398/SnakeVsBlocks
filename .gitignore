@@ -1,0 +1,10 @@
+bin/
+.classpath
+.project
+Thumbs.db
+*.zip
+*.iml
+*.iws
+*.ipr
+.idea/
+*.class

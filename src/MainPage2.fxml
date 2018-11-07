@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="650.0" maxWidth="406.0" minHeight="650.0" minWidth="406.0" prefHeight="650.0" prefWidth="406.0" style="-fx-background-image: url('file:images/backg5.jpg');" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainPage">
+   <children>
+      <ImageView fitHeight="44.0" fitWidth="39.0" layoutY="1.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="373.2156867980957" AnchorPane.topAnchor="1.0">
+         <image>
+            <Image url="@../images/score.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="38.0" fitWidth="33.0" layoutX="260.0" layoutY="7.0" mouseTransparent="true" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="7.0">
+         <image>
+            <Image url="@../images/coin.png" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" layoutX="34.0" layoutY="33.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Score" AnchorPane.topAnchor="12.0">
+         <font>
+            <Font name="Calibri Bold" size="22.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="299.0" layoutY="24.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Coins" AnchorPane.topAnchor="12.0">
+         <font>
+            <Font name="Calibri Bold" size="22.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="217.0" fitWidth="224.0" layoutX="20.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/title.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="268.0" fitWidth="235.0" layoutX="215.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/icon2.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="startGame" accessibleRole="BUTTON" fitHeight="118.0" fitWidth="161.0" layoutX="241.0" layoutY="384.0" onMouseClicked="#tapToStart" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="148.0" AnchorPane.leftAnchor="241.0" AnchorPane.rightAnchor="24.660186767578125">
+         <image>
+            <Image url="@../images/start.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="368.0" fitWidth="259.0" layoutX="-9.0" layoutY="289.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0">
+         <image>
+            <Image url="@../../snakeVSblocks/images/options2.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="displayLeaderboard" accessibleRole="BUTTON" fitHeight="150.0" fitWidth="200.0" layoutX="26.0" layoutY="328.0" onMouseClicked="#openLeaderboard" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/leaderb.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="displayGuide" accessibleRole="BUTTON" fitHeight="150.0" fitWidth="200.0" layoutX="15.0" layoutY="419.0" onMouseClicked="#openInstructions" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/instructions.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="exitGame" accessibleRole="BUTTON" fitHeight="150.0" fitWidth="200.0" layoutX="21.0" layoutY="509.0" onMouseClicked="#exit" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/exit3.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

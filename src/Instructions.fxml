@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="650.0" maxWidth="406.0" minHeight="650.0" minWidth="406.0" prefHeight="650.0" prefWidth="406.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Instructions">
+   <children>
+      <ImageView fitHeight="594.0" fitWidth="406.0" layoutY="-1.0" pickOnBounds="true">
+         <image>
+            <Image url="@../images/instruct.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="goBack" fitHeight="89.0" fitWidth="203.0" layoutY="583.0" onMouseClicked="#displayMainPage" pickOnBounds="true" AnchorPane.bottomAnchor="-22.0" AnchorPane.leftAnchor="0.0">
+         <image>
+            <Image url="@../images/back.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="exitGame" fitHeight="98.0" fitWidth="203.0" layoutX="203.0" layoutY="579.0" onMouseClicked="#exit" pickOnBounds="true" AnchorPane.bottomAnchor="-27.0" AnchorPane.rightAnchor="0.0">
+         <image>
+            <Image url="@../images/exit2.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
