@@ -84,7 +84,7 @@ public class Animation extends AnimationTimer {
 				game.repeat = 3 + game.rnd.nextInt(2);
 				last = 0;
 			} else {
-				int how_many = game.rnd.nextInt(3);
+				int how_many = 1 + game.rnd.nextInt(2);
 				if(how_many == 1)
 				{
 					int l1 = game.rnd.nextInt(5);
