@@ -37,6 +37,7 @@ public class Game extends Application {
 	private ArrayList<String> input = new ArrayList<String>();
 	private ArrayList<Sprite> allElements = new ArrayList<Sprite>();
 	private Snake snake;
+	private int snakeYPos;
 	public double block_dur = 9;
 	public int repeat;
 	public double ball_dur = 3;
@@ -47,6 +48,7 @@ public class Game extends Application {
 
 	public Game() {
 		speed = 70;
+		snakeYPos=450;
 		BLOCK_SIZE = (screenCoordinates[1] - 6) / 5;
 		BALL_SIZE = BLOCK_SIZE / 3;
 		ballImagePath = "file:images/ball/yellow.png";
@@ -111,7 +113,7 @@ public class Game extends Application {
 
 		snake = new Snake(screenCoordinates);
 		snake.setImage(new Image(ballImagePath, BALL_SIZE, BALL_SIZE, false, true));
-		snake.setPosition(200, 450);
+		snake.setPosition(200, snakeYPos);
 
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent e) {
