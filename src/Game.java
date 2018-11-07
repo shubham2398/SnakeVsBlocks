@@ -34,7 +34,6 @@ public class Game extends Application {
 	private final String blockRelativePath;
 	private Button resumeButton;
 	private Button pauseButton;
-	private int snakeYPos;
 	private ArrayList<String> input = new ArrayList<String>();
 	private ArrayList<Sprite> allElements = new ArrayList<Sprite>();
 	private Snake snake;
@@ -57,10 +56,9 @@ public class Game extends Application {
 		magnetImagePath = "file:images/magnet.jpg";
 		destroyBlocksPowerUpImagePath = "file:images/bomb.gif";
 		blockRelativePath = "file:images/block/";
-		snakeYPos=450;
 		myAnimation = new Animation(this);
 		score = new IntValue(0);
-		rnd=new Random();
+		rnd = new Random();
 	}
 
 	private void initialise() {
@@ -113,7 +111,7 @@ public class Game extends Application {
 
 		snake = new Snake(screenCoordinates);
 		snake.setImage(new Image(ballImagePath, BALL_SIZE, BALL_SIZE, false, true));
-		snake.setPosition(200, snakeYPos);
+		snake.setPosition(200, 450);
 
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent e) {
@@ -128,16 +126,19 @@ public class Game extends Application {
 		this.stage = theStage;
 		initialise();
 
-//		allElements.add(makeBallPowerUp(100, 200));
-//		allElements.add(makeShield(200, 200));
-//		allElements.add(makeCoin(50, 100));
-//		allElements.add(makeMagnet(350, 300));
-//		allElements.add(makeDestroyBlocksPowerUp(300, 150));
+		// allElements.add(makeBallPowerUp(100, 200));
+		// allElements.add(makeShield(200, 200));
+		// allElements.add(makeCoin(50, 100));
+		// allElements.add(makeMagnet(350, 300));
+		// allElements.add(makeDestroyBlocksPowerUp(300, 150));
 
 		for (int i = 0; i < 5; i++) {
-			allElements.add(makeBlock(0 + (BLOCK_SIZE) * i + (i + 1), -10, 1 + rnd.nextInt(2)));
+			allElements.add(makeBlock(0 + (BLOCK_SIZE) * i + (i + 1), -360, 1 + rnd.nextInt(2)));
 		}
-		//allElements.add(makeBlock( 1, -180, 1 + rnd.nextInt(2)));
+//		allElements.add(makeWall((BLOCK_SIZE) * 1 + (1 + 1) + BLOCK_SIZE -8, -360 + BLOCK_SIZE, 270, 0));
+//		allElements.add(makeWall((BLOCK_SIZE) * 2 + (2 + 1) + BLOCK_SIZE +5, -360 + BLOCK_SIZE, 270, 0));
+//		allElements.add(makeWall((BLOCK_SIZE) * 3 + (3 + 1) + BLOCK_SIZE / 2, -180 + BLOCK_SIZE, 80, 1));
+//		allElements.add(makeWall((BLOCK_SIZE) * 4 + (4 + 1) + BLOCK_SIZE / 2, -180 + BLOCK_SIZE, 90, 1));
 		repeat = 3 + rnd.nextInt(2);
 
 		myAnimation.start();
@@ -197,13 +198,17 @@ public class Game extends Application {
 		return block;
 	}
 
-	public Sprite makeWall(double px, double py) {
+	public Sprite makeWall(double px, double py, int len, int side) {
 		Sprite wall = new Wall(screenCoordinates);
-		wall.setImage(new Image("file:images/wall.png", 10, 100, false, true));
-		wall.setPosition(px, py);
+		wall.setImage(new Image("file:images/wall.png", 7, len, false, true));
+		wall.setPosition(px, py - (len + BLOCK_SIZE)*side );
 		wall.addVelocity(0, speed);
 		return wall;
 	}
+	/*
+	 * 1. upar, ya neeche
+	 * 2. length 50 - 100
+	 */
 
 	public ArrayList<Sprite> getAllElements() {
 		return this.allElements;
