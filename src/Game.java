@@ -241,4 +241,8 @@ public class Game extends Application {
 	public Stage getStage() {
 		return this.stage;
 	}
+	
+	public int getSnakeYPos() {
+		return snakeYPos;
+	}
 }
