@@ -116,7 +116,7 @@ public class Snake extends Sprite {
 		}
 		// System.out.println(positionX);
 		gc.setStroke(Color.WHITE);
-		gc.strokeText(Integer.toString(len), positionX + width / 2.8, positionY);
+		gc.strokeText(Integer.toString(len-1), positionX + width / 2.8, positionY);
 	}
 
 	@Override
