@@ -111,7 +111,7 @@ public class Animation extends AnimationTimer {
 		// game.block_dur = 9;
 		// last=0;
 		// }
-		if (last >= 2.5) {
+		if (last >= 1.205) {
 			genWalls();
 
 			if (game.repeat == 0) {
@@ -262,11 +262,11 @@ public class Animation extends AnimationTimer {
 		game.getSnake().setVelocity(0, 0);
 		if (game.getInput().contains("LEFT")) {
 			game.getInput().remove("LEFT");
-			game.getSnake().addVelocity(-250, 0);
+			game.getSnake().addVelocity(-350, 0);
 		}
 		if (game.getInput().contains("RIGHT")) {
 			game.getInput().remove("RIGHT");
-			game.getSnake().addVelocity(250, 0);
+			game.getSnake().addVelocity(350, 0);
 		}
 		game.getSnake().update(elapsedTime);
 
