@@ -137,6 +137,22 @@ public class Game extends Application {
 		for (int i = 0; i < 5; i++) {
 			allElements.add(makeBlock(0 + (BLOCK_SIZE) * i + (i + 1), -360, 1 + rnd.nextInt(2)));
 		}
+		int ball_count = 3;
+		int[] obj_exist = new int[5];
+		
+		while (ball_count > 0)
+		{
+			int x_loc = rnd.nextInt(5);
+			if ( obj_exist[x_loc]==0 )
+			{
+				obj_exist[x_loc]=1;
+				allElements.add(makeBallPowerUp(getBLOCK_SIZE()*x_loc + x_loc + getBLOCK_SIZE()/2 -12, -200 + getBLOCK_SIZE()/2 -10, 1 + rnd.nextInt(5)));
+				ball_count -= 1;
+			}
+		}
+		
+		
+//		getAllElements().add(makeDestroyBlocksPowerUp(getBLOCK_SIZE()*2 + 2 , -360 + getBLOCK_SIZE()/2 ));
 //		allElements.add(makeWall((BLOCK_SIZE) * 1 + (1 + 1) + BLOCK_SIZE -8, -360 + BLOCK_SIZE, 270, 0));
 //		allElements.add(makeWall((BLOCK_SIZE) * 2 + (2 + 1) + BLOCK_SIZE +5, -360 + BLOCK_SIZE, 270, 0));
 //		allElements.add(makeWall((BLOCK_SIZE) * 3 + (3 + 1) + BLOCK_SIZE / 2, -180 + BLOCK_SIZE, 80, 1));
@@ -148,8 +164,8 @@ public class Game extends Application {
 		theStage.show();
 	}
 
-	public Sprite makeBallPowerUp(double px, double py) {
-		Sprite ball = new BallPowerUp(screenCoordinates, 6);
+	public Sprite makeBallPowerUp(double px, double py,int value) {
+		Sprite ball = new BallPowerUp(screenCoordinates, value);
 		ball.setImage(new Image(ballPowerUpImagePath, BALL_SIZE, BALL_SIZE, true, true));
 		ball.setPosition(px, py);
 		ball.addVelocity(0, speed);
@@ -183,8 +199,6 @@ public class Game extends Application {
 	public Sprite makeDestroyBlocksPowerUp(double px, double py) {
 		Sprite bomb = new DestroyBlocksPowerUp(this.screenCoordinates);
 		bomb.setImage(new Image(destroyBlocksPowerUpImagePath, BALL_SIZE + 20, BALL_SIZE + 20, true, true));
-		px = 300;
-		py = 150;
 		bomb.setPosition(px, py);
 		bomb.addVelocity(0, speed);
 		return bomb;
