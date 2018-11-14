@@ -25,6 +25,8 @@ public class Game extends Application {
 	private GraphicsContext gc;
 	private final int BALL_SIZE;
 	private final int BLOCK_SIZE;
+	private final int GAME_SPEED = 200;
+	private int ADD_SPEED=0;
 	private String ballImagePath;
 	private final String ballPowerUpImagePath;
 	private final String coinImagePath;
@@ -47,7 +49,7 @@ public class Game extends Application {
 	public Random rnd;
 
 	public Game() {
-		speed = 70;
+		speed = this.GAME_SPEED+this.ADD_SPEED;
 		snakeYPos=450;
 		BLOCK_SIZE = (screenCoordinates[1] - 6) / 5;
 		BALL_SIZE = BLOCK_SIZE / 3;
@@ -246,5 +248,14 @@ public class Game extends Application {
 	
 	public int getSnakeYPos() {
 		return snakeYPos;
+	}
+	public int getSpeed() {
+		return this.speed;
+	}
+	public void setSpeed(int speed) {
+		this.speed=speed;
+	}
+	public void setSpeedToDefault() {
+		this.speed=this.GAME_SPEED+this.ADD_SPEED;
 	}
 }

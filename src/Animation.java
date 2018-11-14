@@ -59,6 +59,7 @@ public class Animation extends AnimationTimer {
 
 	@Override
 	public void handle(long currentNanoTime) {
+		game.setSpeedToDefault();
 		this.currentNanoTime = currentNanoTime;
 		double elapsedTime;
 		if (flag.value == 1) {
@@ -188,10 +189,10 @@ public class Animation extends AnimationTimer {
 			if (element.outOfFrame()) {
 				allElementsIter.remove();
 			}
-			//System.out.println("Snake at "+game.getSnake().positionY);
+			System.out.println("Snake at "+game.getSnake().positionY);
 			if (element.intersects(game.getSnake())) {
-				if (element instanceof Wall)
-					System.out.println("interects");
+				//if (element instanceof Wall)
+					//System.out.println("interects");
 				if (element instanceof Block) {
 					Block temp = (Block) element;
 					if (game.getSnake().isShieldActive()) {
@@ -202,14 +203,16 @@ public class Animation extends AnimationTimer {
 						try {
 							if (temp.canBeDestroyed(game.getSnake())) {
 								allElementsIter.remove();
-								//System.out.println("Setting to "+game.getSnakeYPos());
-								game.getSnake().setPositionY(game.getSnakeYPos());
+								System.out.println("Setting to "+game.getSnakeYPos());
+								//game.getSnake().setPositionY(game.getSnakeYPos());
 								game.getScore().value++;
 								//temp.forceSpriteOnBottom(game.getSnake());
+								game.setSpeedToDefault();
 							} else {
 								game.getScore().value++;
 								temp.collide(game.getSnake());
-								temp.forceSpriteOnBottom(game.getSnake());
+								//temp.forceSpriteOnBottom(game.getSnake());
+								game.setSpeed(0);
 							}
 						} catch (SnakeLengthZeroException e) {
 							// TODO Auto-generated catch block
@@ -240,13 +243,13 @@ public class Animation extends AnimationTimer {
 				}
 			} else if (element instanceof Block || element instanceof Wall) {
 				if (element.leftIntersects(game.getSnake())) {
-					System.out.println("left");
+					//System.out.println("left");
 					element.forceSpriteOnLeft(game.getSnake());
 				} else if (element.rightIntersects(game.getSnake())) {
-					System.out.println("right");
+					//System.out.println("right");
 					element.forceSpriteOnRight(game.getSnake());
 				} else if (element.bottomIntersects(game.getSnake())) {
-					System.out.println("Correct");
+					//System.out.println("Correct");
 					element.forceSpriteCorrectly(game.getSnake());
 				}
 			}
@@ -274,6 +277,7 @@ public class Animation extends AnimationTimer {
 		game.getSnake().render(game.getGc());
 
 		for (Sprite element : game.getAllElements()) {
+			element.setVelocity(0, game.getSpeed());
 			element.update(elapsedTime);
 			element.render(game.getGc());
 		}

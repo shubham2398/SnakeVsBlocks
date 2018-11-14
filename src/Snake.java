@@ -14,7 +14,8 @@ public class Snake extends Sprite {
 
 	public Snake(int[] screenCoordinates) {
 		super(screenCoordinates);
-		len = 5;
+		len = 6;
+		balls.add(new Ball(screenCoordinates));
 		balls.add(new Ball(screenCoordinates));
 		balls.add(new Ball(screenCoordinates));
 		balls.add(new Ball(screenCoordinates));

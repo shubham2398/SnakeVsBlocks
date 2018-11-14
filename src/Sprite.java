@@ -24,7 +24,7 @@ public abstract class Sprite {
 		image = i;
 		width = i.getWidth();
 		height = i.getHeight();
-		System.out.println("Widht: " + width + " Height: " + height);
+		//System.out.println("Widht: " + width + " Height: " + height);
 	}
 
 	public void setImage(String filename) {
