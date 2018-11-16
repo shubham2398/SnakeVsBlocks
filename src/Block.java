@@ -40,7 +40,7 @@ public class Block extends Sprite{
 	@Override
 	public boolean intersects(Sprite s)
     {
-		return s.getBoundary().intersects( this.getBottomBoundary() );
+		return s.getTopHalfBoundary().intersects( this.getBottomBoundary() );
     }
 	public void collide(Snake snake) throws SnakeLengthZeroException {
     	snake.decreaseLength();

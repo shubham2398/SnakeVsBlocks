@@ -260,13 +260,11 @@ public class Animation extends AnimationTimer {
 
 		lastNanoTime.value = currentNanoTime;
 		game.getSnake().setVelocity(0, 0);
-		if (game.getInput().contains("LEFT")) {
-			game.getInput().remove("LEFT");
-			game.getSnake().addVelocity(-350, 0);
+		if(game.getSnakeToBeShiftedTo()>game.getSnake().positionX+5) {
+			game.getSnake().setVelocity(300, 0);
 		}
-		if (game.getInput().contains("RIGHT")) {
-			game.getInput().remove("RIGHT");
-			game.getSnake().addVelocity(350, 0);
+		else if(game.getSnakeToBeShiftedTo()<game.getSnake().positionX-5){
+			game.getSnake().setVelocity(-300, 0);
 		}
 		game.getSnake().update(elapsedTime);
 

@@ -72,6 +72,10 @@ public abstract class Sprite {
 	public Rectangle2D getTopBoundary() {
 		return new Rectangle2D(positionX, positionY, width, 1);
 	}
+	
+	public Rectangle2D getTopHalfBoundary() {
+		return new Rectangle2D(positionX,positionY,width,height/2);
+	}
 
 	public boolean intersects(Sprite s) {
 		return s.getBoundary().intersects(this.getBoundary());

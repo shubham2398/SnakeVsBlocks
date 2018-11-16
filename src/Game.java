@@ -12,6 +12,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -40,6 +41,7 @@ public class Game extends Application {
 	private ArrayList<Sprite> allElements = new ArrayList<Sprite>();
 	private Snake snake;
 	private int snakeYPos;
+	private double snakeToBeShiftedTo;
 	public double block_dur = 9;
 	public int repeat;
 	public double ball_dur = 3;
@@ -52,7 +54,7 @@ public class Game extends Application {
 		speed = this.GAME_SPEED+this.ADD_SPEED;
 		snakeYPos=450;
 		BLOCK_SIZE = (screenCoordinates[1] - 6) / 5;
-		BALL_SIZE = BLOCK_SIZE / 3;
+		BALL_SIZE = BLOCK_SIZE / 4;
 		ballImagePath = "file:images/ball/yellow.png";
 		ballPowerUpImagePath = "file:images/ball/blue.png";
 		shieldImagePath = "file:images/shield.png";
@@ -116,13 +118,20 @@ public class Game extends Application {
 		snake = new Snake(screenCoordinates);
 		snake.setImage(new Image(ballImagePath, BALL_SIZE, BALL_SIZE, false, true));
 		snake.setPosition(200, snakeYPos);
-
-		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			public void handle(KeyEvent e) {
-				String code = e.getCode().toString();
-				input.add(code);
+		
+		scene.setOnMouseMoved(new EventHandler<MouseEvent>(){
+			@Override 
+			public void handle(MouseEvent mouseEvent) {
+				snakeToBeShiftedTo=mouseEvent.getSceneX();
 			}
 		});
+		
+		//scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+		//	public void handle(KeyEvent e) {
+		//		String code = e.getCode().toString();
+		//		input.add(code);
+		//	}
+		//});
 	}
 
 	@Override
@@ -218,7 +227,7 @@ public class Game extends Application {
 
 	public Sprite makeWall(double px, double py, int len, int side) {
 		Sprite wall = new Wall(screenCoordinates);
-		wall.setImage(new Image("file:images/wall.png", 7, len, false, true));
+		wall.setImage(new Image("file:images/wall.png", BALL_SIZE/2, len, false, true));
 		wall.setPosition(px, py - (len + BLOCK_SIZE)*side );
 		wall.addVelocity(0, speed);
 		return wall;
@@ -271,5 +280,8 @@ public class Game extends Application {
 	}
 	public void setSpeedToDefault() {
 		this.speed=this.GAME_SPEED+this.ADD_SPEED;
+	}
+	public double getSnakeToBeShiftedTo() {
+		return this.snakeToBeShiftedTo;
 	}
 }
