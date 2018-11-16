@@ -102,7 +102,6 @@ public abstract class Sprite {
 	}
 
 	public void forceSpriteOnLeft(Sprite s) {
-		System.out.println("Lefting.......");
 		s.setPositionX(positionX - s.width);
 	}
 

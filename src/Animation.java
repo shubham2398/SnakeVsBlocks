@@ -261,10 +261,10 @@ public class Animation extends AnimationTimer {
 		lastNanoTime.value = currentNanoTime;
 		game.getSnake().setVelocity(0, 0);
 		if(game.getSnakeToBeShiftedTo()>game.getSnake().positionX+5) {
-			game.getSnake().setVelocity(300, 0);
+			game.getSnake().setVelocity(400, 0);
 		}
 		else if(game.getSnakeToBeShiftedTo()<game.getSnake().positionX-5){
-			game.getSnake().setVelocity(-300, 0);
+			game.getSnake().setVelocity(-400, 0);
 		}
 		game.getSnake().update(elapsedTime);
 
@@ -343,10 +343,14 @@ public class Animation extends AnimationTimer {
 			}
 			if (element instanceof Coin) {
 				if (game.getSnake().magnetIntersects((Coin) element)) {
+					System.out.println("Okay found");
 					double disX = game.getSnake().positionX - element.positionX;
 					double disY = game.getSnake().positionY - element.positionY;
-					double factor = Math.sqrt(Math.pow(disX, 2) + Math.pow(disX, 2));
-					element.addVelocity(disX * 10 / factor, disY * 10 / factor);
+					double factor = Math.sqrt(Math.pow(disX, 2) + Math.pow(disY, 2));
+					element.setVelocity(game.getSpeed() / 2 * disX / factor, game.getSpeed() /2 * disY  / factor);
+				}
+				else {
+					element.setVelocity(0, game.getSpeed());
 				}
 			}
 		}
@@ -365,7 +369,7 @@ public class Animation extends AnimationTimer {
 		game.getSnake().render(game.getGc());
 
 		for (Sprite element : game.getAllElements()) {
-			element.setVelocity(0, game.getSpeed());
+			if (!(element instanceof Coin)) element.setVelocity(0, game.getSpeed());
 			element.update(elapsedTime);
 			element.render(game.getGc());
 		}
