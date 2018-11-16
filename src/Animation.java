@@ -347,7 +347,7 @@ public class Animation extends AnimationTimer {
 					double disX = game.getSnake().positionX - element.positionX;
 					double disY = game.getSnake().positionY - element.positionY;
 					double factor = Math.sqrt(Math.pow(disX, 2) + Math.pow(disY, 2));
-					element.setVelocity(game.getSpeed() / 2 * disX / factor, game.getSpeed() /2 * disY  / factor);
+					element.setVelocity(0.9*Math.signum(disX)*game.getSpeed(), 1.5*Math.signum(disY)*game.getSpeed());
 				}
 				else {
 					element.setVelocity(0, game.getSpeed());
