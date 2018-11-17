@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 public class MainPage extends Application {
 
-	private static FXMLController controller;
+	private static MainPageController controller;
 	private static Stage primaryStage;
 	private static ArrayList<Player> topScorers = new ArrayList<Player>();
 	private static Leaderboard leaderboard = new Leaderboard();
@@ -22,7 +22,7 @@ public class MainPage extends Application {
 		primaryStage = stage;
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("MainPage.fxml"));
 		Parent root = loader.load();
-		controller = (FXMLController) loader.getController();
+		controller = (MainPageController) loader.getController();
 
 		Scene scene = new Scene(root, 406, 650);
 		stage.setScene(scene);
