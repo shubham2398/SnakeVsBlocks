@@ -1,4 +1,4 @@
 
 public interface Tokenizable {
-	public void actionOnToken(Sprite s);
+	public void action(Snake s);
 }

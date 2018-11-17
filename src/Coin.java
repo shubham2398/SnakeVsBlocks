@@ -1,5 +1,5 @@
 
-public class Coin extends Sprite {
+public class Coin extends Sprite implements Tokenizable {
 
 	public Coin(int[] screenCoordinates) {
 		super(screenCoordinates);
@@ -11,7 +11,7 @@ public class Coin extends Sprite {
 		positionX += velocityX * time;
 	}
 
-	public void addCoins(Snake snake) {
-
+	public void action(Snake snake) {
+		snake.addCoin();
 	}
 }

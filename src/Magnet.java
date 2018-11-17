@@ -1,5 +1,5 @@
 
-public class Magnet extends Sprite {
+public class Magnet extends Sprite implements Tokenizable {
 
 	public Magnet(int[] screenCoordinates) {
 		super(screenCoordinates);
@@ -10,7 +10,7 @@ public class Magnet extends Sprite {
 		positionY += velocityY * time;
 	}
 
-	public void activateMagnet(Snake snake) {
+	public void action(Snake snake) {
 		snake.activateMagnet();
 	}
 }

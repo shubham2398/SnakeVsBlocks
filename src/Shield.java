@@ -1,5 +1,5 @@
 
-public class Shield extends Sprite {
+public class Shield extends Sprite implements Tokenizable {
 
 	public Shield(int[] screenCoordinates) {
 		super(screenCoordinates);
@@ -10,7 +10,7 @@ public class Shield extends Sprite {
 		positionY += velocityY * time;
 	}
 
-	public void giveShield(Snake snake) {
+	public void action(Snake snake) {
 		snake.activateShield();
 	}
 

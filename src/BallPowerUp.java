@@ -1,7 +1,7 @@
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class BallPowerUp extends Ball {
+public class BallPowerUp extends Ball implements Tokenizable {
 	int len;
 
 	public BallPowerUp(int[] screenCoordinates, int len) {
@@ -21,7 +21,7 @@ public class BallPowerUp extends Ball {
 		gc.strokeText(Integer.toString(len), positionX + width / 2.8, positionY);
 	}
 
-	public void increaseLength(Snake snake) {
+	public void action(Snake snake) {
 		snake.addBalls(len);
 	}
 }

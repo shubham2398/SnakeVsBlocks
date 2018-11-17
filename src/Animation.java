@@ -244,110 +244,30 @@ public class Animation extends AnimationTimer {
 			}
 		}
 
-		// if (game.ball_dur < 0) {
-		// for (int i = 0; i < 1; i++) {
-		//
-		// game.getAllElements().add(game.makeBallPowerUp(100, 10));
-		// }
-		// game.ball_dur = 3;
-		// }
-
 		lastNanoTime.value = currentNanoTime;
-		game.getSnake().setVelocity(0, 0);
-		if (game.getSnakeToBeShiftedTo() > game.getSnake().positionX + 5) {
-			game.getSnake().setVelocity(400, 0);
-		} else if (game.getSnakeToBeShiftedTo() < game.getSnake().positionX - 5) {
-			game.getSnake().setVelocity(-400, 0);
-		}
-		game.getSnake().update(elapsedTime);
-
-		boolean removeAllBlocks = false;
 
 		Iterator<Sprite> allElementsIter = game.getAllElements().iterator();
 		while (allElementsIter.hasNext()) {
-			removeAllBlocks = false;
 			Sprite element = allElementsIter.next();
 			if (element.outOfFrame()) {
 				allElementsIter.remove();
 			}
-			// System.out.println("Snake at "+game.getSnake().positionY);
 			if (element.intersects(game.getSnake())) {
-				// if (element instanceof Wall)
-				// System.out.println("interects");
 				if (element instanceof Block) {
-					Block temp = (Block) element;
-					if (game.getSnake().isShieldActive()) {
-						temp.destroy();
-						allElementsIter.remove();
-						game.getScore().value++;
-					} else {
-						try {
-							if (temp.canBeDestroyed(game.getSnake())) {
-								allElementsIter.remove();
-								// System.out.println("Setting to "+game.getSnakeYPos());
-								// game.getSnake().setPositionY(game.getSnakeYPos());
-								game.getScore().value++;
-								// temp.forceSpriteOnBottom(game.getSnake());
-								game.setSpeedToDefault();
-							} else {
-								game.getScore().value++;
-								temp.collide(game.getSnake());
-								// temp.forceSpriteOnBottom(game.getSnake());
-								game.setSpeed(0);
-							}
-						} catch (SnakeLengthZeroException e) {
-							this.stop();
-							game.endGame();
-						}
-					}
-				} else if (element instanceof BallPowerUp) {
-					BallPowerUp temp = (BallPowerUp) element;
-					temp.increaseLength(game.getSnake());
+					this.onBlockAction((Block)element,allElementsIter);
+				} 
+				else if(element instanceof Tokenizable) {
+					((Tokenizable) element).action(game.getSnake());
 					allElementsIter.remove();
-				} else if (element instanceof Shield) {
-					Shield temp = (Shield) element;
-					temp.giveShield(game.getSnake());
-					allElementsIter.remove();
-				} else if (element instanceof Coin) {
-					Coin temp = (Coin) element;
-					temp.addCoins(game.getSnake());
-					allElementsIter.remove();
-				} else if (element instanceof Magnet) {
-					Magnet temp = (Magnet) element;
-					temp.activateMagnet(game.getSnake());
-					allElementsIter.remove();
-				} else if (element instanceof DestroyBlocksPowerUp) {
-					removeAllBlocks = true;
-					allElementsIter.remove();
-					break;
 				}
 			} else if (element instanceof Block || element instanceof Wall) {
-				if (element.leftIntersects(game.getSnake())) {
-					// System.out.println("left");
-					element.forceSpriteOnLeft(game.getSnake());
-				} else if (element.rightIntersects(game.getSnake())) {
-					// System.out.println("right");
-					element.forceSpriteOnRight(game.getSnake());
-				} else if (element.bottomIntersects(game.getSnake())) {
-					// System.out.println("Correct");
-					element.forceSpriteCorrectly(game.getSnake());
-				}
+				element.forceSpriteCorrectly(game.getSnake());
 			}
-			if (element instanceof Coin) {
-				if (game.getSnake().magnetIntersects((Coin) element)) {
-					System.out.println("Okay found");
-					double disX = game.getSnake().positionX - element.positionX;
-					double disY = game.getSnake().positionY - element.positionY;
-//					double factor = Math.sqrt(Math.pow(disX, 2) + Math.pow(disY, 2));
-					element.setVelocity(0.9 * Math.signum(disX) * game.getSpeed(),
-							1.5 * Math.signum(disY) * game.getSpeed());
-				} else {
-					element.setVelocity(0, game.getSpeed());
-				}
+			else if (element instanceof Coin) {
+				this.attractCoinIfMagnetActive((Coin)element);
 			}
 		}
-		if (removeAllBlocks) {
-			removeAllBlocks = false;
+		if (game.getSnake().consumeDestroyAllBlocks()) {
 			Iterator<Sprite> allElementsIter2 = game.getAllElements().iterator();
 			while (allElementsIter2.hasNext()) {
 				Sprite element = allElementsIter2.next();
@@ -366,9 +286,52 @@ public class Animation extends AnimationTimer {
 			element.update(elapsedTime);
 			element.render(game.getGc());
 		}
+		
+		game.getSnake().setVelocity(0, 0);
+		if (game.getSnakeToBeShiftedTo() > game.getSnake().positionX + 5) {
+			game.getSnake().setVelocity(400, 0);
+		} else if (game.getSnakeToBeShiftedTo() < game.getSnake().positionX - 5) {
+			game.getSnake().setVelocity(-400, 0);
+		}
+		game.getSnake().update(elapsedTime);
+		
 		game.getGc().setStroke(Color.WHITE);
-		String pointsText = "Score: $" + (game.getScore().value);
-		game.getGc().strokeText(pointsText, game.getScreenCoordinates()[1] - 70, game.getScreenCoordinates()[0] + 30);
+		String pointsText = "Score: " + (game.getScore().value);
+		game.getGc().strokeText(pointsText, game.getScreenCoordinates()[1] - 70, game.getScreenCoordinates()[2] + 30);
+		String coinText = "Coins : $" + (game.getSnake().getCoins());
+		game.getGc().strokeText(coinText, game.getScreenCoordinates()[0] + 10, game.getScreenCoordinates()[2] + 30);
 	}
-
+	
+	private void onBlockAction(Block temp, Iterator<Sprite> allElementsIter ) {
+		if (game.getSnake().isShieldActive()) {
+			temp.destroy();
+			allElementsIter.remove();
+			game.getScore().value++;
+		} else {
+			try {
+				if (temp.canBeDestroyed(game.getSnake())) {
+					allElementsIter.remove();
+					game.getScore().value++;
+					game.setSpeedToDefault();
+				} else {
+					game.getScore().value++;
+					temp.collide(game.getSnake());
+					game.setSpeed(0);
+				}
+			} catch (SnakeLengthZeroException e) {
+				this.stop();
+				game.endGame();
+			}
+		}
+	}
+	private void attractCoinIfMagnetActive(Coin coin) {
+		if (game.getSnake().magnetIntersects(coin)) {
+			double disX = game.getSnake().positionX - coin.positionX;
+			double disY = game.getSnake().positionY - coin.positionY;
+			coin.setVelocity(0.9 * Math.signum(disX) * game.getSpeed(),
+					1.5 * Math.signum(disY) * game.getSpeed());
+		} else {
+			coin.setVelocity(0, game.getSpeed());
+		}
+	}
 }

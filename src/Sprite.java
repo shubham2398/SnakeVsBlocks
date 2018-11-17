@@ -114,18 +114,22 @@ public abstract class Sprite {
 	}
 
 	public void forceSpriteCorrectly(Sprite s) {
-		if (positionX - width > screenCoordinates[0] && positionX + width < screenCoordinates[1]) {
-			if (s.positionX + s.width / 2 >= positionX + width / 2) {
-				forceSpriteOnRight(s);
-			} else
-				forceSpriteOnLeft(s);
-		} else {
-			// System.out.println(positionX+width/2);
-			// System.out.println(screenCoordinates[1]);
-			if ((positionX + width / 2) > screenCoordinates[1] / 2) {
-				forceSpriteOnLeft(s);
+		if (this.leftIntersects(s)) {
+			this.forceSpriteOnLeft(s);
+		} else if (this.rightIntersects(s)) {
+			this.forceSpriteOnRight(s);
+		} else if (this.bottomIntersects(s)) {
+			if (positionX - width > screenCoordinates[0] && positionX + width < screenCoordinates[1]) {
+				if (s.positionX + s.width / 2 >= positionX + width / 2) {
+					forceSpriteOnRight(s);
+				} else
+					forceSpriteOnLeft(s);
 			} else {
-				forceSpriteOnRight(s);
+				if ((positionX + width / 2) > screenCoordinates[1] / 2) {
+					forceSpriteOnLeft(s);
+				} else {
+					forceSpriteOnRight(s);
+				}
 			}
 		}
 	}

@@ -8,8 +8,10 @@ import javafx.scene.shape.Circle;
 public class Snake extends Sprite {
 	private Image image;
 	private int len;
+	private int coins;
 	private double shieldTime = 0;
 	private double magnetTime = 0;
+	private boolean destroyAllBlocks ;
 	ArrayList<Ball> balls = new ArrayList<Ball>(5);
 
 	public Snake(int[] screenCoordinates) {
@@ -21,6 +23,8 @@ public class Snake extends Sprite {
 		balls.add(new Ball(screenCoordinates));
 		balls.add(new Ball(screenCoordinates));
 		balls.add(new Ball(screenCoordinates));
+		coins=0;
+		destroyAllBlocks=false;
 	}
 
 	@Override
@@ -197,5 +201,22 @@ public class Snake extends Sprite {
 
 	public int getLength() {
 		return len;
+	}
+	public void addCoin() {
+		this.coins+=1;
+	}
+	public int getCoins() {
+		return this.coins;
+	}
+	public void activateDestroyAllBlocks(){
+		this.destroyAllBlocks=true;
+	}
+	public boolean consumeDestroyAllBlocks() {
+		if(destroyAllBlocks) {
+			destroyAllBlocks = false;
+			return true;
+		}
+		else 
+			return false;
 	}
 }
