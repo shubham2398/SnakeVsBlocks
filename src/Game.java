@@ -11,7 +11,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -27,7 +26,7 @@ public class Game extends Application {
 	private final int BALL_SIZE;
 	private final int BLOCK_SIZE;
 	private final int GAME_SPEED = 200;
-	private int ADD_SPEED=0;
+	private int ADD_SPEED = 0;
 	private String ballImagePath;
 	private final String ballPowerUpImagePath;
 	private final String coinImagePath;
@@ -51,8 +50,8 @@ public class Game extends Application {
 	public Random rnd;
 
 	public Game() {
-		speed = this.GAME_SPEED+this.ADD_SPEED;
-		snakeYPos=450;
+		speed = this.GAME_SPEED + this.ADD_SPEED;
+		snakeYPos = 450;
 		BLOCK_SIZE = (screenCoordinates[1] - 6) / 5;
 		BALL_SIZE = BLOCK_SIZE / 4;
 		ballImagePath = "file:images/ball/yellow.png";
@@ -118,20 +117,20 @@ public class Game extends Application {
 		snake = new Snake(screenCoordinates);
 		snake.setImage(new Image(ballImagePath, BALL_SIZE, BALL_SIZE, false, true));
 		snake.setPosition(200, snakeYPos);
-		
-		scene.setOnMouseMoved(new EventHandler<MouseEvent>(){
-			@Override 
+
+		scene.setOnMouseMoved(new EventHandler<MouseEvent>() {
+			@Override
 			public void handle(MouseEvent mouseEvent) {
-				snakeToBeShiftedTo=mouseEvent.getSceneX();
+				snakeToBeShiftedTo = mouseEvent.getSceneX();
 			}
 		});
-		
-		//scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-		//	public void handle(KeyEvent e) {
-		//		String code = e.getCode().toString();
-		//		input.add(code);
-		//	}
-		//});
+
+		// scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+		// public void handle(KeyEvent e) {
+		// String code = e.getCode().toString();
+		// input.add(code);
+		// }
+		// });
 	}
 
 	@Override
@@ -150,24 +149,27 @@ public class Game extends Application {
 		}
 		int ball_count = 3;
 		int[] obj_exist = new int[5];
-		
-		while (ball_count > 0)
-		{
+
+		while (ball_count > 0) {
 			int x_loc = rnd.nextInt(5);
-			if ( obj_exist[x_loc]==0 )
-			{
-				obj_exist[x_loc]=1;
-				allElements.add(makeBallPowerUp(getBLOCK_SIZE()*x_loc + x_loc + getBLOCK_SIZE()/2 -12, -200 + getBLOCK_SIZE()/2 -10, 1 + rnd.nextInt(5)));
+			if (obj_exist[x_loc] == 0) {
+				obj_exist[x_loc] = 1;
+				allElements.add(makeBallPowerUp(getBLOCK_SIZE() * x_loc + x_loc + getBLOCK_SIZE() / 2 - 12,
+						-200 + getBLOCK_SIZE() / 2 - 10, 1 + rnd.nextInt(5)));
 				ball_count -= 1;
 			}
 		}
-		
-		
-//		getAllElements().add(makeDestroyBlocksPowerUp(getBLOCK_SIZE()*2 + 2 , -360 + getBLOCK_SIZE()/2 ));
-//		allElements.add(makeWall((BLOCK_SIZE) * 1 + (1 + 1) + BLOCK_SIZE -8, -360 + BLOCK_SIZE, 270, 0));
-//		allElements.add(makeWall((BLOCK_SIZE) * 2 + (2 + 1) + BLOCK_SIZE +5, -360 + BLOCK_SIZE, 270, 0));
-//		allElements.add(makeWall((BLOCK_SIZE) * 3 + (3 + 1) + BLOCK_SIZE / 2, -180 + BLOCK_SIZE, 80, 1));
-//		allElements.add(makeWall((BLOCK_SIZE) * 4 + (4 + 1) + BLOCK_SIZE / 2, -180 + BLOCK_SIZE, 90, 1));
+
+		// getAllElements().add(makeDestroyBlocksPowerUp(getBLOCK_SIZE()*2 + 2 , -360 +
+		// getBLOCK_SIZE()/2 ));
+		// allElements.add(makeWall((BLOCK_SIZE) * 1 + (1 + 1) + BLOCK_SIZE -8, -360 +
+		// BLOCK_SIZE, 270, 0));
+		// allElements.add(makeWall((BLOCK_SIZE) * 2 + (2 + 1) + BLOCK_SIZE +5, -360 +
+		// BLOCK_SIZE, 270, 0));
+		// allElements.add(makeWall((BLOCK_SIZE) * 3 + (3 + 1) + BLOCK_SIZE / 2, -180 +
+		// BLOCK_SIZE, 80, 1));
+		// allElements.add(makeWall((BLOCK_SIZE) * 4 + (4 + 1) + BLOCK_SIZE / 2, -180 +
+		// BLOCK_SIZE, 90, 1));
 		repeat = 3 + rnd.nextInt(2);
 
 		myAnimation.start();
@@ -175,7 +177,7 @@ public class Game extends Application {
 		theStage.show();
 	}
 
-	public Sprite makeBallPowerUp(double px, double py,int value) {
+	public Sprite makeBallPowerUp(double px, double py, int value) {
 		Sprite ball = new BallPowerUp(screenCoordinates, value);
 		ball.setImage(new Image(ballPowerUpImagePath, BALL_SIZE, BALL_SIZE, true, true));
 		ball.setPosition(px, py);
@@ -227,14 +229,13 @@ public class Game extends Application {
 
 	public Sprite makeWall(double px, double py, int len, int side) {
 		Sprite wall = new Wall(screenCoordinates);
-		wall.setImage(new Image("file:images/wall.png", BALL_SIZE/2, len, false, true));
-		wall.setPosition(px, py - (len + BLOCK_SIZE)*side );
+		wall.setImage(new Image("file:images/wall.png", BALL_SIZE / 2, len, false, true));
+		wall.setPosition(px, py - (len + BLOCK_SIZE) * side);
 		wall.addVelocity(0, speed);
 		return wall;
 	}
 	/*
-	 * 1. upar, ya neeche
-	 * 2. length 50 - 100
+	 * 1. upar, ya neeche 2. length 50 - 100
 	 */
 
 	public ArrayList<Sprite> getAllElements() {
@@ -268,20 +269,31 @@ public class Game extends Application {
 	public Stage getStage() {
 		return this.stage;
 	}
-	
+
 	public int getSnakeYPos() {
 		return snakeYPos;
 	}
+
 	public int getSpeed() {
 		return this.speed;
 	}
+
 	public void setSpeed(int speed) {
-		this.speed=speed;
+		this.speed = speed;
 	}
+
 	public void setSpeedToDefault() {
-		this.speed=this.GAME_SPEED+this.ADD_SPEED;
+		this.speed = this.GAME_SPEED + this.ADD_SPEED;
 	}
+
 	public double getSnakeToBeShiftedTo() {
 		return this.snakeToBeShiftedTo;
+	}
+	
+	public void endGame()
+	{
+		MainPage.setLastScore(score.value);
+		stage.close();
+		MainPage.displayMainPage();
 	}
 }

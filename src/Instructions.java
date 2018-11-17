@@ -8,7 +8,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class Instructions extends Application {
-	
+
 	@Override
 	public void start(Stage stage) throws Exception {
 		Parent root = FXMLLoader.load(getClass().getResource("Instructions.fxml"));
@@ -16,7 +16,7 @@ public class Instructions extends Application {
 		stage.setScene(scene);
 		stage.show();
 	}
-	
+
 	@FXML
 	public ImageView goBack;
 
@@ -24,12 +24,12 @@ public class Instructions extends Application {
 	public void displayMainPage(MouseEvent e) throws Exception {
 		Stage stage = (Stage) goBack.getScene().getWindow();
 		stage.hide();
-		new MainPage().start(new Stage());
+		MainPage.displayMainPage();
 	}
-	
+
 	@FXML
 	public ImageView exitGame;
-	
+
 	@FXML
 	public void exit(MouseEvent e) throws Exception {
 		Stage stage = (Stage) exitGame.getScene().getWindow();

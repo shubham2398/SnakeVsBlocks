@@ -24,7 +24,7 @@ public abstract class Sprite {
 		image = i;
 		width = i.getWidth();
 		height = i.getHeight();
-		//System.out.println("Widht: " + width + " Height: " + height);
+		// System.out.println("Widht: " + width + " Height: " + height);
 	}
 
 	public void setImage(String filename) {
@@ -72,9 +72,9 @@ public abstract class Sprite {
 	public Rectangle2D getTopBoundary() {
 		return new Rectangle2D(positionX, positionY, width, 1);
 	}
-	
+
 	public Rectangle2D getTopHalfBoundary() {
-		return new Rectangle2D(positionX,positionY,width,height/2);
+		return new Rectangle2D(positionX, positionY, width, height / 2);
 	}
 
 	public boolean intersects(Sprite s) {

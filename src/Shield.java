@@ -1,5 +1,5 @@
 
-public class Shield extends Sprite{
+public class Shield extends Sprite {
 
 	public Shield(int[] screenCoordinates) {
 		super(screenCoordinates);
@@ -7,11 +7,11 @@ public class Shield extends Sprite{
 
 	@Override
 	public void update(double time) {
-		positionY += velocityY*time;
+		positionY += velocityY * time;
 	}
 
 	public void giveShield(Snake snake) {
 		snake.activateShield();
 	}
-	
+
 }

@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import javafx.animation.AnimationTimer;
 import javafx.scene.paint.Color;
 
@@ -25,24 +24,25 @@ public class Animation extends AnimationTimer {
 		flag = new IntValue(0);
 		genPowerUp = true;
 	}
-	
-	private void displayPowerUp(int powerUpNo, int x_dist)
-	{
-		if (powerUpNo == 0)
-		{
-			game.getAllElements().add(game.makeShield(game.getBLOCK_SIZE()*x_dist + x_dist + game.getBLOCK_SIZE()/2 -12, -360 + game.getBLOCK_SIZE()/2 -10));
-		}
-		else if (powerUpNo == 1)
-		{
-			game.getAllElements().add(game.makeCoin(game.getBLOCK_SIZE()*x_dist + x_dist + game.getBLOCK_SIZE()/2 -12, -360 + game.getBLOCK_SIZE()/2 -10));
-		}
-		else if (powerUpNo == 2)
-		{
-			game.getAllElements().add(game.makeMagnet(game.getBLOCK_SIZE()*x_dist + x_dist + game.getBLOCK_SIZE()/2 -12, -360 + game.getBLOCK_SIZE()/2 -10));
-		}
-		else if (powerUpNo == 3)
-		{
-			game.getAllElements().add(game.makeDestroyBlocksPowerUp(game.getBLOCK_SIZE()*x_dist + x_dist + game.getBLOCK_SIZE()/2 -12, -360 + game.getBLOCK_SIZE()/2 -10));
+
+	private void displayPowerUp(int powerUpNo, int x_dist) {
+		if (powerUpNo == 0) {
+			game.getAllElements()
+					.add(game.makeShield(game.getBLOCK_SIZE() * x_dist + x_dist + game.getBLOCK_SIZE() / 2 - 12,
+							-360 + game.getBLOCK_SIZE() / 2 - 10));
+		} else if (powerUpNo == 1) {
+			game.getAllElements()
+					.add(game.makeCoin(game.getBLOCK_SIZE() * x_dist + x_dist + game.getBLOCK_SIZE() / 2 - 12,
+							-360 + game.getBLOCK_SIZE() / 2 - 10));
+		} else if (powerUpNo == 2) {
+			game.getAllElements()
+					.add(game.makeMagnet(game.getBLOCK_SIZE() * x_dist + x_dist + game.getBLOCK_SIZE() / 2 - 12,
+							-360 + game.getBLOCK_SIZE() / 2 - 10));
+		} else if (powerUpNo == 3) {
+			game.getAllElements()
+					.add(game.makeDestroyBlocksPowerUp(
+							game.getBLOCK_SIZE() * x_dist + x_dist + game.getBLOCK_SIZE() / 2 - 12,
+							-360 + game.getBLOCK_SIZE() / 2 - 10));
 		}
 	}
 
@@ -115,7 +115,7 @@ public class Animation extends AnimationTimer {
 			genWalls();
 
 			if (game.repeat == 0) {
-				
+
 				genPowerUp = true;
 				for (int i = 0; i < 5; i++) {
 					layer[i] = 1;
@@ -133,21 +133,23 @@ public class Animation extends AnimationTimer {
 						game.getAllElements().add(game.makeBlock(0 + (game.getBLOCK_SIZE()) * i + (i + 1), -360,
 								1 + game.rnd.nextInt(50)));
 				}
-				game.getAllElements().add(game.makeBlock(0 + (game.getBLOCK_SIZE()) * ch1 + (ch1 + 1), -360,
-						1 + game.rnd.nextInt(Math.min(50, game.getSnake().getLength() - 1))));
-				game.getAllElements().add(game.makeBlock(0 + (game.getBLOCK_SIZE()) * ch2 + (ch2 + 1), -360,
-						1 + game.rnd.nextInt(Math.min(50, game.getSnake().getLength() - 1))));
-
+				if (game.getSnake().getLength() > 1)
+				{
+					game.getAllElements().add(game.makeBlock(0 + (game.getBLOCK_SIZE()) * ch1 + (ch1 + 1), -360,
+							1 + game.rnd.nextInt(Math.min(50, game.getSnake().getLength() - 1))));
+					game.getAllElements().add(game.makeBlock(0 + (game.getBLOCK_SIZE()) * ch2 + (ch2 + 1), -360,
+							1 + game.rnd.nextInt(Math.min(50, game.getSnake().getLength() - 1))));
+				}
 				game.repeat = 3 + game.rnd.nextInt(2);
 				last = 0;
 			} else {
 				int how_many = 1 + game.rnd.nextInt(2);
-				ArrayList<Integer> object_exist = new ArrayList<Integer> (5);
-				
+				ArrayList<Integer> object_exist = new ArrayList<Integer>(5);
+
 				if (how_many == 1) {
 					int l1 = game.rnd.nextInt(5);
 					int ball_count = game.rnd.nextInt(4);
-					
+
 					object_exist.add(l1);
 					layer[l1] = 1;
 					for (int i = 0; i < 5; i++) {
@@ -156,21 +158,22 @@ public class Animation extends AnimationTimer {
 					}
 					game.getAllElements().add(
 							game.makeBlock(0 + (game.getBLOCK_SIZE()) * l1 + (l1 + 1), -360, 1 + game.rnd.nextInt(50)));
-					
-					while (ball_count > 0)
-					{
+
+					while (ball_count > 0) {
 						int x_loc = game.rnd.nextInt(5);
-						if ( ! object_exist.contains(x_loc) )
-						{
+						if (!object_exist.contains(x_loc)) {
 							object_exist.add(x_loc);
-							game.getAllElements().add( game.makeBallPowerUp(game.getBLOCK_SIZE()*x_loc + x_loc + game.getBLOCK_SIZE()/2 -12, -360 + game.getBLOCK_SIZE()/2 -10, 1 + game.rnd.nextInt(5)) );
+							game.getAllElements()
+									.add(game.makeBallPowerUp(
+											game.getBLOCK_SIZE() * x_loc + x_loc + game.getBLOCK_SIZE() / 2 - 12,
+											-360 + game.getBLOCK_SIZE() / 2 - 10, 1 + game.rnd.nextInt(5)));
 							ball_count -= 1;
 						}
 					}
-					
+
 				} else if (how_many == 2) {
 					int ball_count = game.rnd.nextInt(3);
-					
+
 					int l1 = game.rnd.nextInt(5);
 					int l2 = game.rnd.nextInt(5);
 					while (l1 == l2) {
@@ -189,14 +192,15 @@ public class Animation extends AnimationTimer {
 							game.makeBlock(0 + (game.getBLOCK_SIZE()) * l1 + (l1 + 1), -360, 1 + game.rnd.nextInt(50)));
 					game.getAllElements().add(
 							game.makeBlock(0 + (game.getBLOCK_SIZE()) * l2 + (l2 + 1), -360, 1 + game.rnd.nextInt(50)));
-					
-					while (ball_count > 0)
-					{
+
+					while (ball_count > 0) {
 						int x_loc = game.rnd.nextInt(5);
-						if ( ! object_exist.contains(x_loc) )
-						{
+						if (!object_exist.contains(x_loc)) {
 							object_exist.add(x_loc);
-							game.getAllElements().add( game.makeBallPowerUp(game.getBLOCK_SIZE()*x_loc + x_loc + game.getBLOCK_SIZE()/2 -12, -360 + game.getBLOCK_SIZE()/2 -10, 1 + game.rnd.nextInt(5)) );
+							game.getAllElements()
+									.add(game.makeBallPowerUp(
+											game.getBLOCK_SIZE() * x_loc + x_loc + game.getBLOCK_SIZE() / 2 - 12,
+											-360 + game.getBLOCK_SIZE() / 2 - 10, 1 + game.rnd.nextInt(5)));
 							ball_count -= 1;
 						}
 					}
@@ -204,66 +208,55 @@ public class Animation extends AnimationTimer {
 
 				last = 0;
 				game.repeat -= 1;
-				
-				if(genPowerUp)
-				{
+
+				if (genPowerUp) {
 					int genPowerUpNow = game.rnd.nextInt(2);
-					if (genPowerUpNow == 1)
-					{
+					if (genPowerUpNow == 1) {
 						int numOfPowerUps = 1 + game.rnd.nextInt(2);
 						int x_dist = game.rnd.nextInt(5);
-						while (object_exist.contains(x_dist))
-						{
+						while (object_exist.contains(x_dist)) {
 							x_dist = game.rnd.nextInt(5);
 						}
 						object_exist.add(x_dist);
 						int which_powerUp = game.rnd.nextInt(4);
-						displayPowerUp(which_powerUp,x_dist);
-						if(numOfPowerUps == 2)
-						{
-							if(object_exist.size()<5)
-							{
+						displayPowerUp(which_powerUp, x_dist);
+						if (numOfPowerUps == 2) {
+							if (object_exist.size() < 5) {
 								genPowerUpNow = game.rnd.nextInt(2);
-								if (genPowerUpNow == 1)
-								{
-									while (object_exist.contains(x_dist))
-									{
+								if (genPowerUpNow == 1) {
+									while (object_exist.contains(x_dist)) {
 										x_dist = game.rnd.nextInt(5);
 									}
 									int secondPowerUp = game.rnd.nextInt(4);
-									while (secondPowerUp == which_powerUp)
-									{
+									while (secondPowerUp == which_powerUp) {
 										secondPowerUp = game.rnd.nextInt(4);
 									}
-									displayPowerUp(secondPowerUp,x_dist);
+									displayPowerUp(secondPowerUp, x_dist);
 									genPowerUp = false;
 								}
 							}
-						}
-						else
-						{
+						} else {
 							genPowerUp = false;
 						}
 					}
 				}
-				
+
 			}
 		}
 
-//		if (game.ball_dur < 0) {
-//			for (int i = 0; i < 1; i++) {
-//
-//				game.getAllElements().add(game.makeBallPowerUp(100, 10));
-//			}
-//			game.ball_dur = 3;
-//		}
+		// if (game.ball_dur < 0) {
+		// for (int i = 0; i < 1; i++) {
+		//
+		// game.getAllElements().add(game.makeBallPowerUp(100, 10));
+		// }
+		// game.ball_dur = 3;
+		// }
 
 		lastNanoTime.value = currentNanoTime;
 		game.getSnake().setVelocity(0, 0);
-		if(game.getSnakeToBeShiftedTo()>game.getSnake().positionX+5) {
+		if (game.getSnakeToBeShiftedTo() > game.getSnake().positionX + 5) {
 			game.getSnake().setVelocity(400, 0);
-		}
-		else if(game.getSnakeToBeShiftedTo()<game.getSnake().positionX-5){
+		} else if (game.getSnakeToBeShiftedTo() < game.getSnake().positionX - 5) {
 			game.getSnake().setVelocity(-400, 0);
 		}
 		game.getSnake().update(elapsedTime);
@@ -277,10 +270,10 @@ public class Animation extends AnimationTimer {
 			if (element.outOfFrame()) {
 				allElementsIter.remove();
 			}
-			//System.out.println("Snake at "+game.getSnake().positionY);
+			// System.out.println("Snake at "+game.getSnake().positionY);
 			if (element.intersects(game.getSnake())) {
-				//if (element instanceof Wall)
-					//System.out.println("interects");
+				// if (element instanceof Wall)
+				// System.out.println("interects");
 				if (element instanceof Block) {
 					Block temp = (Block) element;
 					if (game.getSnake().isShieldActive()) {
@@ -291,21 +284,20 @@ public class Animation extends AnimationTimer {
 						try {
 							if (temp.canBeDestroyed(game.getSnake())) {
 								allElementsIter.remove();
-								//System.out.println("Setting to "+game.getSnakeYPos());
-								//game.getSnake().setPositionY(game.getSnakeYPos());
+								// System.out.println("Setting to "+game.getSnakeYPos());
+								// game.getSnake().setPositionY(game.getSnakeYPos());
 								game.getScore().value++;
-								//temp.forceSpriteOnBottom(game.getSnake());
+								// temp.forceSpriteOnBottom(game.getSnake());
 								game.setSpeedToDefault();
 							} else {
 								game.getScore().value++;
 								temp.collide(game.getSnake());
-								//temp.forceSpriteOnBottom(game.getSnake());
+								// temp.forceSpriteOnBottom(game.getSnake());
 								game.setSpeed(0);
 							}
 						} catch (SnakeLengthZeroException e) {
-							// TODO Auto-generated catch block
 							this.stop();
-							game.getStage().close();
+							game.endGame();
 						}
 					}
 				} else if (element instanceof BallPowerUp) {
@@ -331,13 +323,13 @@ public class Animation extends AnimationTimer {
 				}
 			} else if (element instanceof Block || element instanceof Wall) {
 				if (element.leftIntersects(game.getSnake())) {
-					//System.out.println("left");
+					// System.out.println("left");
 					element.forceSpriteOnLeft(game.getSnake());
 				} else if (element.rightIntersects(game.getSnake())) {
-					//System.out.println("right");
+					// System.out.println("right");
 					element.forceSpriteOnRight(game.getSnake());
 				} else if (element.bottomIntersects(game.getSnake())) {
-					//System.out.println("Correct");
+					// System.out.println("Correct");
 					element.forceSpriteCorrectly(game.getSnake());
 				}
 			}
@@ -346,10 +338,10 @@ public class Animation extends AnimationTimer {
 					System.out.println("Okay found");
 					double disX = game.getSnake().positionX - element.positionX;
 					double disY = game.getSnake().positionY - element.positionY;
-					double factor = Math.sqrt(Math.pow(disX, 2) + Math.pow(disY, 2));
-					element.setVelocity(0.9*Math.signum(disX)*game.getSpeed(), 1.5*Math.signum(disY)*game.getSpeed());
-				}
-				else {
+//					double factor = Math.sqrt(Math.pow(disX, 2) + Math.pow(disY, 2));
+					element.setVelocity(0.9 * Math.signum(disX) * game.getSpeed(),
+							1.5 * Math.signum(disY) * game.getSpeed());
+				} else {
 					element.setVelocity(0, game.getSpeed());
 				}
 			}
@@ -369,7 +361,8 @@ public class Animation extends AnimationTimer {
 		game.getSnake().render(game.getGc());
 
 		for (Sprite element : game.getAllElements()) {
-			if (!(element instanceof Coin)) element.setVelocity(0, game.getSpeed());
+			if (!(element instanceof Coin))
+				element.setVelocity(0, game.getSpeed());
 			element.update(elapsedTime);
 			element.render(game.getGc());
 		}
