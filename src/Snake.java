@@ -12,6 +12,7 @@ public class Snake extends Sprite {
 	private double shieldTime = 0;
 	private double magnetTime = 0;
 	private boolean destroyAllBlocks ;
+	private double s1,s2,s3,s4,s5;
 	ArrayList<Ball> balls = new ArrayList<Ball>(5);
 
 	public Snake(int[] screenCoordinates) {
@@ -52,17 +53,34 @@ public class Snake extends Sprite {
 		double i = 0;
 		for (Ball ball : balls) {
 			ball.setPosition(x, y + i);
+			ball.s1=x;
+			ball.s2=x;
+			ball.s3=x;
+			ball.s4=x;
+			ball.s5=x;
 			i = i + height;
 		}
+		s1=x;
+		s2=x;
+		s3=x;
+		s4=x;
+		s5=x;
 	}
 
 	@Override
 	public void setPositionX(double x) {
+		s5=s4;
+		s4=s3;
+		s3=s2;
+		s2=s1;
+		s1=positionX;
+		double temp=s4;
 		super.setPosition(x, this.positionY);
 		double i = 0;
 		for (Ball ball : balls) {
-			ball.setPositionX(x);
+			ball.setPositionX(temp);
 			i = i + height;
+			temp=ball.s4;
 		}
 	}
 
@@ -94,13 +112,20 @@ public class Snake extends Sprite {
 
 	@Override
 	public void update(double time) {
+		s5=s4;
+		s4=s3;
+		s3=s2;
+		s2=s1;
+		s1=positionX;
 		positionX += velocityX * time;
 		if (positionX < screenCoordinates[0])
 			positionX = 0;
 		else if (positionX > screenCoordinates[1] - width)
 			positionX = screenCoordinates[1] - width;
+		double temp=positionX;
 		for (Ball ball : balls) {
-			ball.update(time);
+			ball.setPositionX(temp);
+			temp=ball.s4;
 		}
 		if (isShieldActive()) {
 			shieldTime -= time;
@@ -148,10 +173,19 @@ public class Snake extends Sprite {
 
 	public void addBalls(int n) {
 		double posY = len * height;
+		double temp=0;
+		for(Ball ball:balls) {
+			temp=ball.s4;
+		}
 		for (int i = 0; i < n; i++) {
 			Ball new_ball = new Ball(screenCoordinates);
 			new_ball.setImage(this.image);
-			new_ball.setPosition(positionX, positionY + posY);
+			new_ball.setPosition(temp, positionY + posY);
+			new_ball.s4=temp;
+			new_ball.s3=temp;
+			new_ball.s2=temp;
+			new_ball.s1=temp;
+			new_ball.s5=temp;
 			balls.add(new_ball);
 			posY += height;
 		}

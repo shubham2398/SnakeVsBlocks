@@ -106,7 +106,7 @@ public abstract class Sprite {
 	}
 
 	public void forceSpriteOnRight(Sprite s) {
-		s.setPositionX(positionX + width);
+		s.setPositionX(positionX + width+1);
 	}
 
 	public void forceSpriteOnBottom(Sprite s) {

@@ -288,10 +288,10 @@ public class Animation extends AnimationTimer {
 		}
 		
 		game.getSnake().setVelocity(0, 0);
-		if (game.getSnakeToBeShiftedTo() > game.getSnake().positionX + 5) {
-			game.getSnake().setVelocity(400, 0);
-		} else if (game.getSnakeToBeShiftedTo() < game.getSnake().positionX - 5) {
-			game.getSnake().setVelocity(-400, 0);
+		if (game.getSnakeToBeShiftedTo() > game.getSnake().positionX + 15) {
+			game.getSnake().setVelocity(300, 0);
+		} else if (game.getSnakeToBeShiftedTo() < game.getSnake().positionX - 15) {
+			game.getSnake().setVelocity(-300, 0);
 		}
 		game.getSnake().update(elapsedTime);
 		
