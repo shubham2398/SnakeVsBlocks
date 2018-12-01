@@ -92,6 +92,7 @@ public class Animation extends AnimationTimer implements Serializable {
 
 	@Override
 	public void handle(long currentNanoTime) {
+		game.addSpeed(2*game.getScore().value);
 		game.setSpeedToDefault();
 		this.currentNanoTime = currentNanoTime;
 		double elapsedTime;
@@ -264,7 +265,7 @@ public class Animation extends AnimationTimer implements Serializable {
 			if (element.outOfFrame()) {
 				allElementsIter.remove();
 			}
-			if (element.intersects(game.getSnake())) {
+			else if (element.intersects(game.getSnake())) {
 				if (element instanceof Block) {
 					this.onBlockAction((Block)element,allElementsIter);
 				} 
@@ -314,9 +315,9 @@ public class Animation extends AnimationTimer implements Serializable {
 		
 		game.getSnake().setVelocity(0, 0);
 		if (game.getSnakeToBeShiftedTo() > game.getSnake().positionX + 15) {
-			game.getSnake().setVelocity(300, 0);
+			game.getSnake().setVelocity(game.getSnake_left_right_speed(), 0);
 		} else if (game.getSnakeToBeShiftedTo() < game.getSnake().positionX - 15) {
-			game.getSnake().setVelocity(-300, 0);
+			game.getSnake().setVelocity(-1*game.getSnake_left_right_speed(), 0);
 		}
 		game.getSnake().update(elapsedTime);
 		
@@ -344,21 +345,23 @@ public class Animation extends AnimationTimer implements Serializable {
 			mediaPlayer.play();
 			allElementsIter.remove();
 			addElements.add(Explosion.getExplosionObject(temp, game.getBlockExplosionPath(), game.getScreenCoordinates(),0.89));
-			game.getScore().value++;
 		} else {
 			try {
-				if (temp.getNumber()<=5) {
+				if (temp.getNumber()<=5 && game.getSnake().getLength()>5) {
 					allElementsIter.remove();
 					Media sound = new Media(new File("sounds/block_exploded.mp3").toURI().toString());
 					MediaPlayer mediaPlayer = new MediaPlayer(sound);
 					mediaPlayer.play();
 					addElements.add(Explosion.getExplosionObject(temp, game.getBlockExplosionPath(), game.getScreenCoordinates(),0.89));
-					for(int i=0; i<temp.getNumber();i++) {
+					for(int i=1; i<temp.getNumber();i++) {
 						game.getSnake().decreaseLength();
 					}
 					game.getSnake().decreaseLength();
 					game.getScore().value+=temp.getNumber();
 					game.setSpeedToDefault();
+				}
+				else if (temp.getNumber()<=5) {
+					throw new SnakeLengthZeroException("Game Over");
 				}
 				else if (temp.canBeDestroyed(game.getSnake())) {
 					allElementsIter.remove();

@@ -32,8 +32,9 @@ public class Game extends Application implements Serializable {
 	private transient GraphicsContext gc;
 	private final int BALL_SIZE;
 	private final int BLOCK_SIZE;
-	private final int GAME_SPEED = 200;
+	private final int GAME_SPEED = 300;
 	private int ADD_SPEED = 0;
+	private final int snake_left_right_speed = 450;
 	private String ballImagePath;
 	private final String ballPowerUpImagePath;
 	private final String coinImagePath;
@@ -331,6 +332,10 @@ public class Game extends Application implements Serializable {
 	public int getSpeed() {
 		return this.speed;
 	}
+	
+	public void addSpeed(int speed) {
+		this.ADD_SPEED=speed;
+	}
 
 	public void setSpeed(int speed) {
 		this.speed = speed;
@@ -362,5 +367,9 @@ public class Game extends Application implements Serializable {
 
 	public String getTokenExplosionPath() {
 		return tokenExplosionPath;
+	}
+
+	public int getSnake_left_right_speed() {
+		return snake_left_right_speed;
 	}
 }
