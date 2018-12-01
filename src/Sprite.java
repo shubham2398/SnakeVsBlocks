@@ -1,9 +1,13 @@
 import javafx.scene.image.Image;
 import javafx.scene.canvas.GraphicsContext;
+
+import java.io.Serializable;
+
 import javafx.geometry.Rectangle2D;
 
-public abstract class Sprite {
-	private Image image;
+public abstract class Sprite implements Serializable{
+	protected transient Image image;
+	protected String imagePath;
 	protected double positionX;
 	protected double positionY;
 	protected double velocityX;
@@ -20,7 +24,7 @@ public abstract class Sprite {
 		this.screenCoordinates = screenCoordinates;
 	}
 
-	public void setImage(Image i) {
+	protected void setImage(Image i) {
 		image = i;
 		width = i.getWidth();
 		height = i.getHeight();
@@ -29,6 +33,7 @@ public abstract class Sprite {
 
 	public void setImage(String filename) {
 		Image i = new Image(filename);
+		this.imagePath=filename;
 		setImage(i);
 	}
 

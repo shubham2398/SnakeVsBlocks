@@ -1,7 +1,9 @@
+import java.io.Serializable;
+
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class BallPowerUp extends Ball implements Tokenizable {
+public class BallPowerUp extends Ball implements Tokenizable, Serializable {
 	int len;
 
 	public BallPowerUp(int[] screenCoordinates, int len) {

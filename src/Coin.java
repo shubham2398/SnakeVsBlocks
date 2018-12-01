@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Coin extends Sprite implements Tokenizable {
+public class Coin extends Sprite implements Tokenizable, Serializable {
 
 	public Coin(int[] screenCoordinates) {
 		super(screenCoordinates);

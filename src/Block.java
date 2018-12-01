@@ -1,10 +1,12 @@
+import java.io.Serializable;
+
 import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
-public class Block extends Sprite {
+public class Block extends Sprite implements Serializable {
 	private int number;
 
 	public Block(int[] screenCoordinates, int number) {

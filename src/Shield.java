@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Shield extends Sprite implements Tokenizable {
+public class Shield extends Sprite implements Tokenizable, Serializable {
 
 	public Shield(int[] screenCoordinates) {
 		super(screenCoordinates);

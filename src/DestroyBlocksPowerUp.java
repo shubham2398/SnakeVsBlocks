@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class DestroyBlocksPowerUp extends Sprite implements Tokenizable {
+public class DestroyBlocksPowerUp extends Sprite implements Tokenizable, Serializable {
 
 	public DestroyBlocksPowerUp(int[] screenCoordinates) {
 		super(screenCoordinates);

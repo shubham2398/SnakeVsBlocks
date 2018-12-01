@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Magnet extends Sprite implements Tokenizable {
+public class Magnet extends Sprite implements Tokenizable, Serializable {
 
 	public Magnet(int[] screenCoordinates) {
 		super(screenCoordinates);

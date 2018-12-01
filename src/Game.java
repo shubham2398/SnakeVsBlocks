@@ -25,7 +25,7 @@ public class Game extends Application {
 	private GraphicsContext gc;
 	private final int BALL_SIZE;
 	private final int BLOCK_SIZE;
-	private final int GAME_SPEED = 200;
+	private final int GAME_SPEED = 300;
 	private int ADD_SPEED = 0;
 	private String ballImagePath;
 	private final String ballPowerUpImagePath;

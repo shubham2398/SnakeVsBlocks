@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javafx.application.Application;
@@ -6,10 +7,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class Leaderboard extends Application {
+public class Leaderboard extends Application implements Serializable {
 
 	private ArrayList<Player> topScorers;
-	private LeaderboardController controller;
+	private transient LeaderboardController controller;
 
 	public void updateLeaderboard(ArrayList<Player> rankList) {
 		topScorers = rankList;

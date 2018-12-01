@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Ball extends Sprite {
+public class Ball extends Sprite implements Serializable {
 	public double s1,s2,s3,s4,s5;
 	public Ball(int[] screenCoordinates) {
 		super(screenCoordinates);

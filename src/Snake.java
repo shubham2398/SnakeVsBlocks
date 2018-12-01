@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javafx.scene.canvas.GraphicsContext;
@@ -5,15 +6,14 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-public class Snake extends Sprite {
-	private Image image;
+public class Snake extends Sprite implements Serializable {
 	private int len;
 	private int coins;
 	private double shieldTime = 0;
 	private double magnetTime = 0;
 	private boolean destroyAllBlocks ;
 	private double s1,s2,s3,s4,s5;
-	ArrayList<Ball> balls = new ArrayList<Ball>(5);
+	private ArrayList<Ball> balls = new ArrayList<Ball>(5);
 
 	public Snake(int[] screenCoordinates) {
 		super(screenCoordinates);
@@ -29,8 +29,7 @@ public class Snake extends Sprite {
 	}
 
 	@Override
-	public void setImage(Image i) {
-		this.image = i;
+	protected void setImage(Image i) {
 		super.setImage(i);
 		for (Ball ball : balls) {
 			ball.setImage(i);
@@ -39,11 +38,9 @@ public class Snake extends Sprite {
 
 	@Override
 	public void setImage(String filename) {
-		Image i = new Image(filename);
-		this.image = i;
-		super.setImage(i);
+		super.setImage(filename);
 		for (Ball ball : balls) {
-			ball.setImage(i);
+			ball.setImage(image);
 		}
 	}
 
