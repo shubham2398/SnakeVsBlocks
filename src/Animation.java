@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.DirectoryNotEmptyException;
@@ -7,6 +8,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javafx.animation.AnimationTimer;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 
 public class Animation extends AnimationTimer implements Serializable {
@@ -268,6 +271,9 @@ public class Animation extends AnimationTimer implements Serializable {
 				else if(element instanceof Tokenizable) {
 					((Tokenizable) element).action(game.getSnake());
 					addElements.add(Explosion.getExplosionObject(element, game.getTokenExplosionPath(), game.getScreenCoordinates(),1.2));
+					Media sound = new Media(new File("sounds/token_collected.mp3").toURI().toString());
+					MediaPlayer mediaPlayer = new MediaPlayer(sound);
+					mediaPlayer.play();
 					allElementsIter.remove();
 				}
 			} else if (element instanceof Block || element instanceof Wall) {
@@ -291,6 +297,9 @@ public class Animation extends AnimationTimer implements Serializable {
 					allElementsIter2.remove();
 				}
 			}
+			Media sound = new Media(new File("sounds/block_exploded.mp3").toURI().toString());
+			MediaPlayer mediaPlayer = new MediaPlayer(sound);
+			mediaPlayer.play();
 		}
 
 		game.getGc().clearRect(0, 0, game.getScreenCoordinates()[1], game.getScreenCoordinates()[3]);
@@ -330,6 +339,9 @@ public class Animation extends AnimationTimer implements Serializable {
 	private void onBlockAction(Block temp, Iterator<Sprite> allElementsIter ) {
 		if (game.getSnake().isShieldActive()) {
 			temp.destroy();
+			Media sound = new Media(new File("sounds/block_exploded.mp3").toURI().toString());
+			MediaPlayer mediaPlayer = new MediaPlayer(sound);
+			mediaPlayer.play();
 			allElementsIter.remove();
 			addElements.add(Explosion.getExplosionObject(temp, game.getBlockExplosionPath(), game.getScreenCoordinates(),0.89));
 			game.getScore().value++;
@@ -337,6 +349,9 @@ public class Animation extends AnimationTimer implements Serializable {
 			try {
 				if (temp.getNumber()<=5) {
 					allElementsIter.remove();
+					Media sound = new Media(new File("sounds/block_exploded.mp3").toURI().toString());
+					MediaPlayer mediaPlayer = new MediaPlayer(sound);
+					mediaPlayer.play();
 					addElements.add(Explosion.getExplosionObject(temp, game.getBlockExplosionPath(), game.getScreenCoordinates(),0.89));
 					for(int i=0; i<temp.getNumber();i++) {
 						game.getSnake().decreaseLength();
@@ -347,10 +362,16 @@ public class Animation extends AnimationTimer implements Serializable {
 				}
 				else if (temp.canBeDestroyed(game.getSnake())) {
 					allElementsIter.remove();
+					Media sound = new Media(new File("sounds/block_exploded.mp3").toURI().toString());
+					MediaPlayer mediaPlayer = new MediaPlayer(sound);
+					mediaPlayer.play();
 					addElements.add(Explosion.getExplosionObject(temp, game.getBlockExplosionPath(), game.getScreenCoordinates(),0.89));
 					game.getScore().value++;
 					game.setSpeedToDefault();
 				} else {
+					Media sound = new Media(new File("sounds/length_decreased.mp3").toURI().toString());
+					MediaPlayer mediaPlayer = new MediaPlayer(sound);
+					mediaPlayer.play();
 					game.getScore().value++;
 					temp.collide(game.getSnake());
 					game.setSpeed(0);
