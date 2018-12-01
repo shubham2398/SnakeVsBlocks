@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="650.0" maxWidth="406.0" minHeight="650.0" minWidth="406.0" prefHeight="650.0" prefWidth="406.0" style="-fx-background-image: url('file:images/backg5.jpg');" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainPage">
+<AnchorPane maxHeight="650.0" maxWidth="406.0" minHeight="650.0" minWidth="406.0" prefHeight="650.0" prefWidth="406.0" style="-fx-background-image: url('file:images/backg5.jpg');" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainPageController">
    <children>
       <ImageView fitHeight="44.0" fitWidth="39.0" layoutY="1.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="373.2156867980957" AnchorPane.topAnchor="1.0">
          <image>
@@ -18,7 +18,7 @@
             <Image url="@../images/coin.png" />
          </image>
       </ImageView>
-      <Text fill="WHITE" layoutX="34.0" layoutY="33.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Score" AnchorPane.topAnchor="12.0">
+      <Text fx:id="last_score" fill="WHITE" layoutX="34.0" layoutY="33.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Score" AnchorPane.topAnchor="12.0">
          <font>
             <Font name="Calibri Bold" size="22.0" />
          </font>

@@ -33,154 +33,154 @@
             <Image url="@../images/exit2.png" />
          </image>
       </ImageView>
-      <Text fx:id="name8" layoutX="34.0" layoutY="473.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="135.13671875" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="451.41796875">
+      <Text fx:id="name8" layoutX="34.0" layoutY="473.68359375" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="135.13671875" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="456.41796875">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Text>
-      <Text fx:id="name9" layoutX="34.0" layoutY="506.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="135.13671875" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="484.41796875">
+      <Text fx:id="name9" layoutX="34.0" layoutY="506.68359375" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="135.13671875" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="489.41796875">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Text>
-      <Text fx:id="name2" layoutX="34.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="135.13671875" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="253.41796875">
+      <Text fx:id="name2" layoutX="34.0" layoutY="275.68359375" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="135.13671875" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="258.41796875">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Text>
-      <Text fx:id="name3" layoutX="34.0" layoutY="308.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="135.13671875" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="286.41796875">
+      <Text fx:id="name3" layoutX="34.0" layoutY="308.68359375" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="135.13671875" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="291.41796875">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Text>
-      <Text fx:id="name6" layoutX="34.0" layoutY="407.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="135.13671875" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="385.41796875">
+      <Text fx:id="name6" layoutX="34.0" layoutY="407.68359375" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="135.13671875" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="390.41796875">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Text>
-      <Text fx:id="name5" layoutX="34.0" layoutY="374.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="135.13671875" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="352.41796875">
+      <Text fx:id="name5" layoutX="34.0" layoutY="374.68359375" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="135.13671875" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="357.41796875">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Text>
-      <Text fx:id="name10" layoutX="34.0" layoutY="539.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="135.13671875" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="517.41796875">
+      <Text fx:id="name10" layoutX="34.0" layoutY="539.68359375" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="135.13671875" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="522.41796875">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Text>
-      <Text fx:id="name4" layoutX="34.0" layoutY="341.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="135.13671875" AnchorPane.topAnchor="319.41796875">
+      <Text fx:id="name4" layoutX="34.0" layoutY="341.68359375" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="135.13671875" AnchorPane.topAnchor="324.41796875">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Text>
-      <Text fx:id="name1" layoutX="34.0" layoutY="242.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="135.13671875" AnchorPane.topAnchor="220.41796875">
+      <Text fx:id="name1" layoutX="34.0" layoutY="242.68359375" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="135.13671875" AnchorPane.topAnchor="225.41796875">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Text>
-      <Text fx:id="name7" layoutX="34.0" layoutY="440.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="135.13671875" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="418.41796875">
+      <Text fx:id="name7" layoutX="34.0" layoutY="440.68359375" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="135.13671875" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="423.41796875">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Text>
       <Text fx:id="score1" layoutX="169.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="100.13671875" AnchorPane.topAnchor="223.41796875">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Text>
       <Text fx:id="score2" layoutX="169.0" layoutY="278.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="100.13671875" AnchorPane.leftAnchor="169.0" AnchorPane.topAnchor="256.41796875">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Text>
       <Text fx:id="score3" layoutX="169.0" layoutY="311.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="100.13671875" AnchorPane.topAnchor="289.41796875">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Text>
       <Text fx:id="score4" layoutX="169.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="100.13671875" AnchorPane.topAnchor="322.41796875">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Text>
       <Text fx:id="score5" layoutX="169.0" layoutY="377.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="100.13671875" AnchorPane.topAnchor="355.41796875">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Text>
       <Text fx:id="score6" layoutX="169.0" layoutY="410.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="100.13671875" AnchorPane.topAnchor="388.41796875">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Text>
       <Text fx:id="score7" layoutX="169.0" layoutY="443.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="100.13671875" AnchorPane.topAnchor="421.41796875">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Text>
       <Text fx:id="score8" layoutX="169.0" layoutY="476.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="100.13671875" AnchorPane.topAnchor="454.41796875">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Text>
       <Text fx:id="score9" layoutX="169.0" layoutY="509.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="100.13671875" AnchorPane.topAnchor="487.41796875">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Text>
       <Text fx:id="score10" layoutX="169.0" layoutY="542.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="100.13671875" AnchorPane.topAnchor="520.41796875">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Text>
-      <Text fx:id="date1" layoutX="287.0" layoutY="239.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="93.1367189437151" AnchorPane.topAnchor="217.41796875">
+      <Text fx:id="date1" layoutX="287.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="93.1367189437151" AnchorPane.topAnchor="224.41796875">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Text>
-      <Text fx:id="date2" layoutX="287.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="93.1367189437151" AnchorPane.topAnchor="250.41796875">
+      <Text fx:id="date2" layoutX="287.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="93.1367189437151" AnchorPane.topAnchor="257.41796875">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Text>
-      <Text fx:id="date3" layoutX="287.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="93.1367189437151" AnchorPane.topAnchor="283.41796875">
+      <Text fx:id="date3" layoutX="287.0" layoutY="312.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="93.1367189437151" AnchorPane.topAnchor="290.41796875">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Text>
-      <Text fx:id="date4" layoutX="287.0" layoutY="338.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="93.1367189437151" AnchorPane.topAnchor="316.41796875">
+      <Text fx:id="date4" layoutX="287.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="93.1367189437151" AnchorPane.topAnchor="323.41796875">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Text>
-      <Text fx:id="date5" layoutX="287.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="93.1367189437151">
+      <Text fx:id="date5" layoutX="287.0" layoutY="378.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="93.1367189437151">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Text>
-      <Text fx:id="date6" layoutX="287.0" layoutY="404.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="93.1367189437151">
+      <Text fx:id="date6" layoutX="287.0" layoutY="411.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="93.1367189437151">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Text>
-      <Text fx:id="date7" layoutX="287.0" layoutY="437.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="93.1367189437151">
+      <Text fx:id="date7" layoutX="287.0" layoutY="444.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="93.1367189437151">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Text>
-      <Text fx:id="date8" layoutX="287.0" layoutY="470.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="93.1367189437151">
+      <Text fx:id="date8" layoutX="287.0" layoutY="477.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="93.1367189437151">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Text>
-      <Text fx:id="date9" layoutX="287.0" layoutY="503.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="93.1367189437151">
+      <Text fx:id="date9" layoutX="287.0" layoutY="510.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="93.1367189437151">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Text>
-      <Text fx:id="date10" layoutX="287.0" layoutY="536.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="93.1367189437151">
+      <Text fx:id="date10" layoutX="286.0" layoutY="543.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="93.1367189437151">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Text>
    </children>

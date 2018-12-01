@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="650.0" maxWidth="406.0" minHeight="650.0" minWidth="406.0" prefHeight="650.0" prefWidth="406.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameOverController">
+   <children>
+      <ImageView fitHeight="650.0" fitWidth="406.0" pickOnBounds="true">
+         <image>
+            <Image url="@../images/gameOver.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="name" layoutX="155.0" layoutY="518.0" prefHeight="31.0" prefWidth="176.0" promptText="Enter your name" text="Guest">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <Button fx:id="submitName" layoutX="340.0" layoutY="518.0" mnemonicParsing="false" onMouseClicked="#enterName" prefHeight="31.0" prefWidth="52.0" text="OK" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="93.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/yourScore.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="47.0" fitWidth="52.0" layoutX="329.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/crown.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="64.0" fitWidth="252.0" layoutX="140.0" layoutY="461.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/enterName.png" />
+         </image>
+      </ImageView>
+      <Text fx:id="finalScore" fill="RED" layoutX="278.0" layoutY="50.0" stroke="BLACK" text="500" wrappingWidth="77.13671875">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

@@ -75,20 +75,19 @@ public class Game extends Application implements Serializable {
 		snake.setImage(new Image(ballImagePath, BALL_SIZE, BALL_SIZE, false, true));
 		snake.setPosition(200, snakeYPos);
 	}
-	
-	public void serialize() throws IOException{
+
+	public void serialize() throws IOException {
 		ObjectOutputStream out = null;
 		try {
 			out = new ObjectOutputStream(new FileOutputStream("resume.txt"));
 			out.writeObject(this);
-		}
-		finally {
-			if(out!=null) {
+		} finally {
+			if (out != null) {
 				out.close();
 			}
 		}
 	}
-	
+
 	public static Game deserialize() throws IOException, ClassNotFoundException {
 		Game obj;
 		ObjectInputStream in = null;
@@ -97,12 +96,11 @@ public class Game extends Application implements Serializable {
 			obj = (Game) in.readObject();
 			obj.rnd = new Random();
 			obj.snake.setImage(new Image(obj.ballImagePath, obj.BALL_SIZE, obj.BALL_SIZE, false, true));
-			for(Sprite s: obj.allElements) {
+			for (Sprite s : obj.allElements) {
 				s.setImage();
 			}
-		}
-		finally {
-			if(in!=null) {
+		} finally {
+			if (in != null) {
 				in.close();
 			}
 		}
@@ -148,16 +146,16 @@ public class Game extends Application implements Serializable {
 		resumeButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				//myAnimation.start();
+				// myAnimation.start();
 				try {
 					myAnimation.lastNanoTime.value = myAnimation.currentNanoTime;
-					myAnimation.flag.value=1;
+					myAnimation.flag.value = 1;
 					myAnimation.stop();
 					serialize();
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
-				endGame();
+				endGame2();
 			}
 		});
 
@@ -185,21 +183,23 @@ public class Game extends Application implements Serializable {
 		// allElements.add(makeMagnet(350, 300));
 		// allElements.add(makeDestroyBlocksPowerUp(300, 150));
 
-//		for (int i = 0; i < 5; i++) {
-//			allElements.add(makeBlock(0 + (BLOCK_SIZE) * i + (i + 1), -360, 1 + rnd.nextInt(2)));
-//		}
-//		int ball_count = 3;
-//		int[] obj_exist = new int[5];
-//
-//		while (ball_count > 0) {
-//			int x_loc = rnd.nextInt(5);
-//			if (obj_exist[x_loc] == 0) {
-//				obj_exist[x_loc] = 1;
-//				allElements.add(makeBallPowerUp(getBLOCK_SIZE() * x_loc + x_loc + getBLOCK_SIZE() / 2 - 12,
-//						-200 + getBLOCK_SIZE() / 2 - 10, 1 + rnd.nextInt(5)));
-//				ball_count -= 1;
-//			}
-//		}
+		// for (int i = 0; i < 5; i++) {
+		// allElements.add(makeBlock(0 + (BLOCK_SIZE) * i + (i + 1), -360, 1 +
+		// rnd.nextInt(2)));
+		// }
+		// int ball_count = 3;
+		// int[] obj_exist = new int[5];
+		//
+		// while (ball_count > 0) {
+		// int x_loc = rnd.nextInt(5);
+		// if (obj_exist[x_loc] == 0) {
+		// obj_exist[x_loc] = 1;
+		// allElements.add(makeBallPowerUp(getBLOCK_SIZE() * x_loc + x_loc +
+		// getBLOCK_SIZE() / 2 - 12,
+		// -200 + getBLOCK_SIZE() / 2 - 10, 1 + rnd.nextInt(5)));
+		// ball_count -= 1;
+		// }
+		// }
 
 		// getAllElements().add(makeDestroyBlocksPowerUp(getBLOCK_SIZE()*2 + 2 , -360 +
 		// getBLOCK_SIZE()/2 ));
@@ -270,7 +270,7 @@ public class Game extends Application implements Serializable {
 		num = ((num - 1) / 5 + 1) * 5;
 		block.setImage(
 				new Image(blockRelativePath + (num - 4) + "-" + num + ".png", BLOCK_SIZE, BLOCK_SIZE, false, true));
-		block.setImagePath(blockRelativePath+ (num - 4) + "-" + num + ".png");
+		block.setImagePath(blockRelativePath + (num - 4) + "-" + num + ".png");
 		return block;
 	}
 
@@ -337,10 +337,15 @@ public class Game extends Application implements Serializable {
 	public double getSnakeToBeShiftedTo() {
 		return this.snakeToBeShiftedTo;
 	}
-	
-	public void endGame()
-	{	System.out.println("Gello");
-		MainPage.setLastScore(score.value);
+
+	public void endGame() {
+		System.out.println("Gello");
+		stage.close();
+		GameOver.gameOver(score.value);
+	}
+
+	public void endGame2() {
+		System.out.println("Gello 2");
 		stage.close();
 		MainPage.displayMainPage();
 	}

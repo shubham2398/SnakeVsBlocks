@@ -1,3 +1,12 @@
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javafx.application.Application;
@@ -10,69 +19,83 @@ public class MainPage extends Application {
 
 	private static MainPageController controller;
 	private static Stage primaryStage;
-	private static ArrayList<Player> topScorers = new ArrayList<Player>();
-	private static Leaderboard leaderboard = new Leaderboard();
+	private static Leaderboard leaderboard;
+	private static int lastScore = 0;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException, ClassNotFoundException {
+		loadLeaderBoard();
+		loadLastScore();
 		launch();
 	}
 
 	@Override
 	public void start(Stage stage) throws Exception {
 		primaryStage = stage;
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("MainPage.fxml"));
+		FXMLLoader loader = null;
+		File f = new File("resume.txt");
+
+		if (f.exists() && !f.isDirectory())
+			loader = new FXMLLoader(getClass().getResource("MainPage.fxml"));
+		else
+			loader = new FXMLLoader(getClass().getResource("MainPage2.fxml"));
 		Parent root = loader.load();
 		controller = (MainPageController) loader.getController();
+		loadLastScore();
+		controller.updateLastScore(Integer.toString(lastScore));
 
 		Scene scene = new Scene(root, 406, 650);
 		stage.setScene(scene);
 		stage.show();
 	}
 
-	public static void setLastScore(int score) {
-		checkNewHighScore(score);
-		controller.updateLastScore(Integer.toString(score));
+	private static void loadLeaderBoard() throws ClassNotFoundException {
+		try {
+			leaderboard = Leaderboard.deserialize();
+		} catch (IOException e) {
+			leaderboard = new Leaderboard();
+		}
 	}
 
-	private static void checkNewHighScore(int score) {
-		boolean toBeAdded = false;
-		if (topScorers.size() < 10)
-			toBeAdded = true;
-		else if (Integer.valueOf(topScorers.get(topScorers.size() - 1).getScore()) < score)
-			toBeAdded = true;
-
-		if (toBeAdded)
-			addScoreToLeaderboard(score);
+	private static void loadLastScore() throws IOException {
+		File f = new File("lastscore.txt");
+		if (f.exists() && !f.isDirectory()) {
+			DataInputStream in = null;
+			try {
+				in = new DataInputStream(new BufferedInputStream(new FileInputStream("lastscore.txt")));
+				lastScore = in.readInt();
+			} catch (EOFException e) {
+				lastScore = 0;
+			} finally {
+				if (in != null) {
+					in.close();
+				}
+			}
+		}
 	}
 
-	private static void addScoreToLeaderboard(int score) {
-		if (topScorers.size() == 10)
-			topScorers.remove(topScorers.size() - 1);
-		// hurray New High Score Created
-		topScorers.add(new Player("guest", score, "17/11/18"));
-		int i = topScorers.size() - 1;
-
-		while (i > 0
-				&& Integer.valueOf(topScorers.get(i).getScore()) > Integer.valueOf(topScorers.get(i - 1).getScore())) {
-			Player temp = topScorers.get(i);
-			topScorers.set(i, topScorers.get(i - 1));
-			topScorers.set(i - 1, temp);
-			i -= 1;
+	public static void setLastScore(int score, String name) throws IOException {
+		leaderboard.checkNewHighScore(score, name);
+		DataOutputStream out = null;
+		try {
+			out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream("lastscore.txt")));
+			out.writeInt(score);
+		} finally {
+			if (out != null) {
+				out.close();
+			}
 		}
 	}
 
 	public static void displayMainPage() {
-		primaryStage.show();
+		try {
+			new MainPage().start(new Stage());
+		} catch (Exception e) {
+			System.out.println("Error in displaying Main Page");
+		}
 	}
 
 	public static void displayLeaderboard() throws Exception {
 		leaderboard.start(new Stage());
-		leaderboard.updateLeaderboard(topScorers);
-		
-		for(int i = 0;i<topScorers.size();i++)
-		{
-			System.out.println(topScorers.get(i).getName() + " " + topScorers.get(i).getScore() + " " + topScorers.get(i).getDateHighScoreMade());
-		}
-		System.out.println();
+		leaderboard.updateLeaderboard();
 	}
 }
