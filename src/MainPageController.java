@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -20,10 +22,10 @@ public class MainPageController {
 	private ImageView resumeGame;
 
 	@FXML
-	public void tapToResume(MouseEvent e) {
+	public void tapToResume(MouseEvent e) throws ClassNotFoundException, IOException {
 		Stage stage = (Stage) startGame.getScene().getWindow();
 		stage.hide();
-		new Game().start(new Stage());
+		(Game.deserialize()).start(new Stage());
 	}
 
 	@FXML

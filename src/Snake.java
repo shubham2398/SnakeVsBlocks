@@ -40,7 +40,15 @@ public class Snake extends Sprite implements Serializable {
 	public void setImage(String filename) {
 		super.setImage(filename);
 		for (Ball ball : balls) {
-			ball.setImage(image);
+			ball.setImage(filename);
+		}
+	}
+	
+	@Override
+	public void setImage() {
+		super.setImage();
+		for(Ball ball: balls) {
+			ball.setImage();
 		}
 	}
 

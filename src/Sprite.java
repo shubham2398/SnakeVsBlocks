@@ -36,6 +36,11 @@ public abstract class Sprite implements Serializable{
 		this.imagePath=filename;
 		setImage(i);
 	}
+	
+	public void setImage() {
+		Image i = new Image(this.imagePath,width,height,false,true);
+		setImage(i);
+	}
 
 	public void setPosition(double x, double y) {
 		positionX = x;
@@ -145,5 +150,9 @@ public abstract class Sprite implements Serializable{
 
 	public void setPositionY(double positionY) {
 		this.positionY = positionY;
+	}
+
+	public void setImagePath(String path) {
+		imagePath = path;
 	}
 }

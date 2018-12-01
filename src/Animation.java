@@ -1,9 +1,15 @@
+import java.io.IOException;
+import java.io.Serializable;
+import java.nio.file.DirectoryNotEmptyException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javafx.animation.AnimationTimer;
 import javafx.scene.paint.Color;
 
-public class Animation extends AnimationTimer {
+public class Animation extends AnimationTimer implements Serializable {
 	Game game;
 	public LongValue lastNanoTime;
 	public LongValue delay;
@@ -318,8 +324,25 @@ public class Animation extends AnimationTimer {
 					temp.collide(game.getSnake());
 					game.setSpeed(0);
 				}
-			} catch (SnakeLengthZeroException e) {
+			} catch (SnakeLengthZeroException s) {
 				this.stop();
+				try
+		        { 
+		            Files.deleteIfExists(Paths.get("resume.txt")); 
+		        } 
+		        catch(NoSuchFileException e) 
+		        { 
+		            System.out.println("No such file/directory exists"); 
+		        } 
+		        catch(DirectoryNotEmptyException e) 
+		        { 
+		            System.out.println("Directory is not empty."); 
+		        } 
+		        catch(IOException e) 
+		        { 
+		            System.out.println("Invalid permissions."); 
+		        }  
+		        System.out.println("Deletion successful."); 
 				game.endGame();
 			}
 		}

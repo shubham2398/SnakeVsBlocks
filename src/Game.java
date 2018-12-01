@@ -1,3 +1,10 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -18,14 +25,14 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-public class Game extends Application {
+public class Game extends Application implements Serializable {
 	private int speed;
-	private Stage stage;
-	private Scene scene;
-	private GraphicsContext gc;
+	private transient Stage stage;
+	private transient Scene scene;
+	private transient GraphicsContext gc;
 	private final int BALL_SIZE;
 	private final int BLOCK_SIZE;
-	private final int GAME_SPEED = 300;
+	private final int GAME_SPEED = 200;
 	private int ADD_SPEED = 0;
 	private String ballImagePath;
 	private final String ballPowerUpImagePath;
@@ -34,8 +41,8 @@ public class Game extends Application {
 	private final String shieldImagePath;
 	private final String destroyBlocksPowerUpImagePath;
 	private final String blockRelativePath;
-	private Button resumeButton;
-	private Button pauseButton;
+	private transient Button resumeButton;
+	private transient Button pauseButton;
 	private ArrayList<String> input = new ArrayList<String>();
 	private ArrayList<Sprite> allElements = new ArrayList<Sprite>();
 	private Snake snake;
@@ -47,7 +54,7 @@ public class Game extends Application {
 	private final int[] screenCoordinates = { 0, 406, 0, 650 };
 	private Animation myAnimation;
 	public IntValue score;
-	public Random rnd;
+	public transient Random rnd;
 
 	public Game() {
 		speed = this.GAME_SPEED + this.ADD_SPEED;
@@ -64,6 +71,42 @@ public class Game extends Application {
 		myAnimation = new Animation(this);
 		score = new IntValue(0);
 		rnd = new Random();
+		snake = new Snake(screenCoordinates);
+		snake.setImage(new Image(ballImagePath, BALL_SIZE, BALL_SIZE, false, true));
+		snake.setPosition(200, snakeYPos);
+	}
+	
+	public void serialize() throws IOException{
+		ObjectOutputStream out = null;
+		try {
+			out = new ObjectOutputStream(new FileOutputStream("resume.txt"));
+			out.writeObject(this);
+		}
+		finally {
+			if(out!=null) {
+				out.close();
+			}
+		}
+	}
+	
+	public static Game deserialize() throws IOException, ClassNotFoundException {
+		Game obj;
+		ObjectInputStream in = null;
+		try {
+			in = new ObjectInputStream(new FileInputStream("resume.txt"));
+			obj = (Game) in.readObject();
+			obj.rnd = new Random();
+			obj.snake.setImage(new Image(obj.ballImagePath, obj.BALL_SIZE, obj.BALL_SIZE, false, true));
+			for(Sprite s: obj.allElements) {
+				s.setImage();
+			}
+		}
+		finally {
+			if(in!=null) {
+				in.close();
+			}
+		}
+		return obj;
 	}
 
 	private void initialise() {
@@ -105,7 +148,16 @@ public class Game extends Application {
 		resumeButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				myAnimation.start();
+				//myAnimation.start();
+				try {
+					myAnimation.lastNanoTime.value = myAnimation.currentNanoTime;
+					myAnimation.flag.value=1;
+					myAnimation.stop();
+					serialize();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				endGame();
 			}
 		});
 
@@ -114,23 +166,12 @@ public class Game extends Application {
 
 		gc = canvas.getGraphicsContext2D();
 
-		snake = new Snake(screenCoordinates);
-		snake.setImage(new Image(ballImagePath, BALL_SIZE, BALL_SIZE, false, true));
-		snake.setPosition(200, snakeYPos);
-
 		scene.setOnMouseMoved(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent mouseEvent) {
 				snakeToBeShiftedTo = mouseEvent.getSceneX();
 			}
 		});
-
-		// scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-		// public void handle(KeyEvent e) {
-		// String code = e.getCode().toString();
-		// input.add(code);
-		// }
-		// });
 	}
 
 	@Override
@@ -144,21 +185,21 @@ public class Game extends Application {
 		// allElements.add(makeMagnet(350, 300));
 		// allElements.add(makeDestroyBlocksPowerUp(300, 150));
 
-		for (int i = 0; i < 5; i++) {
-			allElements.add(makeBlock(0 + (BLOCK_SIZE) * i + (i + 1), -360, 1 + rnd.nextInt(2)));
-		}
-		int ball_count = 3;
-		int[] obj_exist = new int[5];
-
-		while (ball_count > 0) {
-			int x_loc = rnd.nextInt(5);
-			if (obj_exist[x_loc] == 0) {
-				obj_exist[x_loc] = 1;
-				allElements.add(makeBallPowerUp(getBLOCK_SIZE() * x_loc + x_loc + getBLOCK_SIZE() / 2 - 12,
-						-200 + getBLOCK_SIZE() / 2 - 10, 1 + rnd.nextInt(5)));
-				ball_count -= 1;
-			}
-		}
+//		for (int i = 0; i < 5; i++) {
+//			allElements.add(makeBlock(0 + (BLOCK_SIZE) * i + (i + 1), -360, 1 + rnd.nextInt(2)));
+//		}
+//		int ball_count = 3;
+//		int[] obj_exist = new int[5];
+//
+//		while (ball_count > 0) {
+//			int x_loc = rnd.nextInt(5);
+//			if (obj_exist[x_loc] == 0) {
+//				obj_exist[x_loc] = 1;
+//				allElements.add(makeBallPowerUp(getBLOCK_SIZE() * x_loc + x_loc + getBLOCK_SIZE() / 2 - 12,
+//						-200 + getBLOCK_SIZE() / 2 - 10, 1 + rnd.nextInt(5)));
+//				ball_count -= 1;
+//			}
+//		}
 
 		// getAllElements().add(makeDestroyBlocksPowerUp(getBLOCK_SIZE()*2 + 2 , -360 +
 		// getBLOCK_SIZE()/2 ));
@@ -180,6 +221,7 @@ public class Game extends Application {
 	public Sprite makeBallPowerUp(double px, double py, int value) {
 		Sprite ball = new BallPowerUp(screenCoordinates, value);
 		ball.setImage(new Image(ballPowerUpImagePath, BALL_SIZE, BALL_SIZE, true, true));
+		ball.setImagePath(ballPowerUpImagePath);
 		ball.setPosition(px, py);
 		ball.addVelocity(0, speed);
 		return ball;
@@ -188,6 +230,7 @@ public class Game extends Application {
 	public Sprite makeShield(double px, double py) {
 		Sprite shield = new Shield(this.screenCoordinates);
 		shield.setImage(new Image(shieldImagePath, BALL_SIZE, BALL_SIZE, true, true));
+		shield.setImagePath(shieldImagePath);
 		shield.setPosition(px, py);
 		shield.addVelocity(0, speed);
 		return shield;
@@ -196,6 +239,7 @@ public class Game extends Application {
 	public Sprite makeCoin(double px, double py) {
 		Sprite coin = new Coin(this.screenCoordinates);
 		coin.setImage(new Image(coinImagePath, BALL_SIZE, BALL_SIZE, true, true));
+		coin.setImagePath(coinImagePath);
 		coin.setPosition(px, py);
 		coin.addVelocity(0, speed);
 		return coin;
@@ -204,6 +248,7 @@ public class Game extends Application {
 	public Sprite makeMagnet(double px, double py) {
 		Sprite magnet = new Magnet(this.screenCoordinates);
 		magnet.setImage(new Image(magnetImagePath, BALL_SIZE, BALL_SIZE, true, true));
+		magnet.setImagePath(magnetImagePath);
 		magnet.setPosition(px, py);
 		magnet.addVelocity(0, speed);
 		return magnet;
@@ -212,6 +257,7 @@ public class Game extends Application {
 	public Sprite makeDestroyBlocksPowerUp(double px, double py) {
 		Sprite bomb = new DestroyBlocksPowerUp(this.screenCoordinates);
 		bomb.setImage(new Image(destroyBlocksPowerUpImagePath, BALL_SIZE + 20, BALL_SIZE + 20, true, true));
+		bomb.setImagePath(destroyBlocksPowerUpImagePath);
 		bomb.setPosition(px, py);
 		bomb.addVelocity(0, speed);
 		return bomb;
@@ -224,12 +270,14 @@ public class Game extends Application {
 		num = ((num - 1) / 5 + 1) * 5;
 		block.setImage(
 				new Image(blockRelativePath + (num - 4) + "-" + num + ".png", BLOCK_SIZE, BLOCK_SIZE, false, true));
+		block.setImagePath(blockRelativePath+ (num - 4) + "-" + num + ".png");
 		return block;
 	}
 
 	public Sprite makeWall(double px, double py, int len, int side) {
 		Sprite wall = new Wall(screenCoordinates);
 		wall.setImage(new Image("file:images/wall.png", BALL_SIZE / 2, len, false, true));
+		wall.setImagePath("file:images/wall.png");
 		wall.setPosition(px, py - (len + BLOCK_SIZE) * side);
 		wall.addVelocity(0, speed);
 		return wall;
@@ -291,7 +339,7 @@ public class Game extends Application {
 	}
 	
 	public void endGame()
-	{
+	{	System.out.println("Gello");
 		MainPage.setLastScore(score.value);
 		stage.close();
 		MainPage.displayMainPage();
