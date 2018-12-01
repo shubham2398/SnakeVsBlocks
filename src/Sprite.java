@@ -38,7 +38,7 @@ public abstract class Sprite implements Serializable{
 	}
 	
 	public void setImage() {
-		Image i = new Image(this.imagePath,width,height,false,true);
+		Image i = new Image(this.imagePath,width,height,false,false);
 		setImage(i);
 	}
 

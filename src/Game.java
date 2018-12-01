@@ -41,6 +41,9 @@ public class Game extends Application implements Serializable {
 	private final String shieldImagePath;
 	private final String destroyBlocksPowerUpImagePath;
 	private final String blockRelativePath;
+	private final String wallPath;
+	private final String blockExplosionPath;
+	private final String tokenExplosionPath;
 	private transient Button resumeButton;
 	private transient Button pauseButton;
 	private ArrayList<String> input = new ArrayList<String>();
@@ -68,6 +71,9 @@ public class Game extends Application implements Serializable {
 		magnetImagePath = "file:images/magnet.jpg";
 		destroyBlocksPowerUpImagePath = "file:images/bomb.gif";
 		blockRelativePath = "file:images/block/";
+		wallPath = "file:images/wall.png";
+		blockExplosionPath = "file:images/explosion.gif";
+		tokenExplosionPath = "file:images/token_explosion.gif";
 		myAnimation = new Animation(this);
 		score = new IntValue(0);
 		rnd = new Random();
@@ -220,7 +226,7 @@ public class Game extends Application implements Serializable {
 
 	public Sprite makeBallPowerUp(double px, double py, int value) {
 		Sprite ball = new BallPowerUp(screenCoordinates, value);
-		ball.setImage(new Image(ballPowerUpImagePath, BALL_SIZE, BALL_SIZE, true, true));
+		ball.setImage(new Image(ballPowerUpImagePath, BALL_SIZE, BALL_SIZE, true, false));
 		ball.setImagePath(ballPowerUpImagePath);
 		ball.setPosition(px, py);
 		ball.addVelocity(0, speed);
@@ -229,7 +235,7 @@ public class Game extends Application implements Serializable {
 
 	public Sprite makeShield(double px, double py) {
 		Sprite shield = new Shield(this.screenCoordinates);
-		shield.setImage(new Image(shieldImagePath, BALL_SIZE, BALL_SIZE, true, true));
+		shield.setImage(new Image(shieldImagePath, BALL_SIZE, BALL_SIZE, true, false));
 		shield.setImagePath(shieldImagePath);
 		shield.setPosition(px, py);
 		shield.addVelocity(0, speed);
@@ -238,7 +244,7 @@ public class Game extends Application implements Serializable {
 
 	public Sprite makeCoin(double px, double py) {
 		Sprite coin = new Coin(this.screenCoordinates);
-		coin.setImage(new Image(coinImagePath, BALL_SIZE, BALL_SIZE, true, true));
+		coin.setImage(new Image(coinImagePath, BALL_SIZE, BALL_SIZE, true, false));
 		coin.setImagePath(coinImagePath);
 		coin.setPosition(px, py);
 		coin.addVelocity(0, speed);
@@ -247,7 +253,7 @@ public class Game extends Application implements Serializable {
 
 	public Sprite makeMagnet(double px, double py) {
 		Sprite magnet = new Magnet(this.screenCoordinates);
-		magnet.setImage(new Image(magnetImagePath, BALL_SIZE, BALL_SIZE, true, true));
+		magnet.setImage(new Image(magnetImagePath, BALL_SIZE, BALL_SIZE, true, false));
 		magnet.setImagePath(magnetImagePath);
 		magnet.setPosition(px, py);
 		magnet.addVelocity(0, speed);
@@ -256,7 +262,7 @@ public class Game extends Application implements Serializable {
 
 	public Sprite makeDestroyBlocksPowerUp(double px, double py) {
 		Sprite bomb = new DestroyBlocksPowerUp(this.screenCoordinates);
-		bomb.setImage(new Image(destroyBlocksPowerUpImagePath, BALL_SIZE + 20, BALL_SIZE + 20, true, true));
+		bomb.setImage(new Image(destroyBlocksPowerUpImagePath, BALL_SIZE + 20, BALL_SIZE + 20, true, false));
 		bomb.setImagePath(destroyBlocksPowerUpImagePath);
 		bomb.setPosition(px, py);
 		bomb.addVelocity(0, speed);
@@ -269,15 +275,15 @@ public class Game extends Application implements Serializable {
 		block.addVelocity(0, speed);
 		num = ((num - 1) / 5 + 1) * 5;
 		block.setImage(
-				new Image(blockRelativePath + (num - 4) + "-" + num + ".png", BLOCK_SIZE, BLOCK_SIZE, false, true));
+				new Image(blockRelativePath + (num - 4) + "-" + num + ".png", BLOCK_SIZE, BLOCK_SIZE, false, false));
 		block.setImagePath(blockRelativePath + (num - 4) + "-" + num + ".png");
 		return block;
 	}
 
 	public Sprite makeWall(double px, double py, int len, int side) {
 		Sprite wall = new Wall(screenCoordinates);
-		wall.setImage(new Image("file:images/wall.png", BALL_SIZE / 2, len, false, true));
-		wall.setImagePath("file:images/wall.png");
+		wall.setImage(new Image("file:images/wall.png", BALL_SIZE / 2, len, false, false));
+		wall.setImagePath(wallPath);
 		wall.setPosition(px, py - (len + BLOCK_SIZE) * side);
 		wall.addVelocity(0, speed);
 		return wall;
@@ -348,5 +354,13 @@ public class Game extends Application implements Serializable {
 		System.out.println("Gello 2");
 		stage.close();
 		MainPage.displayMainPage();
+	}
+
+	public String getBlockExplosionPath() {
+		return blockExplosionPath;
+	}
+
+	public String getTokenExplosionPath() {
+		return tokenExplosionPath;
 	}
 }

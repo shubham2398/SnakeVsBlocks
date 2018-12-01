@@ -64,4 +64,8 @@ public class Block extends Sprite implements Serializable {
 	public void destroy() {
 		number = 0;
 	}
+	
+	public int getNumber() {
+		return number;
+	}
 }

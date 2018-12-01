@@ -18,6 +18,7 @@ public class Animation extends AnimationTimer implements Serializable {
 	public long currentNanoTime;
 	private int[] layer;
 	private boolean genPowerUp;
+	private ArrayList<Sprite> addElements = new ArrayList<Sprite>();
 
 	public Animation(Game g) {
 		layer = new int[5];
@@ -251,7 +252,9 @@ public class Animation extends AnimationTimer implements Serializable {
 		}
 
 		lastNanoTime.value = currentNanoTime;
-
+		
+		addElements();
+		
 		Iterator<Sprite> allElementsIter = game.getAllElements().iterator();
 		while (allElementsIter.hasNext()) {
 			Sprite element = allElementsIter.next();
@@ -264,6 +267,7 @@ public class Animation extends AnimationTimer implements Serializable {
 				} 
 				else if(element instanceof Tokenizable) {
 					((Tokenizable) element).action(game.getSnake());
+					addElements.add(Explosion.getExplosionObject(element, game.getTokenExplosionPath(), game.getScreenCoordinates(),1.2));
 					allElementsIter.remove();
 				}
 			} else if (element instanceof Block || element instanceof Wall) {
@@ -272,12 +276,18 @@ public class Animation extends AnimationTimer implements Serializable {
 			else if (element instanceof Coin) {
 				this.attractCoinIfMagnetActive((Coin)element);
 			}
+			else if(element instanceof Explosion) {
+				if(((Explosion)element).isDestroyable(elapsedTime)) {
+					allElementsIter.remove();
+				}
+			}
 		}
 		if (game.getSnake().consumeDestroyAllBlocks()) {
 			Iterator<Sprite> allElementsIter2 = game.getAllElements().iterator();
 			while (allElementsIter2.hasNext()) {
 				Sprite element = allElementsIter2.next();
 				if (element instanceof Block) {
+					addElements.add(Explosion.getExplosionObject(element, game.getBlockExplosionPath(), game.getScreenCoordinates(),0.89));
 					allElementsIter2.remove();
 				}
 			}
@@ -308,15 +318,36 @@ public class Animation extends AnimationTimer implements Serializable {
 		game.getGc().strokeText(coinText, game.getScreenCoordinates()[0] + 10, game.getScreenCoordinates()[2] + 30);
 	}
 	
+	private void addElements() {
+		Iterator<Sprite> addElementsIter = addElements.iterator();
+		while(addElementsIter.hasNext()) {
+			Sprite element = addElementsIter.next();
+			game.getAllElements().add(element);
+			addElementsIter.remove();
+		}
+	}
+
 	private void onBlockAction(Block temp, Iterator<Sprite> allElementsIter ) {
 		if (game.getSnake().isShieldActive()) {
 			temp.destroy();
 			allElementsIter.remove();
+			addElements.add(Explosion.getExplosionObject(temp, game.getBlockExplosionPath(), game.getScreenCoordinates(),0.89));
 			game.getScore().value++;
 		} else {
 			try {
-				if (temp.canBeDestroyed(game.getSnake())) {
+				if (temp.getNumber()<=5) {
 					allElementsIter.remove();
+					addElements.add(Explosion.getExplosionObject(temp, game.getBlockExplosionPath(), game.getScreenCoordinates(),0.89));
+					for(int i=0; i<temp.getNumber();i++) {
+						game.getSnake().decreaseLength();
+					}
+					game.getSnake().decreaseLength();
+					game.getScore().value+=temp.getNumber();
+					game.setSpeedToDefault();
+				}
+				else if (temp.canBeDestroyed(game.getSnake())) {
+					allElementsIter.remove();
+					addElements.add(Explosion.getExplosionObject(temp, game.getBlockExplosionPath(), game.getScreenCoordinates(),0.89));
 					game.getScore().value++;
 					game.setSpeedToDefault();
 				} else {
@@ -326,27 +357,30 @@ public class Animation extends AnimationTimer implements Serializable {
 				}
 			} catch (SnakeLengthZeroException s) {
 				this.stop();
-				try
-		        { 
-		            Files.deleteIfExists(Paths.get("resume.txt")); 
-		        } 
-		        catch(NoSuchFileException e) 
-		        { 
-		            System.out.println("No such file/directory exists"); 
-		        } 
-		        catch(DirectoryNotEmptyException e) 
-		        { 
-		            System.out.println("Directory is not empty."); 
-		        } 
-		        catch(IOException e) 
-		        { 
-		            System.out.println("Invalid permissions."); 
-		        }  
-		        System.out.println("Deletion successful."); 
+				deleteResumeFileIfExists();
 				game.endGame();
 			}
 		}
 	}
+	private void deleteResumeFileIfExists() {
+		try
+        { 
+            Files.deleteIfExists(Paths.get("resume.txt")); 
+        } 
+        catch(NoSuchFileException e) 
+        { 
+            System.out.println("No such file/directory exists"); 
+        } 
+        catch(DirectoryNotEmptyException e) 
+        { 
+            System.out.println("Directory is not empty."); 
+        } 
+        catch(IOException e) 
+        { 
+            System.out.println("Invalid permissions."); 
+        }
+	}
+
 	private void attractCoinIfMagnetActive(Coin coin) {
 		if (game.getSnake().magnetIntersects(coin)) {
 			double disX = game.getSnake().positionX - coin.positionX;
