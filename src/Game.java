@@ -24,6 +24,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class Game extends Application implements Serializable {
 	private int speed;
@@ -45,7 +46,7 @@ public class Game extends Application implements Serializable {
 	private final String wallPath;
 	private final String blockExplosionPath;
 	private final String tokenExplosionPath;
-	private transient Button resumeButton;
+	private transient Button exitButton;
 	private transient Button pauseButton;
 	private ArrayList<String> input = new ArrayList<String>();
 	private ArrayList<Sprite> allElements = new ArrayList<Sprite>();
@@ -134,11 +135,11 @@ public class Game extends Application implements Serializable {
 		paneRight.setPadding(new Insets(20));
 		paneRight.setAlignment(Pos.TOP_CENTER);
 		pauseButton = new Button("Pause");
-		resumeButton = new Button("Resume");
+		exitButton = new Button("Exit");
 		pauseButton.setStyle("-fx-background-color: transparent");
-		resumeButton.setStyle("-fx-background-color: transparent");
+		exitButton.setStyle("-fx-background-color: transparent");
 		paneRight.getChildren().add(pauseButton);
-		paneRight.getChildren().add(resumeButton);
+		paneRight.getChildren().add(exitButton);
 		root.setRight(paneRight);
 
 		pauseButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -150,7 +151,7 @@ public class Game extends Application implements Serializable {
 				myAnimation.stop();
 			}
 		});
-		resumeButton.setOnAction(new EventHandler<ActionEvent>() {
+		exitButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
 				// myAnimation.start();
@@ -183,7 +184,18 @@ public class Game extends Application implements Serializable {
 	public void start(Stage theStage) {
 		this.stage = theStage;
 		initialise();
-
+		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+	          public void handle(WindowEvent we) {
+	              try {
+	            	  myAnimation.lastNanoTime.value = myAnimation.currentNanoTime;
+	            	  myAnimation.flag.value = 1;
+	            	  myAnimation.stop();
+	            	  serialize();
+	              } catch (IOException e) {
+	            	  e.printStackTrace();
+	              }
+	         }
+	    }); 
 		// allElements.add(makeBallPowerUp(100, 200));
 		// allElements.add(makeShield(200, 200));
 		// allElements.add(makeCoin(50, 100));
