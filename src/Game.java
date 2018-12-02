@@ -675,6 +675,7 @@ public class Game extends Application implements Serializable {
 		Game gameCont = deserialize();
 		gameCont.snake.activateDestroyAllBlocks();
 		gameCont.snake.addBalls(10);
+		gameCont.snake.setCoins(0);
 		(gameCont).start(new Stage());
 	}
 }

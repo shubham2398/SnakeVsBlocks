@@ -481,4 +481,8 @@ public class Snake extends Sprite implements Serializable {
 		} else
 			return false;
 	}
+
+	public void setCoins(int i) {
+		coins = i;
+	}
 }
