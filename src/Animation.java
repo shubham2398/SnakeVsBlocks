@@ -357,7 +357,7 @@ public class Animation extends AnimationTimer implements Serializable {
 	 */
 	@Override
 	public void handle(long currentNanoTime) {
-		game.addSpeed(2 * game.getSnake().getScore());
+		game.addSpeed((int)Math.pow(game.getSnake().getLength(),1.5));
 		game.setSpeedToDefault();
 		this.currentNanoTime = currentNanoTime;
 		double elapsedTime;

@@ -24,16 +24,32 @@ public class Leaderboard extends Application implements Serializable {
 	/**
 	 * topScorers is the AraayList of Players who are top 10 scorers. controller is
 	 * the object of the LeaderBoardController class used to display the data on
-	 * leaderboard using FXML
+	 * leaderboard using FXML leaderboard is the static Leaderboard as there will be
+	 * only one instance of leaderboard and that is this variable
 	 */
 	private ArrayList<Player> topScorers;
 	private transient LeaderboardController controller;
+	private static Leaderboard leaderboard;
 
 	/**
-	 * The constructor assigns a new list of Players to the topScorers
+	 * The constructor assigns a new list of Players to the topScorers. It is made
+	 * private because there will be only 1 leaderboard in the game. So it is
+	 * implemented with Singleton design pattern.
 	 */
-	public Leaderboard() {
+	private Leaderboard() {
 		topScorers = new ArrayList<Player>();
+	}
+
+	/**
+	 * This gives the instance of LeaderBoard and since there is only one leadeboard
+	 * hence it does so by singleton design pattern. 
+	 * @return leaderboard static object
+	 */
+	public static Leaderboard getInstance() {
+		if (leaderboard == null) {
+			leaderboard = new Leaderboard();
+		}
+		return leaderboard;
 	}
 
 	/**
@@ -95,17 +111,16 @@ public class Leaderboard extends Application implements Serializable {
 	 * @throws ClassNotFoundException
 	 */
 	public static Leaderboard deserialize() throws IOException, ClassNotFoundException {
-		Leaderboard obj;
 		ObjectInputStream in = null;
 		try {
 			in = new ObjectInputStream(new FileInputStream("leaderboard.txt"));
-			obj = (Leaderboard) in.readObject();
+			leaderboard = (Leaderboard) in.readObject();
 		} finally {
 			if (in != null) {
 				in.close();
 			}
 		}
-		return obj;
+		return leaderboard;
 	}
 
 	/**

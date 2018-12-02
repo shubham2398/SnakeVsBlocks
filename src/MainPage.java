@@ -87,7 +87,7 @@ public class MainPage extends Application {
 		try {
 			leaderboard = Leaderboard.deserialize();
 		} catch (IOException e) {
-			leaderboard = new Leaderboard();
+			leaderboard = Leaderboard.getInstance();
 		}
 	}
 
