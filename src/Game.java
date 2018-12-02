@@ -52,12 +52,9 @@ public class Game extends Application implements Serializable {
 	private Snake snake;
 	private int snakeYPos;
 	private double snakeToBeShiftedTo;
-	public double block_dur = 9;
-	public int repeat;
-	public double ball_dur = 3;
 	private final int[] screenCoordinates = { 0, 406, 0, 650 };
 	private Animation myAnimation;
-	public transient Random rnd;
+	private transient Random rnd;
 
 	public Game() {
 		speed = this.GAME_SPEED + this.ADD_SPEED;
@@ -234,41 +231,6 @@ public class Game extends Application implements Serializable {
 				}
 			}
 		});
-		// allElements.add(makeBallPowerUp(100, 200));
-		// allElements.add(makeShield(200, 200));
-		// allElements.add(makeCoin(50, 100));
-		// allElements.add(makeMagnet(350, 300));
-		// allElements.add(makeDestroyBlocksPowerUp(300, 150));
-
-		// for (int i = 0; i < 5; i++) {
-		// allElements.add(makeBlock(0 + (BLOCK_SIZE) * i + (i + 1), -360, 1 +
-		// rnd.nextInt(2)));
-		// }
-		// int ball_count = 3;
-		// int[] obj_exist = new int[5];
-		//
-		// while (ball_count > 0) {
-		// int x_loc = rnd.nextInt(5);
-		// if (obj_exist[x_loc] == 0) {
-		// obj_exist[x_loc] = 1;
-		// allElements.add(makeBallPowerUp(getBLOCK_SIZE() * x_loc + x_loc +
-		// getBLOCK_SIZE() / 2 - 12,
-		// -200 + getBLOCK_SIZE() / 2 - 10, 1 + rnd.nextInt(5)));
-		// ball_count -= 1;
-		// }
-		// }
-
-		// getAllElements().add(makeDestroyBlocksPowerUp(getBLOCK_SIZE()*2 + 2 , -360 +
-		// getBLOCK_SIZE()/2 ));
-		// allElements.add(makeWall((BLOCK_SIZE) * 1 + (1 + 1) + BLOCK_SIZE -8, -360 +
-		// BLOCK_SIZE, 270, 0));
-		// allElements.add(makeWall((BLOCK_SIZE) * 2 + (2 + 1) + BLOCK_SIZE +5, -360 +
-		// BLOCK_SIZE, 270, 0));
-		// allElements.add(makeWall((BLOCK_SIZE) * 3 + (3 + 1) + BLOCK_SIZE / 2, -180 +
-		// BLOCK_SIZE, 80, 1));
-		// allElements.add(makeWall((BLOCK_SIZE) * 4 + (4 + 1) + BLOCK_SIZE / 2, -180 +
-		// BLOCK_SIZE, 90, 1));
-		repeat = 3 + rnd.nextInt(2);
 
 		myAnimation.start();
 
