@@ -32,7 +32,7 @@ public class Snake extends Sprite implements Serializable {
 	}
 
 	@Override
-	protected void setImage(Image i) {
+	public void setImage(Image i) {
 		super.setImage(i);
 		for (Ball ball : balls) {
 			ball.setImage(i);

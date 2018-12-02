@@ -5,7 +5,25 @@ import java.io.Serializable;
 
 import javafx.geometry.Rectangle2D;
 
+/**
+ * This is the class that has the basic features of all game objects. 
+ * It is the super class of all other game objects.
+ * It is used to render, update, identify collisions and forms the basis of all game objects properties.
+ * @author SHUBHAM THAKRAL, TANMAY BANSAL
+ * @version 1.0
+ */
 public abstract class Sprite implements Serializable{
+	/**
+	 * It has various attributes which are protected so that they can be accessed by subclasses. 
+	 * The image attribute stores the image of type Image. Since Image type can't be serialized, hence it is made transient.
+	 * The imagePath stores the image path. This is used to serialize the image.
+	 * The positionX and positionY store the position of object on screen.
+	 * The velocityX and velocityY store the velocity of object on screen.
+	 * The width and height store the width and height of image.
+	 * Screen coordinates store the upper and lower bounds of screen.
+	 * The 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected transient Image image;
 	protected String imagePath;
 	protected double positionX;
@@ -16,6 +34,10 @@ public abstract class Sprite implements Serializable{
 	protected double height;
 	protected int[] screenCoordinates;
 
+	/**
+	 * In the constructor, we initialize both positions and velocities to zero. 
+	 * @param screenCoordinates is an array of upper and lower bounds of the screen in XY plane. It is taken so that objects can know the boundaries of screen.
+	 */
 	public Sprite(int[] screenCoordinates) {
 		positionX = 0;
 		positionY = 0;
@@ -23,20 +45,33 @@ public abstract class Sprite implements Serializable{
 		velocityY = 0;
 		this.screenCoordinates = screenCoordinates;
 	}
-
-	protected void setImage(Image i) {
+	
+	/**
+	 * This method is used to set the image of the Sprite object.
+	 * This method also initializes the width and height of image.
+	 * @param i is the Image object that is the sprite's image to be set.
+	 */
+	public void setImage(Image i) {
 		image = i;
 		width = i.getWidth();
 		height = i.getHeight();
-		// System.out.println("Widht: " + width + " Height: " + height);
 	}
-
+	
+	/**
+	 * This method takes the file path of image as an argument, makes an image of it,
+	 * stores the path in imagePath and the calls the {@link setImage(Image)} method to set the image.
+	 * @param filename
+	 */
 	public void setImage(String filename) {
 		Image i = new Image(filename);
 		this.imagePath=filename;
 		setImage(i);
 	}
 	
+	/**
+	 * This method synchronizes the image with with the imagePath.
+	 * This is generally used after deserializing.
+	 */
 	public void setImage() {
 		Image i = new Image(this.imagePath,width,height,false,false);
 		setImage(i);
