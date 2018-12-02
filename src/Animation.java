@@ -383,17 +383,17 @@ public class Animation extends AnimationTimer implements Serializable {
 					game.getScreenCoordinates(), 0.89));
 		} else {
 			try {
-				if (temp.getNumber() <= 5 && game.getSnake().getLength() > 5) {
+				if (temp.getNumber() <= 5 && game.getSnake().getLength() > temp.getNumber()) {
 					allElementsIter.remove();
 					Media sound = new Media(new File("sounds/block_exploded.mp3").toURI().toString());
 					MediaPlayer mediaPlayer = new MediaPlayer(sound);
 					mediaPlayer.play();
 					addElements.add(Explosion.getExplosionObject(temp, game.getBlockExplosionPath(),
 							game.getScreenCoordinates(), 0.89));
-					for (int i = 1; i < temp.getNumber(); i++) {
+					for (int i = 0; i < temp.getNumber(); i++) {
 						game.getSnake().decreaseLength();
 					}
-					game.getSnake().decreaseLength();
+					//game.getSnake().decreaseLength();
 					game.getScore().value += temp.getNumber();
 					game.setSpeedToDefault();
 				} else if (temp.getNumber() <= 5) {
