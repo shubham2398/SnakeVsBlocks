@@ -292,4 +292,11 @@ public class Snake extends Sprite implements Serializable {
 	public int getScore() {
 		return score;
 	}
+
+	public boolean isDoubleScoreActive() {
+		if (doubleScoreTime > 0) {
+			return true;
+		} else
+			return false;
+	}
 }

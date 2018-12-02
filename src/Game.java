@@ -43,6 +43,7 @@ public class Game extends Application implements Serializable {
 	private final String magnetImagePath;
 	private final String shieldImagePath;
 	private final String destroyBlocksPowerUpImagePath;
+	private final String doubleScorePowerUpImagePath;
 	private final String blockRelativePath;
 	private final String wallPath;
 	private final String blockExplosionPath;
@@ -71,6 +72,7 @@ public class Game extends Application implements Serializable {
 		wallPath = "file:images/wall.png";
 		blockExplosionPath = "file:images/explosion.gif";
 		tokenExplosionPath = "file:images/token_explosion.gif";
+		doubleScorePowerUpImagePath = "file:images/double_score.png";
 		myAnimation = new Animation(this);
 		rnd = new Random();
 		snake = new Snake(screenCoordinates);
@@ -280,6 +282,15 @@ public class Game extends Application implements Serializable {
 		bomb.setPosition(px, py);
 		bomb.addVelocity(0, speed);
 		return bomb;
+	}
+	
+	public Sprite makeDobleScorePowerUp(double px, double py) {
+		Sprite x2 = new DoubleScorePowerUp(this.screenCoordinates);
+		x2.setImage(new Image(doubleScorePowerUpImagePath, BALL_SIZE + 20, BALL_SIZE + 20, true, false));
+		x2.setImagePath(destroyBlocksPowerUpImagePath);
+		x2.setPosition(px, py);
+		x2.addVelocity(0, speed);
+		return x2;
 	}
 
 	public Sprite makeBlock(double px, double py, int num) {

@@ -25,10 +25,9 @@ public class Animation extends AnimationTimer implements Serializable {
 	public long currentNanoTime;
 	private int[] layer;
 	private ArrayList<Sprite> addElements = new ArrayList<Sprite>();
-	private transient Random rnd;
+	private static transient Random rnd = new Random();
 
 	public Animation(Game g) {
-		rnd = new Random();
 		repeat = 3 + rnd.nextInt(2);
 		layer = new int[5];
 		for (int i = 0; i < 5; i++)
@@ -58,6 +57,13 @@ public class Animation extends AnimationTimer implements Serializable {
 					.add(game.makeDestroyBlocksPowerUp(
 							game.getBLOCK_SIZE() * x_dist + x_dist + game.getBLOCK_SIZE() / 2 - 12,
 							-360 + game.getBLOCK_SIZE() / 2 - 10));
+		} else if (powerUpNo == 10)
+		{	System.out.println("AAgyaaa");
+			game.getAllElements()
+			.add(game.makeDobleScorePowerUp(
+					game.getBLOCK_SIZE() * x_dist + x_dist + game.getBLOCK_SIZE() / 2 - 12,
+					-360 + game.getBLOCK_SIZE() / 2 - 10));
+			
 		}
 	}
 
@@ -198,8 +204,14 @@ public class Animation extends AnimationTimer implements Serializable {
 					x_dist = rnd.nextInt(5);
 				}
 				int secondPowerUp = rnd.nextInt(20);
+				if(secondPowerUp>=1 && secondPowerUp<=7) {
+					secondPowerUp = 1;
+				}
 				while (secondPowerUp == which_powerUp) {
 					secondPowerUp = rnd.nextInt(20);
+					if(secondPowerUp>=1 && secondPowerUp<=7) {
+						secondPowerUp = 1;
+					}
 				}
 				displayPowerUp(secondPowerUp, x_dist);
 			}
@@ -326,7 +338,24 @@ public class Animation extends AnimationTimer implements Serializable {
 		if (game.getSnake().isShieldActive()) {
 			displayShield();
 		}
+		if(game.getSnake().isDoubleScoreActive()) {
+			displayDoubleScore();
+		}
 		game.getGc().setFont(f);
+	}
+
+	private void displayDoubleScore() {
+		Shield s = new Shield(game.getScreenCoordinates());
+		s.setImage(
+				new Image("file:images/double_score.png", game.getBallSize() * 1.5, game.getBallSize() * 1.5, false, false));
+		s.setImagePath("file:images/shield.png");
+		s.setPosition(game.getScreenCoordinates()[0] + 175 + game.getBallSize()/2 + 10,
+				game.getScreenCoordinates()[2] + 20);
+		s.setVelocity(0, 0);
+		s.render(game.getGc());
+		String doubleScoreText = String.valueOf(game.getSnake().getDoubleScoreTime());
+		game.getGc().strokeText(doubleScoreText, game.getScreenCoordinates()[0] + 185 + 10 + game.getBallSize()/2,
+				game.getScreenCoordinates()[2] + 15);
 	}
 
 	private void displayShield() {
