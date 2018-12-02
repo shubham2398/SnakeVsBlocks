@@ -8,9 +8,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javafx.animation.AnimationTimer;
+import javafx.scene.image.Image;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 public class Animation extends AnimationTimer implements Serializable {
 	Game game;
@@ -324,10 +326,42 @@ public class Animation extends AnimationTimer implements Serializable {
 		game.getGc().setStroke(Color.WHITE);
 		String pointsText = "Score: " + (game.getScore().value);
 		game.getGc().strokeText(pointsText, game.getScreenCoordinates()[1] - 70, game.getScreenCoordinates()[2] + 30);
-		String coinText = "Coins : $" + (game.getSnake().getCoins());
+		String coinText = "Coins : " + (game.getSnake().getCoins());
 		game.getGc().strokeText(coinText, game.getScreenCoordinates()[0] + 10, game.getScreenCoordinates()[2] + 30);
+		
+		Font f = game.getGc().getFont();
+		game.getGc().setFont(new Font("System Regular", 15));
+		if(game.getSnake().isMagnetActive()) {
+			displayMagnet();
+		}
+		if(game.getSnake().isShieldActive()) {
+			displayShield();
+		}
+		game.getGc().setFont(f);
 	}
 	
+	private void displayShield() {
+		Shield s = new Shield(game.getScreenCoordinates());
+		s.setImage(new Image("file:images/shield.png", game.getBallSize()*1.5, game.getBallSize()*1.5, false, false));
+		s.setImagePath("file:images/shield.png");
+		s.setPosition(game.getScreenCoordinates()[0] + 250 + game.getBallSize()+10, game.getScreenCoordinates()[2] + 20);
+		s.setVelocity(0, 0);
+		s.render(game.getGc());
+		String shieldText = String.valueOf(game.getSnake().getShieldTime());
+		game.getGc().strokeText(shieldText,game.getScreenCoordinates()[0] + 260 + 10 + game.getBallSize(), game.getScreenCoordinates()[2] + 15);
+	}
+
+	private void displayMagnet() {
+		Magnet m = new Magnet(game.getScreenCoordinates());
+		m.setImage(new Image("file:images/magnet.jpg", game.getBallSize()*1.5, game.getBallSize()*1.5, false, false));
+		m.setImagePath("file:images/magnet_for_timer.gif");
+		m.setPosition(game.getScreenCoordinates()[0] + 100, game.getScreenCoordinates()[2] + 20);
+		m.setVelocity(0, 0);
+		m.render(game.getGc());
+		String magnetText = String.valueOf(game.getSnake().getMagnetTime());
+		game.getGc().strokeText(magnetText, game.getScreenCoordinates()[0] + 110, game.getScreenCoordinates()[2] + 15);
+	}
+
 	private void addElements() {
 		Iterator<Sprite> addElementsIter = addElements.iterator();
 		while(addElementsIter.hasNext()) {

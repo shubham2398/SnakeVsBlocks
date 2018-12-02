@@ -384,4 +384,7 @@ public class Game extends Application implements Serializable {
 	public int getSnake_left_right_speed() {
 		return snake_left_right_speed;
 	}
+	public int getBallSize() {
+		return this.BALL_SIZE;
+	}
 }

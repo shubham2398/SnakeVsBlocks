@@ -258,4 +258,10 @@ public class Snake extends Sprite implements Serializable {
 		else 
 			return false;
 	}
+	public int getShieldTime() {
+		return (int)Math.ceil(shieldTime);
+	}
+	public int getMagnetTime() {
+		return (int)Math.ceil(magnetTime);
+	}
 }
