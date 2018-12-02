@@ -9,8 +9,10 @@ import javafx.scene.shape.Circle;
 public class Snake extends Sprite implements Serializable {
 	private int len;
 	private int coins;
+	private int score;
 	private double shieldTime = 0;
 	private double magnetTime = 0;
+	private double doubleScoreTime = 0;
 	private boolean destroyAllBlocks ;
 	private double s1,s2,s3,s4,s5;
 	private ArrayList<Ball> balls = new ArrayList<Ball>(5);
@@ -25,6 +27,7 @@ public class Snake extends Sprite implements Serializable {
 		balls.add(new Ball(screenCoordinates));
 		balls.add(new Ball(screenCoordinates));
 		coins=0;
+		score=0;
 		destroyAllBlocks=false;
 	}
 
@@ -142,6 +145,12 @@ public class Snake extends Sprite implements Serializable {
 		} else {
 			magnetTime = 0;
 		}
+		if(doubleScoreTime>0) {
+			doubleScoreTime -= time;
+		}
+		else {
+			doubleScoreTime = 0;
+		}
 	}
 
 	@Override
@@ -218,6 +227,19 @@ public class Snake extends Sprite implements Serializable {
 		} else
 			return false;
 	}
+	
+	public void activateDoubleScore() {
+		doubleScoreTime = 5;
+	}
+	
+	public void incrementScore(int num) {
+		if(doubleScoreTime>0) {
+			score+=num*2;
+		}
+		else {
+			score+=num;
+		}
+	}
 
 	public Circle magnetBoundary() {
 		if (isMagnetActive())
@@ -263,5 +285,11 @@ public class Snake extends Sprite implements Serializable {
 	}
 	public int getMagnetTime() {
 		return (int)Math.ceil(magnetTime);
+	}
+	public int getDoubleScoreTime() {
+		return (int)Math.ceil(doubleScoreTime);
+	}
+	public int getScore() {
+		return score;
 	}
 }

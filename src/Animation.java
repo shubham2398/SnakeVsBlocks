@@ -94,7 +94,7 @@ public class Animation extends AnimationTimer implements Serializable {
 
 	@Override
 	public void handle(long currentNanoTime) {
-		game.addSpeed(2 * game.getScore().value);
+		game.addSpeed(2 * game.getSnake().getScore());
 		game.setSpeedToDefault();
 		this.currentNanoTime = currentNanoTime;
 		double elapsedTime;
@@ -321,7 +321,7 @@ public class Animation extends AnimationTimer implements Serializable {
 		game.getSnake().update(elapsedTime);
 
 		game.getGc().setStroke(Color.WHITE);
-		String pointsText = "Score: " + (game.getScore().value);
+		String pointsText = "Score: " + (game.getSnake().getScore());
 		game.getGc().strokeText(pointsText, game.getScreenCoordinates()[1] - 70, game.getScreenCoordinates()[2] + 30);
 		String coinText = "Coins : " + (game.getSnake().getCoins());
 		game.getGc().strokeText(coinText, game.getScreenCoordinates()[0] + 10, game.getScreenCoordinates()[2] + 30);
@@ -394,7 +394,7 @@ public class Animation extends AnimationTimer implements Serializable {
 						game.getSnake().decreaseLength();
 					}
 					//game.getSnake().decreaseLength();
-					game.getScore().value += temp.getNumber();
+					game.getSnake().incrementScore(temp.getNumber());
 					game.setSpeedToDefault();
 				} else if (temp.getNumber() <= 5) {
 					throw new SnakeLengthZeroException("Game Over");
@@ -405,13 +405,13 @@ public class Animation extends AnimationTimer implements Serializable {
 					mediaPlayer.play();
 					addElements.add(Explosion.getExplosionObject(temp, game.getBlockExplosionPath(),
 							game.getScreenCoordinates(), 0.89));
-					game.getScore().value++;
+					game.getSnake().incrementScore(1);
 					game.setSpeedToDefault();
 				} else {
 					Media sound = new Media(new File("sounds/length_decreased.mp3").toURI().toString());
 					MediaPlayer mediaPlayer = new MediaPlayer(sound);
 					mediaPlayer.play();
-					game.getScore().value++;
+					game.getSnake().incrementScore(1);
 					temp.collide(game.getSnake());
 					game.setSpeed(0);
 				}

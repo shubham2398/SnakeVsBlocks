@@ -57,7 +57,6 @@ public class Game extends Application implements Serializable {
 	public double ball_dur = 3;
 	private final int[] screenCoordinates = { 0, 406, 0, 650 };
 	private Animation myAnimation;
-	public IntValue score;
 	public transient Random rnd;
 
 	public Game() {
@@ -76,7 +75,6 @@ public class Game extends Application implements Serializable {
 		blockExplosionPath = "file:images/explosion.gif";
 		tokenExplosionPath = "file:images/token_explosion.gif";
 		myAnimation = new Animation(this);
-		score = new IntValue(0);
 		rnd = new Random();
 		snake = new Snake(screenCoordinates);
 		snake.setImage(new Image(ballImagePath, BALL_SIZE, BALL_SIZE, false, true));
@@ -365,10 +363,6 @@ public class Game extends Application implements Serializable {
 		return this.input;
 	}
 
-	public IntValue getScore() {
-		return this.score;
-	}
-
 	public GraphicsContext getGc() {
 		return this.gc;
 	}
@@ -409,7 +403,7 @@ public class Game extends Application implements Serializable {
 		} catch (IOException e) {
 			
 		}
-		GameOver.gameOver(score.value);
+		GameOver.gameOver(snake.getScore());
 	}
 
 	public void endGame2() {
