@@ -636,7 +636,7 @@ public class Animation extends AnimationTimer implements Serializable {
 	 * This method is used by other classes, mainly Game class, to set the value of
 	 * the last system recorded time of the last frame.
 	 * 
-	 * @param last_nano_time
+	 * @param last_nano_time is that last system time in nano seconds
 	 */
 	public void setLastNanoTime(long last_nano_time) {
 		lastNanoTime = last_nano_time;
@@ -646,7 +646,7 @@ public class Animation extends AnimationTimer implements Serializable {
 	 * This method is used by other classes, mainly Game class, to set the value of
 	 * the flag variable, if the game is paused any time during the game play.
 	 * 
-	 * @param flag
+	 * @param flag is the value of flag to be set
 	 */
 	public void setFlag(int flag) {
 		this.flag = flag;

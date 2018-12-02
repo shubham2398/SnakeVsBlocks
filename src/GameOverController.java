@@ -1,6 +1,13 @@
+import java.io.IOException;
+import java.nio.file.DirectoryNotEmptyException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Paths;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -35,10 +42,11 @@ public class GameOverController {
 	 * clicked. It also closes the game over stage and displays the main page.
 	 * 
 	 * @param e is the MouseEvent which stores the state of the mouse.
-	 * @throws Exception, It throws Exception if the stage creation fails.
+	 * @throws Exception It throws Exception if the stage creation fails.
 	 */
 	@FXML
 	public void enterName(MouseEvent e) throws Exception {
+		Files.deleteIfExists(Paths.get("resume.txt"));
 		Stage stage = (Stage) finalScore.getScene().getWindow();
 		stage.close();
 		String userName = name.getText();
@@ -53,5 +61,15 @@ public class GameOverController {
 	 */
 	public void setFinalScore(String score) {
 		finalScore.setText(score);
+	}
+	
+	@FXML
+	private ImageView revive;
+	@FXML
+	public void continuePlaying(MouseEvent e) throws Exception {
+		Stage stage = (Stage) finalScore.getScene().getWindow();
+		stage.close();
+		MainPage.addCoins(-20);
+		Game.reviveSnake();
 	}
 }

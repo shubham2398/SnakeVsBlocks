@@ -40,8 +40,8 @@ public class MainPage extends Application {
 	 * It is executed as the first thing when the program starts.
 	 * 
 	 * @param args are the command line arguments
-	 * @throws IOException
-	 * @throws ClassNotFoundException
+	 * @throws IOException If any serialization, deserialization unsuccessful
+	 * @throws ClassNotFoundException if any deserialiation unsuccessful
 	 */
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
 		loadLeaderBoard();
@@ -143,7 +143,7 @@ public class MainPage extends Application {
 	 * 
 	 * @param score is the score of the player
 	 * @param name  is the name of the player
-	 * @throws IOException
+	 * @throws IOException if serialization unsuccessful
 	 */
 	public static void setLastScore(int score, String name) throws IOException {
 		leaderboard.checkNewHighScore(score, name);
@@ -156,6 +156,11 @@ public class MainPage extends Application {
 				out.close();
 			}
 		}
+	}
+	
+	public static int getCoins()
+	{
+		return ttlCoins;
 	}
 
 	/**
@@ -172,7 +177,7 @@ public class MainPage extends Application {
 	/**
 	 * This method displays the leaderboard
 	 * 
-	 * @throws Exception
+	 * @throws Exception if exception thrown
 	 */
 	public static void displayLeaderboard() throws Exception {
 		leaderboard.start(new Stage());
@@ -183,7 +188,7 @@ public class MainPage extends Application {
 	 * This method adds the coins to ttlCoins and serializes it
 	 * 
 	 * @param coins are the number of coins to be added
-	 * @throws IOException
+	 * @throws IOException if exception thrown
 	 */
 	public static void addCoins(int coins) throws IOException {
 		ttlCoins += coins;

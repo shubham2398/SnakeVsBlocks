@@ -139,10 +139,7 @@ public class Game extends Application implements Serializable {
 	/**
 	 * This function is used to serialize the ongoing game, if it is closed
 	 * abruptly.
-	 * 
-	 * @throws IOException, If there is an error while creating the file or writing
-	 *                      in it, the writeObject method throws a checked exception
-	 *                      called the IOException.
+	 * @throws IOException is thrown 
 	 */
 	public void serialize() throws IOException {
 		ObjectOutputStream out = null;
@@ -449,6 +446,7 @@ public class Game extends Application implements Serializable {
 	 *           up has to be displayed.
 	 * @param py is used to store the y-coordinate of the position where the power
 	 *           up has to be displayed.
+	 * @param num is the the number with which block needs to be made
 	 * @return It returns the block object of actual type Block and declared type
 	 *         Sprite class.
 	 */
@@ -471,6 +469,8 @@ public class Game extends Application implements Serializable {
 	 *           up has to be displayed.
 	 * @param py is used to store the y-coordinate of the position where the power
 	 *           up has to be displayed.
+	 * @param len is the length of wall
+	 * @param side is the thickness of wall
 	 * @return It returns the wall object of actual type Wall and declared type
 	 *         Sprite class.
 	 */
@@ -604,12 +604,21 @@ public class Game extends Application implements Serializable {
 	public void endGame() {
 		System.out.println("Game Ended");
 		stage.close();
+		
+		myAnimation.setLastNanoTime(myAnimation.getCurrentNanoTime());
+		myAnimation.setFlag(1);
+		myAnimation.stop();
+		
 		try {
 			MainPage.addCoins(snake.getCoins());
+			serialize();
 		} catch (IOException e) {
 
 		}
-		GameOver.gameOver(snake.getScore());
+		if(MainPage.getCoins()>=20)
+			GameOver.gameOverWithRevive(snake.getScore());
+		else
+			GameOver.gameOver(snake.getScore());
 	}
 
 	/**
@@ -660,5 +669,12 @@ public class Game extends Application implements Serializable {
 	 */
 	public int getBallSize() {
 		return this.BALL_SIZE;
+	}
+	
+	public static void reviveSnake() throws Exception {
+		Game gameCont = deserialize();
+		gameCont.snake.activateDestroyAllBlocks();
+		gameCont.snake.addBalls(10);
+		(gameCont).start(new Stage());
 	}
 }

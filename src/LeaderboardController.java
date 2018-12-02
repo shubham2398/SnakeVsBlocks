@@ -27,7 +27,7 @@ public class LeaderboardController {
 	 * This function displays the main page when goBack button is clicked.
 	 * 
 	 * @param e is the MouseEvent which stores the state of the mouse.
-	 * @throws Exception, It throws Exception if the stage creation fails.
+	 * @throws Exception It throws Exception if the stage creation fails.
 	 */
 	@FXML
 	public void displayMainPage(MouseEvent e) throws Exception {
@@ -43,7 +43,7 @@ public class LeaderboardController {
 	 * This function will exit the game when the exit button is clicked.
 	 * 
 	 * @param e is the MouseEvent which stores the state of the mouse.
-	 * @throws Exception, It throws Exception if the stage creation fails.
+	 * @throws Exception It throws Exception if the stage creation fails.
 	 */
 	@FXML
 	public void exit(MouseEvent e) throws Exception {

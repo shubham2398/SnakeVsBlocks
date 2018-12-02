@@ -45,8 +45,8 @@ public class MainPageController {
 	 * 
 	 * @param e is the mousevent which has the state of the mouse at the time of the
 	 *          click
-	 * @throws ClassNotFoundException
-	 * @throws IOException
+	 * @throws ClassNotFoundException if deserialization unsuccessful
+	 * @throws IOException if deserialization unsuccessful
 	 */
 	@FXML
 	public void tapToResume(MouseEvent e) throws ClassNotFoundException, IOException {
@@ -66,7 +66,7 @@ public class MainPageController {
 	 * 
 	 * @param e is the mousevent which has the state of the mouse at the time of the
 	 *          click
-	 * @throws Exception
+	 * @throws Exception throws Exception
 	 */
 	@FXML
 	public void openLeaderboard(MouseEvent e) throws Exception {
@@ -86,7 +86,7 @@ public class MainPageController {
 	 * 
 	 * @param e is the mousevent which has the state of the mouse at the time of the
 	 *          click
-	 * @throws Exception
+	 * @throws Exception throws Exception
 	 */
 	@FXML
 	public void openInstructions(MouseEvent e) throws Exception {
@@ -106,7 +106,7 @@ public class MainPageController {
 	 * 
 	 * @param e is the mousevent which has the state of the mouse at the time of the
 	 *          click
-	 * @throws Exception
+	 * @throws Exception throws Exception
 	 */
 	@FXML
 	public void exit(MouseEvent e) throws Exception {

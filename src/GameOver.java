@@ -21,6 +21,7 @@ public final class GameOver extends Application {
 	 */
 	private static GameOverController controller = null;
 	private static GameOver gover = null;
+	private static boolean revive = false;
 
 	/**
 	 * The constructor is made private since there can be only one object of this
@@ -36,7 +37,11 @@ public final class GameOver extends Application {
 	 */
 	@Override
 	public void start(Stage stage) throws Exception {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("GameOver.fxml"));
+		FXMLLoader loader = null;
+		if(revive)
+			loader = new FXMLLoader(getClass().getResource("GameOverWithRevive.fxml"));
+		else
+			loader = new FXMLLoader(getClass().getResource("GameOver.fxml"));
 		Parent root = loader.load();
 		controller = (GameOverController) loader.getController();
 		Scene scene = new Scene(root, 406, 650);
@@ -52,6 +57,19 @@ public final class GameOver extends Application {
 	 * @param score contains the final score of the player.
 	 */
 	public static void gameOver(int score) {
+		revive = false;
+		if (gover == null)
+			gover = new GameOver();
+		try {
+			gover.start(new Stage());
+		} catch (Exception e) {
+			System.out.println("Game Over screen can't be displayed");
+		}
+		controller.setFinalScore(Integer.toString(score));
+	}
+	
+	public static void gameOverWithRevive(int score) {
+		revive = true;
 		if (gover == null)
 			gover = new GameOver();
 		try {
