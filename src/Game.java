@@ -1,5 +1,4 @@
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -11,16 +10,17 @@ import java.util.Random;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitMenuButton;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -46,8 +46,6 @@ public class Game extends Application implements Serializable {
 	private final String wallPath;
 	private final String blockExplosionPath;
 	private final String tokenExplosionPath;
-	private transient Button exitButton;
-	private transient Button pauseButton;
 	private ArrayList<String> input = new ArrayList<String>();
 	private ArrayList<Sprite> allElements = new ArrayList<Sprite>();
 	private Snake snake;
@@ -130,28 +128,59 @@ public class Game extends Application implements Serializable {
 		root.setCenter(paneCenter);
 		holder.setStyle("-fx-background-image: url('file:images/backg5.jpg')");
 
-		HBox paneRight = new HBox();
-		paneRight.setPrefSize(screenCoordinates[1], screenCoordinates[3]);
-		paneRight.setPadding(new Insets(20));
-		paneRight.setAlignment(Pos.TOP_CENTER);
-		pauseButton = new Button("Pause");
-		exitButton = new Button("Exit");
-		pauseButton.setStyle("-fx-background-color: transparent");
-		exitButton.setStyle("-fx-background-color: transparent");
-		paneRight.getChildren().add(pauseButton);
-		paneRight.getChildren().add(exitButton);
-		root.setRight(paneRight);
+		final Image image = new Image("file:images/pause.jpg", 40, 40, false, false);
+		MenuButton menuButton = new MenuButton("", new ImageView(image));
+		menuButton.setStyle("-fx-background-color: transparent");
+		menuButton.setPrefSize(40, 40);
+		menuButton.relocate(10, 590);
 
-		pauseButton.setOnAction(new EventHandler<ActionEvent>() {
+		MenuItem resumeGame = new MenuItem("Resume Game");
+		MenuItem restartGame = new MenuItem("Restart Game");
+		MenuItem mainMenu = new MenuItem("Main Menu");
+		MenuItem exit = new MenuItem("Exit");
+		menuButton.getItems().addAll(resumeGame, restartGame, mainMenu, exit);
+
+		paneCenter.getChildren().add(menuButton);
+
+		menuButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
-			public void handle(ActionEvent e) {
+			public void handle(MouseEvent e) {
 				myAnimation.lastNanoTime.value = myAnimation.currentNanoTime;
 				// System.out.println(lastNanoTime.value);
 				myAnimation.flag.value = 1;
 				myAnimation.stop();
 			}
 		});
-		exitButton.setOnAction(new EventHandler<ActionEvent>() {
+
+		resumeGame.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				myAnimation.start();
+			}
+		});
+
+		restartGame.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				myAnimation.stop();
+				stage.close();
+				new Game().start(new Stage());
+			}
+		});
+
+		exit.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				try {
+					serialize();
+					stage.close();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+
+		mainMenu.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
 				// myAnimation.start();
@@ -185,17 +214,17 @@ public class Game extends Application implements Serializable {
 		this.stage = theStage;
 		initialise();
 		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-	          public void handle(WindowEvent we) {
-	              try {
-	            	  myAnimation.lastNanoTime.value = myAnimation.currentNanoTime;
-	            	  myAnimation.flag.value = 1;
-	            	  myAnimation.stop();
-	            	  serialize();
-	              } catch (IOException e) {
-	            	  e.printStackTrace();
-	              }
-	         }
-	    }); 
+			public void handle(WindowEvent we) {
+				try {
+					myAnimation.lastNanoTime.value = myAnimation.currentNanoTime;
+					myAnimation.flag.value = 1;
+					myAnimation.stop();
+					serialize();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
 		// allElements.add(makeBallPowerUp(100, 200));
 		// allElements.add(makeShield(200, 200));
 		// allElements.add(makeCoin(50, 100));
@@ -344,9 +373,9 @@ public class Game extends Application implements Serializable {
 	public int getSpeed() {
 		return this.speed;
 	}
-	
+
 	public void addSpeed(int speed) {
-		this.ADD_SPEED=speed;
+		this.ADD_SPEED = speed;
 	}
 
 	public void setSpeed(int speed) {
@@ -362,8 +391,14 @@ public class Game extends Application implements Serializable {
 	}
 
 	public void endGame() {
-		System.out.println("Gello");
+		System.out.println("Game Ended");
 		stage.close();
+		try {
+			MainPage.addCoins(snake.getCoins());
+		}
+		catch (IOException e){
+			
+		}
 		GameOver.gameOver(score.value);
 	}
 
@@ -384,6 +419,7 @@ public class Game extends Application implements Serializable {
 	public int getSnake_left_right_speed() {
 		return snake_left_right_speed;
 	}
+
 	public int getBallSize() {
 		return this.BALL_SIZE;
 	}

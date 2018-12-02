@@ -21,10 +21,12 @@ public class MainPage extends Application {
 	private static Stage primaryStage;
 	private static Leaderboard leaderboard;
 	private static int lastScore = 0;
+	private static int ttlCoins = 0;
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
 		loadLeaderBoard();
 		loadLastScore();
+		loadCoins();
 		launch();
 	}
 
@@ -42,6 +44,7 @@ public class MainPage extends Application {
 		controller = (MainPageController) loader.getController();
 		loadLastScore();
 		controller.updateLastScore(Integer.toString(lastScore));
+//		controller.updateCoins(String.valueOf(ttlCoins));
 
 		Scene scene = new Scene(root, 406, 650);
 		stage.setScene(scene);
@@ -62,6 +65,23 @@ public class MainPage extends Application {
 			DataInputStream in = null;
 			try {
 				in = new DataInputStream(new BufferedInputStream(new FileInputStream("lastscore.txt")));
+				lastScore = in.readInt();
+			} catch (EOFException e) {
+				lastScore = 0;
+			} finally {
+				if (in != null) {
+					in.close();
+				}
+			}
+		}
+	}
+	
+	private static void loadCoins() throws IOException {
+		File f = new File("coins.txt");
+		if (f.exists() && !f.isDirectory()) {
+			DataInputStream in = null;
+			try {
+				in = new DataInputStream(new BufferedInputStream(new FileInputStream("coins.txt")));
 				lastScore = in.readInt();
 			} catch (EOFException e) {
 				lastScore = 0;
@@ -97,5 +117,18 @@ public class MainPage extends Application {
 	public static void displayLeaderboard() throws Exception {
 		leaderboard.start(new Stage());
 		leaderboard.updateLeaderboard();
+	}
+
+	public static void addCoins(int coins) throws IOException {
+		ttlCoins += coins;
+		DataOutputStream out = null;
+		try {
+			out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream("coins.txt")));
+			out.writeInt(ttlCoins);
+		} finally {
+			if (out != null) {
+				out.close();
+			}
+		}
 	}
 }

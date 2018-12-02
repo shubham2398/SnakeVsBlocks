@@ -23,7 +23,7 @@
             <Font name="Calibri Bold" size="22.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="289.0" layoutY="38.5" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Coins" AnchorPane.topAnchor="22.0">
+      <Text fx:id="ttlCoins" fill="WHITE" layoutX="289.0" layoutY="38.5" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Coins" AnchorPane.topAnchor="22.0">
          <font>
             <Font name="Calibri Bold" size="22.0" />
          </font>

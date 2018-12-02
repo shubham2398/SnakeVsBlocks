@@ -94,7 +94,7 @@ public class Animation extends AnimationTimer implements Serializable {
 
 	@Override
 	public void handle(long currentNanoTime) {
-		game.addSpeed(2*game.getScore().value);
+		game.addSpeed(2 * game.getScore().value);
 		game.setSpeedToDefault();
 		this.currentNanoTime = currentNanoTime;
 		double elapsedTime;
@@ -146,8 +146,7 @@ public class Animation extends AnimationTimer implements Serializable {
 						game.getAllElements().add(game.makeBlock(0 + (game.getBLOCK_SIZE()) * i + (i + 1), -360,
 								1 + game.rnd.nextInt(50)));
 				}
-				if (game.getSnake().getLength() > 1)
-				{
+				if (game.getSnake().getLength() > 1) {
 					game.getAllElements().add(game.makeBlock(0 + (game.getBLOCK_SIZE()) * ch1 + (ch1 + 1), -360,
 							1 + game.rnd.nextInt(Math.min(50, game.getSnake().getLength() - 1))));
 					game.getAllElements().add(game.makeBlock(0 + (game.getBLOCK_SIZE()) * ch2 + (ch2 + 1), -360,
@@ -258,22 +257,21 @@ public class Animation extends AnimationTimer implements Serializable {
 		}
 
 		lastNanoTime.value = currentNanoTime;
-		
+
 		addElements();
-		
+
 		Iterator<Sprite> allElementsIter = game.getAllElements().iterator();
 		while (allElementsIter.hasNext()) {
 			Sprite element = allElementsIter.next();
 			if (element.outOfFrame()) {
 				allElementsIter.remove();
-			}
-			else if (element.intersects(game.getSnake())) {
+			} else if (element.intersects(game.getSnake())) {
 				if (element instanceof Block) {
-					this.onBlockAction((Block)element,allElementsIter);
-				} 
-				else if(element instanceof Tokenizable) {
+					this.onBlockAction((Block) element, allElementsIter);
+				} else if (element instanceof Tokenizable) {
 					((Tokenizable) element).action(game.getSnake());
-					addElements.add(Explosion.getExplosionObject(element, game.getTokenExplosionPath(), game.getScreenCoordinates(),1.2));
+					addElements.add(Explosion.getExplosionObject(element, game.getTokenExplosionPath(),
+							game.getScreenCoordinates(), 1.2));
 					Media sound = new Media(new File("sounds/token_collected.mp3").toURI().toString());
 					MediaPlayer mediaPlayer = new MediaPlayer(sound);
 					mediaPlayer.play();
@@ -281,12 +279,10 @@ public class Animation extends AnimationTimer implements Serializable {
 				}
 			} else if (element instanceof Block || element instanceof Wall) {
 				element.forceSpriteCorrectly(game.getSnake());
-			}
-			else if (element instanceof Coin) {
-				this.attractCoinIfMagnetActive((Coin)element);
-			}
-			else if(element instanceof Explosion) {
-				if(((Explosion)element).isDestroyable(elapsedTime)) {
+			} else if (element instanceof Coin) {
+				this.attractCoinIfMagnetActive((Coin) element);
+			} else if (element instanceof Explosion) {
+				if (((Explosion) element).isDestroyable(elapsedTime)) {
 					allElementsIter.remove();
 				}
 			}
@@ -296,7 +292,8 @@ public class Animation extends AnimationTimer implements Serializable {
 			while (allElementsIter2.hasNext()) {
 				Sprite element = allElementsIter2.next();
 				if (element instanceof Block) {
-					addElements.add(Explosion.getExplosionObject(element, game.getBlockExplosionPath(), game.getScreenCoordinates(),0.89));
+					addElements.add(Explosion.getExplosionObject(element, game.getBlockExplosionPath(),
+							game.getScreenCoordinates(), 0.89));
 					allElementsIter2.remove();
 				}
 			}
@@ -314,46 +311,50 @@ public class Animation extends AnimationTimer implements Serializable {
 			element.update(elapsedTime);
 			element.render(game.getGc());
 		}
-		
+
 		game.getSnake().setVelocity(0, 0);
 		if (game.getSnakeToBeShiftedTo() > game.getSnake().positionX + 15) {
 			game.getSnake().setVelocity(game.getSnake_left_right_speed(), 0);
 		} else if (game.getSnakeToBeShiftedTo() < game.getSnake().positionX - 15) {
-			game.getSnake().setVelocity(-1*game.getSnake_left_right_speed(), 0);
+			game.getSnake().setVelocity(-1 * game.getSnake_left_right_speed(), 0);
 		}
 		game.getSnake().update(elapsedTime);
-		
+
 		game.getGc().setStroke(Color.WHITE);
 		String pointsText = "Score: " + (game.getScore().value);
 		game.getGc().strokeText(pointsText, game.getScreenCoordinates()[1] - 70, game.getScreenCoordinates()[2] + 30);
 		String coinText = "Coins : " + (game.getSnake().getCoins());
 		game.getGc().strokeText(coinText, game.getScreenCoordinates()[0] + 10, game.getScreenCoordinates()[2] + 30);
-		
+
 		Font f = game.getGc().getFont();
 		game.getGc().setFont(new Font("System Regular", 15));
-		if(game.getSnake().isMagnetActive()) {
+		if (game.getSnake().isMagnetActive()) {
 			displayMagnet();
 		}
-		if(game.getSnake().isShieldActive()) {
+		if (game.getSnake().isShieldActive()) {
 			displayShield();
 		}
 		game.getGc().setFont(f);
 	}
-	
+
 	private void displayShield() {
 		Shield s = new Shield(game.getScreenCoordinates());
-		s.setImage(new Image("file:images/shield.png", game.getBallSize()*1.5, game.getBallSize()*1.5, false, false));
+		s.setImage(
+				new Image("file:images/shield.png", game.getBallSize() * 1.5, game.getBallSize() * 1.5, false, false));
 		s.setImagePath("file:images/shield.png");
-		s.setPosition(game.getScreenCoordinates()[0] + 250 + game.getBallSize()+10, game.getScreenCoordinates()[2] + 20);
+		s.setPosition(game.getScreenCoordinates()[0] + 250 + game.getBallSize() + 10,
+				game.getScreenCoordinates()[2] + 20);
 		s.setVelocity(0, 0);
 		s.render(game.getGc());
 		String shieldText = String.valueOf(game.getSnake().getShieldTime());
-		game.getGc().strokeText(shieldText,game.getScreenCoordinates()[0] + 260 + 10 + game.getBallSize(), game.getScreenCoordinates()[2] + 15);
+		game.getGc().strokeText(shieldText, game.getScreenCoordinates()[0] + 260 + 10 + game.getBallSize(),
+				game.getScreenCoordinates()[2] + 15);
 	}
 
 	private void displayMagnet() {
 		Magnet m = new Magnet(game.getScreenCoordinates());
-		m.setImage(new Image("file:images/magnet.jpg", game.getBallSize()*1.5, game.getBallSize()*1.5, false, false));
+		m.setImage(
+				new Image("file:images/magnet.jpg", game.getBallSize() * 1.5, game.getBallSize() * 1.5, false, false));
 		m.setImagePath("file:images/magnet_for_timer.gif");
 		m.setPosition(game.getScreenCoordinates()[0] + 100, game.getScreenCoordinates()[2] + 20);
 		m.setVelocity(0, 0);
@@ -364,45 +365,46 @@ public class Animation extends AnimationTimer implements Serializable {
 
 	private void addElements() {
 		Iterator<Sprite> addElementsIter = addElements.iterator();
-		while(addElementsIter.hasNext()) {
+		while (addElementsIter.hasNext()) {
 			Sprite element = addElementsIter.next();
 			game.getAllElements().add(element);
 			addElementsIter.remove();
 		}
 	}
 
-	private void onBlockAction(Block temp, Iterator<Sprite> allElementsIter ) {
+	private void onBlockAction(Block temp, Iterator<Sprite> allElementsIter) {
 		if (game.getSnake().isShieldActive()) {
 			temp.destroy();
 			Media sound = new Media(new File("sounds/block_exploded.mp3").toURI().toString());
 			MediaPlayer mediaPlayer = new MediaPlayer(sound);
 			mediaPlayer.play();
 			allElementsIter.remove();
-			addElements.add(Explosion.getExplosionObject(temp, game.getBlockExplosionPath(), game.getScreenCoordinates(),0.89));
+			addElements.add(Explosion.getExplosionObject(temp, game.getBlockExplosionPath(),
+					game.getScreenCoordinates(), 0.89));
 		} else {
 			try {
-				if (temp.getNumber()<=5 && game.getSnake().getLength()>5) {
+				if (temp.getNumber() <= 5 && game.getSnake().getLength() > 5) {
 					allElementsIter.remove();
 					Media sound = new Media(new File("sounds/block_exploded.mp3").toURI().toString());
 					MediaPlayer mediaPlayer = new MediaPlayer(sound);
 					mediaPlayer.play();
-					addElements.add(Explosion.getExplosionObject(temp, game.getBlockExplosionPath(), game.getScreenCoordinates(),0.89));
-					for(int i=1; i<temp.getNumber();i++) {
+					addElements.add(Explosion.getExplosionObject(temp, game.getBlockExplosionPath(),
+							game.getScreenCoordinates(), 0.89));
+					for (int i = 1; i < temp.getNumber(); i++) {
 						game.getSnake().decreaseLength();
 					}
 					game.getSnake().decreaseLength();
-					game.getScore().value+=temp.getNumber();
+					game.getScore().value += temp.getNumber();
 					game.setSpeedToDefault();
-				}
-				else if (temp.getNumber()<=5) {
+				} else if (temp.getNumber() <= 5) {
 					throw new SnakeLengthZeroException("Game Over");
-				}
-				else if (temp.canBeDestroyed(game.getSnake())) {
+				} else if (temp.canBeDestroyed(game.getSnake())) {
 					allElementsIter.remove();
 					Media sound = new Media(new File("sounds/block_exploded.mp3").toURI().toString());
 					MediaPlayer mediaPlayer = new MediaPlayer(sound);
 					mediaPlayer.play();
-					addElements.add(Explosion.getExplosionObject(temp, game.getBlockExplosionPath(), game.getScreenCoordinates(),0.89));
+					addElements.add(Explosion.getExplosionObject(temp, game.getBlockExplosionPath(),
+							game.getScreenCoordinates(), 0.89));
 					game.getScore().value++;
 					game.setSpeedToDefault();
 				} else {
@@ -420,31 +422,24 @@ public class Animation extends AnimationTimer implements Serializable {
 			}
 		}
 	}
+
 	private void deleteResumeFileIfExists() {
-		try
-        { 
-            Files.deleteIfExists(Paths.get("resume.txt")); 
-        } 
-        catch(NoSuchFileException e) 
-        { 
-            System.out.println("No such file/directory exists"); 
-        } 
-        catch(DirectoryNotEmptyException e) 
-        { 
-            System.out.println("Directory is not empty."); 
-        } 
-        catch(IOException e) 
-        { 
-            System.out.println("Invalid permissions."); 
-        }
+		try {
+			Files.deleteIfExists(Paths.get("resume.txt"));
+		} catch (NoSuchFileException e) {
+			System.out.println("No such file/directory exists");
+		} catch (DirectoryNotEmptyException e) {
+			System.out.println("Directory is not empty.");
+		} catch (IOException e) {
+			System.out.println("Invalid permissions.");
+		}
 	}
 
 	private void attractCoinIfMagnetActive(Coin coin) {
 		if (game.getSnake().magnetIntersects(coin)) {
 			double disX = game.getSnake().positionX - coin.positionX;
 			double disY = game.getSnake().positionY - coin.positionY;
-			coin.setVelocity(0.9 * Math.signum(disX) * game.getSpeed(),
-					1.5 * Math.signum(disY) * game.getSpeed());
+			coin.setVelocity(0.9 * Math.signum(disX) * game.getSpeed(), 1.5 * Math.signum(disY) * game.getSpeed());
 		} else {
 			coin.setVelocity(0, game.getSpeed());
 		}

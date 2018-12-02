@@ -63,5 +63,12 @@ public class MainPageController {
 	public void updateLastScore(String score) {
 		last_score.setText(score);
 	}
+	
+	@FXML
+	private Text ttlCoins;
+	
+	public void updateCoins(String coins) {
+		ttlCoins.setText(coins);
+	}
 
 }
