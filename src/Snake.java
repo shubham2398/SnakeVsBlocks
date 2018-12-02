@@ -342,7 +342,7 @@ public class Snake extends Sprite implements Serializable {
 	 * This method increments the score. The score is incremented by num if
 	 * doubleScorePowerUp is not active, else it is incremented by num*2
 	 * 
-	 * @param num
+	 * @param num is the number by which score needs to increase
 	 */
 	public void incrementScore(int num) {
 		if (this.isDoubleScoreActive()) {

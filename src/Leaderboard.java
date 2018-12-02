@@ -71,7 +71,7 @@ public class Leaderboard extends Application implements Serializable {
 	 * This method overrides the start method of Application class to display the
 	 * leaderboard using FXML.
 	 * 
-	 * @throws IOException
+	 * @throws IOException It throws IOException
 	 */
 	@Override
 	public void start(Stage stage) throws IOException {
@@ -88,7 +88,7 @@ public class Leaderboard extends Application implements Serializable {
 	 * This method serializes the leaderboard and stores it in a file names
 	 * leaderboard.txt
 	 * 
-	 * @throws IOException
+	 * @throws IOException It thrown IOException because of ObjectOutputStream
 	 */
 	public void serialize() throws IOException {
 		ObjectOutputStream out = null;
@@ -107,8 +107,8 @@ public class Leaderboard extends Application implements Serializable {
 	 * leaderboard.txt
 	 * 
 	 * @return Leaderboard type object
-	 * @throws IOException
-	 * @throws ClassNotFoundException
+	 * @throws IOException if deserialization file not present
+	 * @throws ClassNotFoundException if Leaderboard class file not present
 	 */
 	public static Leaderboard deserialize() throws IOException, ClassNotFoundException {
 		ObjectInputStream in = null;

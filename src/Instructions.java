@@ -41,7 +41,7 @@ public class Instructions extends Application {
 	 * when the back button is clicked.
 	 * 
 	 * @param e is the MouseEvent which stores the state of the mouse.
-	 * @throws Exception, It throws Exception if the stage creation fails.
+	 * @throws Exception It throws Exception if the stage creation fails.
 	 */
 	@FXML
 	public void displayMainPage(MouseEvent e) throws Exception {

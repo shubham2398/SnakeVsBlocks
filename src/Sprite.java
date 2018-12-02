@@ -65,7 +65,7 @@ public abstract class Sprite implements Serializable {
 
 	/**
 	 * This method takes the file path of image as an argument, makes an image of
-	 * it, stores the path in imagePath and the calls the {@link setImage(Image)}
+	 * it, stores the path in imagePath and the calls the {@link #setImage(Image)}
 	 * method to set the image.
 	 * 
 	 * @param filename is the name of image path
@@ -336,7 +336,7 @@ public abstract class Sprite implements Serializable {
 	/**
 	 * This sets the positionY of this sprite
 	 * 
-	 * @param positionX represents the y coordinate to be put
+	 * @param positionY represents the y coordinate to be put
 	 */
 	public void setPositionY(double positionY) {
 		this.positionY = positionY;
