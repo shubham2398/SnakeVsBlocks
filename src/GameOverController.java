@@ -34,10 +34,8 @@ public class GameOverController {
 	 * It is use to save the name of player into leaderboard when the ok button is
 	 * clicked. It also closes the game over stage and displays the main page.
 	 * 
-	 * @param e
-	 *            is the MouseEvent which stores the state of the mouse.
-	 * @throws Exception,
-	 *             It throws Exception if the stage creation fails.
+	 * @param e is the MouseEvent which stores the state of the mouse.
+	 * @throws Exception, It throws Exception if the stage creation fails.
 	 */
 	@FXML
 	public void enterName(MouseEvent e) throws Exception {
@@ -51,8 +49,7 @@ public class GameOverController {
 	/**
 	 * It is used to set the final score of the player in the text field available.
 	 * 
-	 * @param score
-	 *            contains the final score of the player.
+	 * @param score contains the final score of the player.
 	 */
 	public void setFinalScore(String score) {
 		finalScore.setText(score);

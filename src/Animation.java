@@ -64,9 +64,8 @@ public class Animation extends AnimationTimer implements Serializable {
 	 * the last, layer, lastNanoTime, delay and flag are all initialized to the
 	 * correct value in the start.
 	 * 
-	 * @param g
-	 *            is an the attribute of Game class, which will initialize the game
-	 *            attribute of our class.
+	 * @param g is an the attribute of Game class, which will initialize the game
+	 *          attribute of our class.
 	 */
 	public Animation(Game g) {
 		repeat = 3 + rnd.nextInt(2);
@@ -86,13 +85,11 @@ public class Animation extends AnimationTimer implements Serializable {
 	 * of power ups as compared to balls. It is made private so that it cannot be
 	 * called by another class except the Animation class itself.
 	 * 
-	 * @param powerUpNo
-	 *            stores which power up to display. Since all power Ups are assigned
-	 *            a unique number, hence depending upon the value of powerUpNo, that
-	 *            power up is added.
-	 * @param x_dist
-	 *            is the x coordinate or the position, where the power up should be
-	 *            added.
+	 * @param powerUpNo stores which power up to display. Since all power Ups are
+	 *                  assigned a unique number, hence depending upon the value of
+	 *                  powerUpNo, that power up is added.
+	 * @param x_dist    is the x coordinate or the position, where the power up
+	 *                  should be added.
 	 */
 	private void displayPowerUp(int powerUpNo, int x_dist) {
 		if (powerUpNo == 0) {
@@ -197,10 +194,10 @@ public class Animation extends AnimationTimer implements Serializable {
 	 * coordinate. It is made private so that it cannot be called by another class
 	 * except the Animation class itself.
 	 * 
-	 * @param object_exist
-	 *            is an array list of integers, which stores all the possible
-	 *            location of a row at which some object exists. (possible locations
-	 *            are just 5, since at max 5 blocks can be displayed in 1 row)
+	 * @param object_exist is an array list of integers, which stores all the
+	 *                     possible location of a row at which some object exists.
+	 *                     (possible locations are just 5, since at max 5 blocks can
+	 *                     be displayed in 1 row)
 	 */
 	private void genSingleBlock(ArrayList<Integer> object_exist) {
 		int l1 = rnd.nextInt(5);
@@ -223,11 +220,11 @@ public class Animation extends AnimationTimer implements Serializable {
 	 * is made private so that it cannot be called by another class except the
 	 * Animation class itself.
 	 * 
-	 * @param ball_count
-	 *            stores the number of balls that need to be generated in the row.
-	 * @param object_exist
-	 *            stores the x coordinates at which already some object exist and
-	 *            hence ball can't be generated at that coordinate.
+	 * @param ball_count   stores the number of balls that need to be generated in
+	 *                     the row.
+	 * @param object_exist stores the x coordinates at which already some object
+	 *                     exist and hence ball can't be generated at that
+	 *                     coordinate.
 	 */
 	private void genBalls(int ball_count, ArrayList<Integer> object_exist) {
 		while (ball_count > 0) {
@@ -247,10 +244,10 @@ public class Animation extends AnimationTimer implements Serializable {
 	 * one row. It is made private so that it cannot be called by another class
 	 * except the Animation class itself.
 	 * 
-	 * @param object_exist
-	 *            is an array list of integers, which stores all the possible
-	 *            location of a row at which some object exists. (possible locations
-	 *            are just 5, since at max 5 blocks can be displayed in 1 row)
+	 * @param object_exist is an array list of integers, which stores all the
+	 *                     possible location of a row at which some object exists.
+	 *                     (possible locations are just 5, since at max 5 blocks can
+	 *                     be displayed in 1 row)
 	 */
 	private void gen2Blocks(ArrayList<Integer> object_exist) {
 		int ball_count = rnd.nextInt(3);
@@ -283,9 +280,9 @@ public class Animation extends AnimationTimer implements Serializable {
 	 * on the screen. It is made private so that it cannot be called by another
 	 * class except the Animation class itself.
 	 * 
-	 * @param object_exist
-	 *            stores the x coordinates at which already some object exist and
-	 *            hence powerUp can't be generated at that coordinate.
+	 * @param object_exist stores the x coordinates at which already some object
+	 *                     exist and hence powerUp can't be generated at that
+	 *                     coordinate.
 	 */
 	private void generatePowerUps(ArrayList<Integer> object_exist) {
 		int numOfPowerUps = 1 + rnd.nextInt(2);
@@ -413,6 +410,7 @@ public class Animation extends AnimationTimer implements Serializable {
 			while (allElementsIter2.hasNext()) {
 				Sprite element = allElementsIter2.next();
 				if (element instanceof Block) {
+					game.getSnake().incrementScore(((Block) element).getNumber());
 					addElements.add(Explosion.getExplosionObject(element, game.getBlockExplosionPath(),
 							game.getScreenCoordinates(), 0.89));
 					allElementsIter2.remove();
@@ -535,13 +533,12 @@ public class Animation extends AnimationTimer implements Serializable {
 	 * It is called when the snake collides with the block. It destroys the block
 	 * and decreases the length of the snake depending upon various conditions.
 	 * 
-	 * @param temp
-	 *            is the Block object which collides with the snake.
-	 * @param allElementsIter
-	 *            is the iterator on allElements list.
+	 * @param temp            is the Block object which collides with the snake.
+	 * @param allElementsIter is the iterator on allElements list.
 	 */
 	private void onBlockAction(Block temp, Iterator<Sprite> allElementsIter) {
 		if (game.getSnake().isShieldActive()) {
+			game.getSnake().incrementScore(temp.getNumber());
 			temp.destroy();
 			Media sound = new Media(new File("sounds/block_exploded.mp3").toURI().toString());
 			MediaPlayer mediaPlayer = new MediaPlayer(sound);
@@ -611,9 +608,8 @@ public class Animation extends AnimationTimer implements Serializable {
 	 * This methods simulates the movement of coin towards the snake, if the magnet
 	 * power up is active.
 	 * 
-	 * @param coin
-	 *            contains the reference of the coin which needs to be attracted
-	 *            towards the snake.
+	 * @param coin contains the reference of the coin which needs to be attracted
+	 *             towards the snake.
 	 */
 	private void attractCoinIfMagnetActive(Coin coin) {
 		if (game.getSnake().magnetIntersects(coin)) {

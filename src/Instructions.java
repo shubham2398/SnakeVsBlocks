@@ -16,8 +16,9 @@ import javafx.stage.Stage;
  */
 public class Instructions extends Application {
 	/**
-	 * goBack is the fx:id of the back button, which when clicked will take the screen back to main page.
-	 * exit is the fx:id of the exit button, which when clicked will exit the game.
+	 * goBack is the fx:id of the back button, which when clicked will take the
+	 * screen back to main page. exit is the fx:id of the exit button, which when
+	 * clicked will exit the game.
 	 */
 
 	/**
@@ -36,7 +37,9 @@ public class Instructions extends Application {
 	public ImageView goBack;
 
 	/**
-	 * This function is used to go back to the previous screen i.e. the main page, when the back button is clicked.
+	 * This function is used to go back to the previous screen i.e. the main page,
+	 * when the back button is clicked.
+	 * 
 	 * @param e is the MouseEvent which stores the state of the mouse.
 	 * @throws Exception, It throws Exception if the stage creation fails.
 	 */
@@ -47,12 +50,12 @@ public class Instructions extends Application {
 		MainPage.displayMainPage();
 	}
 
-	
 	@FXML
 	public ImageView exitGame;
 
 	/**
 	 * This function is used to exit the game, when the exit button is clicked.
+	 * 
 	 * @param e is the MouseEvent which stores the state of the mouse.
 	 */
 	@FXML

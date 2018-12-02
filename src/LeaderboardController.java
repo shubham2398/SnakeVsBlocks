@@ -26,10 +26,8 @@ public class LeaderboardController {
 	/**
 	 * This function displays the main page when goBack button is clicked.
 	 * 
-	 * @param e
-	 *            is the MouseEvent which stores the state of the mouse.
-	 * @throws Exception,
-	 *             It throws Exception if the stage creation fails.
+	 * @param e is the MouseEvent which stores the state of the mouse.
+	 * @throws Exception, It throws Exception if the stage creation fails.
 	 */
 	@FXML
 	public void displayMainPage(MouseEvent e) throws Exception {
@@ -38,16 +36,14 @@ public class LeaderboardController {
 		MainPage.displayMainPage();
 	}
 
-
 	@FXML
 	public ImageView exitGame;
 
 	/**
 	 * This function will exit the game when the exit button is clicked.
-	 * @param e
-	 *            is the MouseEvent which stores the state of the mouse.
-	 * @throws Exception,
-	 *             It throws Exception if the stage creation fails.
+	 * 
+	 * @param e is the MouseEvent which stores the state of the mouse.
+	 * @throws Exception, It throws Exception if the stage creation fails.
 	 */
 	@FXML
 	public void exit(MouseEvent e) throws Exception {
@@ -147,10 +143,11 @@ public class LeaderboardController {
 
 	/**
 	 * This function is used to update the leader board with a new high score.
-	 * @param name is the Name of the player who created the high score.
+	 * 
+	 * @param name  is the Name of the player who created the high score.
 	 * @param score is the final score of the player.
-	 * @param date is the date on which the player created the high score.
-	 * @param rank is the rank of player.
+	 * @param date  is the date on which the player created the high score.
+	 * @param rank  is the rank of player.
 	 */
 	public void updateLeaderboard(String name, String score, String date, int rank) {
 		if (rank == 1)
@@ -177,9 +174,10 @@ public class LeaderboardController {
 
 	/**
 	 * This sets the entry on the leaderboard.
-	 * @param name is the name of the player who created the high score.
+	 * 
+	 * @param name  is the name of the player who created the high score.
 	 * @param score is the final score of the player.
-	 * @param date is the date on which high score was created.
+	 * @param date  is the date on which high score was created.
 	 */
 	private void setEntry1(String name, String score, String date) {
 		name1.setText(name);
@@ -189,9 +187,10 @@ public class LeaderboardController {
 
 	/**
 	 * This sets the entry on the leaderboard.
-	 * @param name is the name of the player who created the high score.
+	 * 
+	 * @param name  is the name of the player who created the high score.
 	 * @param score is the final score of the player.
-	 * @param date is the date on which high score was created.
+	 * @param date  is the date on which high score was created.
 	 */
 	private void setEntry2(String name, String score, String date) {
 		name2.setText(name);
@@ -201,9 +200,10 @@ public class LeaderboardController {
 
 	/**
 	 * This sets the entry on the leaderboard.
-	 * @param name is the name of the player who created the high score.
+	 * 
+	 * @param name  is the name of the player who created the high score.
 	 * @param score is the final score of the player.
-	 * @param date is the date on which high score was created.
+	 * @param date  is the date on which high score was created.
 	 */
 	private void setEntry3(String name, String score, String date) {
 		name3.setText(name);
@@ -213,9 +213,10 @@ public class LeaderboardController {
 
 	/**
 	 * This sets the entry on the leaderboard.
-	 * @param name is the name of the player who created the high score.
+	 * 
+	 * @param name  is the name of the player who created the high score.
 	 * @param score is the final score of the player.
-	 * @param date is the date on which high score was created.
+	 * @param date  is the date on which high score was created.
 	 */
 	private void setEntry4(String name, String score, String date) {
 		name4.setText(name);
@@ -225,9 +226,10 @@ public class LeaderboardController {
 
 	/**
 	 * This sets the entry on the leaderboard.
-	 * @param name is the name of the player who created the high score.
+	 * 
+	 * @param name  is the name of the player who created the high score.
 	 * @param score is the final score of the player.
-	 * @param date is the date on which high score was created.
+	 * @param date  is the date on which high score was created.
 	 */
 	private void setEntry5(String name, String score, String date) {
 		name5.setText(name);
@@ -237,9 +239,10 @@ public class LeaderboardController {
 
 	/**
 	 * This sets the entry on the leaderboard.
-	 * @param name is the name of the player who created the high score.
+	 * 
+	 * @param name  is the name of the player who created the high score.
 	 * @param score is the final score of the player.
-	 * @param date is the date on which high score was created.
+	 * @param date  is the date on which high score was created.
 	 */
 	private void setEntry6(String name, String score, String date) {
 		name6.setText(name);
@@ -249,9 +252,10 @@ public class LeaderboardController {
 
 	/**
 	 * This sets the entry on the leaderboard.
-	 * @param name is the name of the player who created the high score.
+	 * 
+	 * @param name  is the name of the player who created the high score.
 	 * @param score is the final score of the player.
-	 * @param date is the date on which high score was created.
+	 * @param date  is the date on which high score was created.
 	 */
 	private void setEntry7(String name, String score, String date) {
 		name7.setText(name);
@@ -261,9 +265,10 @@ public class LeaderboardController {
 
 	/**
 	 * This sets the entry on the leaderboard.
-	 * @param name is the name of the player who created the high score.
+	 * 
+	 * @param name  is the name of the player who created the high score.
 	 * @param score is the final score of the player.
-	 * @param date is the date on which high score was created.
+	 * @param date  is the date on which high score was created.
 	 */
 	private void setEntry8(String name, String score, String date) {
 		name8.setText(name);
@@ -273,9 +278,10 @@ public class LeaderboardController {
 
 	/**
 	 * This sets the entry on the leaderboard.
-	 * @param name is the name of the player who created the high score.
+	 * 
+	 * @param name  is the name of the player who created the high score.
 	 * @param score is the final score of the player.
-	 * @param date is the date on which high score was created.
+	 * @param date  is the date on which high score was created.
 	 */
 	private void setEntry9(String name, String score, String date) {
 		name9.setText(name);
@@ -285,9 +291,10 @@ public class LeaderboardController {
 
 	/**
 	 * This sets the entry on the leaderboard.
-	 * @param name is the name of the player who created the high score.
+	 * 
+	 * @param name  is the name of the player who created the high score.
 	 * @param score is the final score of the player.
-	 * @param date is the date on which high score was created.
+	 * @param date  is the date on which high score was created.
 	 */
 	private void setEntry10(String name, String score, String date) {
 		name10.setText(name);

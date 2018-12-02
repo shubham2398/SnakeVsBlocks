@@ -49,8 +49,7 @@ public final class GameOver extends Application {
 	 * game over screen. It also sets the final score on this screen using the
 	 * controller object.
 	 * 
-	 * @param score
-	 *            contains the final score of the player.
+	 * @param score contains the final score of the player.
 	 */
 	public static void gameOver(int score) {
 		if (gover == null)

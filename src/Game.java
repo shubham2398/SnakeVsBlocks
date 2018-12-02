@@ -140,10 +140,9 @@ public class Game extends Application implements Serializable {
 	 * This function is used to serialize the ongoing game, if it is closed
 	 * abruptly.
 	 * 
-	 * @throws IOException,
-	 *             If there is an error while creating the file or writing in it,
-	 *             the writeObject method throws a checked exception called the
-	 *             IOException.
+	 * @throws IOException, If there is an error while creating the file or writing
+	 *                      in it, the writeObject method throws a checked exception
+	 *                      called the IOException.
 	 */
 	public void serialize() throws IOException {
 		ObjectOutputStream out = null;
@@ -163,11 +162,11 @@ public class Game extends Application implements Serializable {
 	 * 
 	 * @return It returns the object of Game class, which contains the state of the
 	 *         last state of the game, when the player close the game abruptly.
-	 * @throws IOException
-	 *             It is thrown if the file resume.txt does not exist, or there is
-	 *             some error in reading the objects of the class.
-	 * @throws ClassNotFoundException
-	 *             It is thrown if the JVM can't find the Game.class file.
+	 * @throws IOException            It is thrown if the file resume.txt does not
+	 *                                exist, or there is some error in reading the
+	 *                                objects of the class.
+	 * @throws ClassNotFoundException It is thrown if the JVM can't find the
+	 *                                Game.class file.
 	 */
 	public static Game deserialize() throws IOException, ClassNotFoundException {
 		Game obj;
@@ -325,15 +324,12 @@ public class Game extends Application implements Serializable {
 	 * This method is used to display a ball power up on canvas at a particular
 	 * location.
 	 * 
-	 * @param px
-	 *            is used to store the x-coordinate of the position where the power
-	 *            up has to be displayed.
-	 * @param py
-	 *            is used to store the y-coordinate of the position where the power
-	 *            up has to be displayed.
-	 * @param value
-	 *            stores the value by which the length of the snake increases if the
-	 *            snake will eat it.
+	 * @param px    is used to store the x-coordinate of the position where the
+	 *              power up has to be displayed.
+	 * @param py    is used to store the y-coordinate of the position where the
+	 *              power up has to be displayed.
+	 * @param value stores the value by which the length of the snake increases if
+	 *              the snake will eat it.
 	 * @return It returns the ball object of actual type BallPowerUp and declared
 	 *         type Sprite class.
 	 */
@@ -350,12 +346,10 @@ public class Game extends Application implements Serializable {
 	 * This method is used to display the shield power up on canvas at a particular
 	 * location.
 	 * 
-	 * @param px
-	 *            is used to store the x-coordinate of the position where the power
-	 *            up has to be displayed.
-	 * @param py
-	 *            is used to store the y-coordinate of the position where the power
-	 *            up has to be displayed.
+	 * @param px is used to store the x-coordinate of the position where the power
+	 *           up has to be displayed.
+	 * @param py is used to store the y-coordinate of the position where the power
+	 *           up has to be displayed.
 	 * @return It returns the shield object of actual type Shield and declared type
 	 *         Sprite class.
 	 */
@@ -371,12 +365,10 @@ public class Game extends Application implements Serializable {
 	/**
 	 * This method is used to display the coins on canvas at a particular location.
 	 * 
-	 * @param px
-	 *            is used to store the x-coordinate of the position where the power
-	 *            up has to be displayed.
-	 * @param py
-	 *            is used to store the y-coordinate of the position where the power
-	 *            up has to be displayed.
+	 * @param px is used to store the x-coordinate of the position where the power
+	 *           up has to be displayed.
+	 * @param py is used to store the y-coordinate of the position where the power
+	 *           up has to be displayed.
 	 * @return It returns the coin object of actual type Coin and declared type
 	 *         Sprite class.
 	 */
@@ -393,12 +385,10 @@ public class Game extends Application implements Serializable {
 	 * This method is used to display the magnet power up on canvas at a particular
 	 * location.
 	 * 
-	 * @param px
-	 *            is used to store the x-coordinate of the position where the power
-	 *            up has to be displayed.
-	 * @param py
-	 *            is used to store the y-coordinate of the position where the power
-	 *            up has to be displayed.
+	 * @param px is used to store the x-coordinate of the position where the power
+	 *           up has to be displayed.
+	 * @param py is used to store the y-coordinate of the position where the power
+	 *           up has to be displayed.
 	 * @return It returns the magnet object of actual type Magnet and declared type
 	 *         Sprite class.
 	 */
@@ -415,12 +405,10 @@ public class Game extends Application implements Serializable {
 	 * This method is used to display the destroy blocks power up on canvas at a
 	 * particular location.
 	 * 
-	 * @param px
-	 *            is used to store the x-coordinate of the position where the power
-	 *            up has to be displayed.
-	 * @param py
-	 *            is used to store the y-coordinate of the position where the power
-	 *            up has to be displayed.
+	 * @param px is used to store the x-coordinate of the position where the power
+	 *           up has to be displayed.
+	 * @param py is used to store the y-coordinate of the position where the power
+	 *           up has to be displayed.
 	 * @return It returns the bomb object of actual type DestroyBlocksPowerUp and
 	 *         declared type Sprite class.
 	 */
@@ -437,12 +425,10 @@ public class Game extends Application implements Serializable {
 	 * This method is used to display the double score power up on canvas at a
 	 * particular location.
 	 * 
-	 * @param px
-	 *            is used to store the x-coordinate of the position where the power
-	 *            up has to be displayed.
-	 * @param py
-	 *            is used to store the y-coordinate of the position where the power
-	 *            up has to be displayed.
+	 * @param px is used to store the x-coordinate of the position where the power
+	 *           up has to be displayed.
+	 * @param py is used to store the y-coordinate of the position where the power
+	 *           up has to be displayed.
 	 * @return It returns the x2 object of actual type DoubleScorePowerUp and
 	 *         declared type Sprite class.
 	 */
@@ -459,12 +445,10 @@ public class Game extends Application implements Serializable {
 	 * This method is used to display the block power up on canvas at a particular
 	 * location.
 	 * 
-	 * @param px
-	 *            is used to store the x-coordinate of the position where the power
-	 *            up has to be displayed.
-	 * @param py
-	 *            is used to store the y-coordinate of the position where the power
-	 *            up has to be displayed.
+	 * @param px is used to store the x-coordinate of the position where the power
+	 *           up has to be displayed.
+	 * @param py is used to store the y-coordinate of the position where the power
+	 *           up has to be displayed.
 	 * @return It returns the block object of actual type Block and declared type
 	 *         Sprite class.
 	 */
@@ -483,12 +467,10 @@ public class Game extends Application implements Serializable {
 	 * This method is used to display the wall power up on canvas at a particular
 	 * location.
 	 * 
-	 * @param px
-	 *            is used to store the x-coordinate of the position where the power
-	 *            up has to be displayed.
-	 * @param py
-	 *            is used to store the y-coordinate of the position where the power
-	 *            up has to be displayed.
+	 * @param px is used to store the x-coordinate of the position where the power
+	 *           up has to be displayed.
+	 * @param py is used to store the y-coordinate of the position where the power
+	 *           up has to be displayed.
 	 * @return It returns the wall object of actual type Wall and declared type
 	 *         Sprite class.
 	 */
@@ -581,8 +563,8 @@ public class Game extends Application implements Serializable {
 	 * This function sets the ADD_SPEED variable of the Game class. It sets the
 	 * variable the speed with which the game speed has to be increased.
 	 * 
-	 * @param speed
-	 *            contains the speed with which the game speed has to be increased.
+	 * @param speed contains the speed with which the game speed has to be
+	 *              increased.
 	 */
 	public void addSpeed(int speed) {
 		this.ADD_SPEED = speed;
@@ -591,8 +573,7 @@ public class Game extends Application implements Serializable {
 	/**
 	 * This function is used to set the current speed of the game.
 	 * 
-	 * @param speed
-	 *            contains the speed at which the game speed has to be set to.
+	 * @param speed contains the speed at which the game speed has to be set to.
 	 */
 	public void setSpeed(int speed) {
 		this.speed = speed;
