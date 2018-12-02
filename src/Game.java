@@ -395,8 +395,7 @@ public class Game extends Application implements Serializable {
 		stage.close();
 		try {
 			MainPage.addCoins(snake.getCoins());
-		}
-		catch (IOException e){
+		} catch (IOException e) {
 			
 		}
 		GameOver.gameOver(score.value);

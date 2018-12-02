@@ -25,8 +25,8 @@ public class MainPage extends Application {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
 		loadLeaderBoard();
-		loadLastScore();
 		loadCoins();
+		loadLastScore();
 		launch();
 	}
 
@@ -44,7 +44,7 @@ public class MainPage extends Application {
 		controller = (MainPageController) loader.getController();
 		loadLastScore();
 		controller.updateLastScore(Integer.toString(lastScore));
-//		controller.updateCoins(String.valueOf(ttlCoins));
+		controller.updateCoins(Integer.toString(ttlCoins));
 
 		Scene scene = new Scene(root, 406, 650);
 		stage.setScene(scene);
@@ -82,9 +82,9 @@ public class MainPage extends Application {
 			DataInputStream in = null;
 			try {
 				in = new DataInputStream(new BufferedInputStream(new FileInputStream("coins.txt")));
-				lastScore = in.readInt();
+				ttlCoins = in.readInt();
 			} catch (EOFException e) {
-				lastScore = 0;
+				ttlCoins = 0;
 			} finally {
 				if (in != null) {
 					in.close();
