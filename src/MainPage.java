@@ -14,25 +14,42 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
+/**
+ * This class is the class corresponding to the MainPage where there is option to start, resume, leaderboard and exit.
+ * This is the first page that the user sees when he starts the application.
+ * @author SHUBHAM THAKRAL, TANMAY BANSAL
+ *
+ */
 public class MainPage extends Application {
-
+	/**
+	 * controller is the MainPageController object which is used for providing eventListeners to link different pages using FXML.
+	 * leaderboard is the object that holds the leaderboard of players
+	 * last score represents the last score made by the player
+	 * ttlCoins store the total number of coins collected by the player
+	 */
 	private static MainPageController controller;
-	private static Stage primaryStage;
 	private static Leaderboard leaderboard;
 	private static int lastScore = 0;
 	private static int ttlCoins = 0;
-
+	
+	/**
+	 * It is executed as the first thing when the program starts.
+	 * @param args are the command line arguments
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
 		loadLeaderBoard();
 		loadCoins();
 		loadLastScore();
 		launch();
 	}
-
+	
+	/**
+	 * This overrides the start method of Application class. It is used to spawn a new thread which will display the stage of our application. All other elements are loaded onto it. Here we also check whether we have a resume.txt file to resume the game play from previous session to display appropriate page.
+	 */
 	@Override
 	public void start(Stage stage) throws Exception {
-		primaryStage = stage;
 		FXMLLoader loader = null;
 		File f = new File("resume.txt");
 
@@ -50,7 +67,11 @@ public class MainPage extends Application {
 		stage.setScene(scene);
 		stage.show();
 	}
-
+	
+	/**
+	 * This method is used to deserialize the leaderboard if it is stored, else make a new Leaderboard
+	 * @throws ClassNotFoundException
+	 */
 	private static void loadLeaderBoard() throws ClassNotFoundException {
 		try {
 			leaderboard = Leaderboard.deserialize();
@@ -58,7 +79,11 @@ public class MainPage extends Application {
 			leaderboard = new Leaderboard();
 		}
 	}
-
+	
+	/**
+	 * This method is used to deserialize last score if it is stored, else initialise it to zero
+	 * @throws IOException
+	 */
 	private static void loadLastScore() throws IOException {
 		File f = new File("lastscore.txt");
 		if (f.exists() && !f.isDirectory()) {
@@ -76,6 +101,10 @@ public class MainPage extends Application {
 		}
 	}
 	
+	/**
+	 * This method is used to deserialize the total coins if it is stored, else initial it to zero.
+	 * @throws IOException
+	 */
 	private static void loadCoins() throws IOException {
 		File f = new File("coins.txt");
 		if (f.exists() && !f.isDirectory()) {
@@ -92,7 +121,13 @@ public class MainPage extends Application {
 			}
 		}
 	}
-
+	
+	/**
+	 * This method is used to serialize last score. It also checks the leaderboard if this score can be added to it.
+	 * @param score is the score of the player
+	 * @param name is the name of the player
+	 * @throws IOException
+	 */
 	public static void setLastScore(int score, String name) throws IOException {
 		leaderboard.checkNewHighScore(score, name);
 		DataOutputStream out = null;
@@ -105,7 +140,10 @@ public class MainPage extends Application {
 			}
 		}
 	}
-
+	
+	/**
+	 * This method displays the main page
+	 */
 	public static void displayMainPage() {
 		try {
 			new MainPage().start(new Stage());
@@ -113,12 +151,21 @@ public class MainPage extends Application {
 			System.out.println("Error in displaying Main Page");
 		}
 	}
-
+	
+	/**
+	 * This method displays the leaderboard
+	 * @throws Exception
+	 */
 	public static void displayLeaderboard() throws Exception {
 		leaderboard.start(new Stage());
 		leaderboard.updateLeaderboard();
 	}
-
+	
+	/**
+	 * This method adds the coins to ttlCoins and serializes it
+	 * @param coins are the number of coins to be added
+	 * @throws IOException
+	 */
 	public static void addCoins(int coins) throws IOException {
 		ttlCoins += coins;
 		DataOutputStream out = null;

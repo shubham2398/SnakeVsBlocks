@@ -12,15 +12,31 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * This class represents the leaderboard with the list of top 10 players.
+ * It is serializable.
+ * @author SHUBHAM THAKRAL, TANMAY BANSAL
+ *
+ */
 public class Leaderboard extends Application implements Serializable {
-
+	private static final long serialVersionUID = 1L;
+	/**
+	 * topScorers is the AraayList of Players who are top 10 scorers.
+	 * controller is the object of the LeaderBoardController class used to display the data on leaderboard using FXML
+	 */
 	private ArrayList<Player> topScorers;
 	private transient LeaderboardController controller;
-
-	Leaderboard() {
+	
+	/**
+	 *  The constructor assigns a new list of Players to the topScorers
+	 */
+	public Leaderboard() {
 		topScorers = new ArrayList<Player>();
 	}
-
+	
+	/**
+	 * This method updates the leaderboard according to the contents of topScorers list
+	 */
 	public void updateLeaderboard() {
 		for (int i = 0; i < 10; i++) {
 			if (i < topScorers.size()) {
@@ -31,9 +47,13 @@ public class Leaderboard extends Application implements Serializable {
 			}
 		}
 	}
-
+	
+	/**
+	 * This method overrides the start method of Application class to display the leaderboard using FXML.
+	 * @throws IOException 
+	 */
 	@Override
-	public void start(Stage stage) throws Exception {
+	public void start(Stage stage) throws IOException{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Leaderboard.fxml"));
 		Parent root = loader.load();
 		controller = (LeaderboardController) loader.getController();
@@ -42,7 +62,11 @@ public class Leaderboard extends Application implements Serializable {
 		stage.setScene(scene);
 		stage.show();
 	}
-
+	
+	/**
+	 * This method serializes the leaderboard and stores it in a file names leaderboard.txt
+	 * @throws IOException
+	 */
 	public void serialize() throws IOException {
 		ObjectOutputStream out = null;
 		try {
@@ -54,7 +78,13 @@ public class Leaderboard extends Application implements Serializable {
 			}
 		}
 	}
-
+	
+	/**
+	 * This static method is used to deserialize the leaderboard object stored in leaderboard.txt
+	 * @return Leaderboard type object 
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public static Leaderboard deserialize() throws IOException, ClassNotFoundException {
 		Leaderboard obj;
 		ObjectInputStream in = null;
@@ -68,7 +98,12 @@ public class Leaderboard extends Application implements Serializable {
 		}
 		return obj;
 	}
-
+	
+	/**
+	 * This method checks whether the given score is a new highScore or not and whether it needs to be inserted in the topScorers list or not.
+	 * @param score is the score made by the player
+	 * @param name is the name of the player
+	 */
 	public void checkNewHighScore(int score, String name) {
 		boolean toBeAdded = false;
 		if (topScorers.size() < 10)
@@ -79,7 +114,12 @@ public class Leaderboard extends Application implements Serializable {
 		if (toBeAdded)
 			addScoreToLeaderboard(score, name);
 	}
-
+	
+	/**
+	 * This method adds a given score and name to the leaderboard and topScorers list with current date.
+	 * @param score is the score of the player
+	 * @param name is the name of the player
+	 */
 	private void addScoreToLeaderboard(int score, String name) {
 		if (topScorers.size() == 10)
 			topScorers.remove(topScorers.size() - 1);

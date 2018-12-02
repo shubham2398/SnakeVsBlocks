@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
+
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.Image;
 import javafx.scene.media.Media;
@@ -15,18 +16,58 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+/**
+ * 
+ * @author SHUBHAM _THAKRAL, TANMAY BANSAL This class is the animation class. It
+ *         is a subclass of AnimationTimer. It is used to render and update the
+ *         game scene at regular intervals. It override the handle method on
+ *         AnimationTimer.
+ */
 public class Animation extends AnimationTimer implements Serializable {
+	private static final long serialVersionUID = 1L;
+	/**
+	 * It has various attributes which are private so that they can't be accessed by
+	 * other classes, except Animation class (Encapsulation - data hiding). The game
+	 * attribute of Game type is used because we want to access the attributes and
+	 * methods of Game class, which we can't access directly since they are private.
+	 * It is therefore used to render blocks, power ups, walls etc. while playing.
+	 * The lastNanoTime stores the system time of the last frame generated. The
+	 * currentNanoTime stores the current system time. The repeat variable stores
+	 * the number of independent block layers that should be displayed after which
+	 * the complete chain of blocks will be displayed. The delay variable stores the
+	 * time difference between the current system time and the last time game was
+	 * paused. The flag variable variable is used to know whether the game was
+	 * paused any time during the game play or not. If it was paused then the flag
+	 * will become 1 and we have to subtract delay time for every operation
+	 * thereafter. The last variable stores the time elapsed after the last layer of
+	 * blocks were displayed. The rnd attribute of Random type is used to generate
+	 * random numbers. It is used to find the value to be placed on blocks, balls,
+	 * etc. The addElements is an array list of type Sprite which is used to
+	 * remove/add elements from screen while we are already iterating a collection.
+	 * Otherwise we get concurrentModificationException, if we try to add and remove
+	 * elements from a collection while already iterating a collection.
+	 */
+
 	Game game;
-	public LongValue lastNanoTime;
-	public int repeat;
-	public LongValue delay;
-	public IntValue flag;
+	private long lastNanoTime;
+	private long currentNanoTime;
+	private int repeat;
+	private long delay;
+	private int flag;
 	private double last;
-	public long currentNanoTime;
 	private int[] layer;
 	private ArrayList<Sprite> addElements = new ArrayList<Sprite>();
 	private static transient Random rnd = new Random();
 
+	/**
+	 * In the constructor, we initialize the repeat variable to a random value. Also
+	 * the last, layer, lastNanoTime, delay and flag are all initialized to the
+	 * correct value in the start.
+	 * 
+	 * @param g
+	 *            is an the attribute of Game class, which will initialize the game
+	 *            attribute of our class.
+	 */
 	public Animation(Game g) {
 		repeat = 3 + rnd.nextInt(2);
 		layer = new int[5];
@@ -34,11 +75,25 @@ public class Animation extends AnimationTimer implements Serializable {
 			layer[i] = 1;
 		last = 0;
 		game = g;
-		lastNanoTime = new LongValue(System.nanoTime());
-		delay = new LongValue(0);
-		flag = new IntValue(0);
+		lastNanoTime = System.nanoTime();
+		delay = 0L;
+		flag = 0;
 	}
 
+	/**
+	 * This method is used to add the power ups on the game screen using the game
+	 * attribute. This method uses the Monte Carlo technique to reduce the frequency
+	 * of power ups as compared to balls. It is made private so that it cannot be
+	 * called by another class except the Animation class itself.
+	 * 
+	 * @param powerUpNo
+	 *            stores which power up to display. Since all power Ups are assigned
+	 *            a unique number, hence depending upon the value of powerUpNo, that
+	 *            power up is added.
+	 * @param x_dist
+	 *            is the x coordinate or the position, where the power up should be
+	 *            added.
+	 */
 	private void displayPowerUp(int powerUpNo, int x_dist) {
 		if (powerUpNo == 0) {
 			game.getAllElements()
@@ -57,16 +112,19 @@ public class Animation extends AnimationTimer implements Serializable {
 					.add(game.makeDestroyBlocksPowerUp(
 							game.getBLOCK_SIZE() * x_dist + x_dist + game.getBLOCK_SIZE() / 2 - 12,
 							-360 + game.getBLOCK_SIZE() / 2 - 10));
-		} else if (powerUpNo == 10)
-		{	System.out.println("AAgyaaa");
+		} else if (powerUpNo == 10) {
 			game.getAllElements()
-			.add(game.makeDobleScorePowerUp(
-					game.getBLOCK_SIZE() * x_dist + x_dist + game.getBLOCK_SIZE() / 2 - 12,
-					-360 + game.getBLOCK_SIZE() / 2 - 10));
-			
+					.add(game.makeDobleScorePowerUp(
+							game.getBLOCK_SIZE() * x_dist + x_dist + game.getBLOCK_SIZE() / 2 - 12,
+							-360 + game.getBLOCK_SIZE() / 2 - 10));
 		}
 	}
 
+	/**
+	 * This method decides, how many walls to display in one row and adds them on
+	 * the game screen. It is made private so that it cannot be called by another
+	 * class except the Animation class itself.
+	 */
 	private void genWalls() {
 		int how_many = rnd.nextInt(3);
 		if (how_many == 1) {
@@ -74,10 +132,10 @@ public class Animation extends AnimationTimer implements Serializable {
 			// System.err.println(l1+" "+layer[l1]);
 			if (layer[l1] == 1)
 				game.getAllElements().add(game.makeWall((game.getBLOCK_SIZE()) * l1 + l1 + game.getBLOCK_SIZE() - 6,
-						-360 + game.getBLOCK_SIZE(), 50 + rnd.nextInt(40), 0));
+						-360 + game.getBLOCK_SIZE() / 2, 50 + rnd.nextInt(40), 0));
 			else
 				game.getAllElements().add(game.makeWall((game.getBLOCK_SIZE()) * l1 + l1 + game.getBLOCK_SIZE() - 6,
-						-360 + game.getBLOCK_SIZE(), 180 + rnd.nextInt(91), 0));
+						-360 + game.getBLOCK_SIZE() / 2, 180 + rnd.nextInt(91), 0));
 		} else if (how_many == 2) {
 			int l1 = rnd.nextInt(4);
 			int l2 = rnd.nextInt(4);
@@ -87,20 +145,26 @@ public class Animation extends AnimationTimer implements Serializable {
 
 			if (layer[l1] == 1)
 				game.getAllElements().add(game.makeWall((game.getBLOCK_SIZE()) * l1 + l1 + game.getBLOCK_SIZE() - 6,
-						-360 + game.getBLOCK_SIZE(), 50 + rnd.nextInt(40), 0));
+						-360 + game.getBLOCK_SIZE() / 2, 50 + rnd.nextInt(40), 0));
 			else
 				game.getAllElements().add(game.makeWall((game.getBLOCK_SIZE()) * l1 + l1 + game.getBLOCK_SIZE() - 6,
-						-360 + game.getBLOCK_SIZE(), 180 + rnd.nextInt(91), 0));
+						-360 + game.getBLOCK_SIZE() / 2, 180 + rnd.nextInt(91), 0));
 
 			if (layer[l2] == 1)
 				game.getAllElements().add(game.makeWall((game.getBLOCK_SIZE()) * l2 + l2 + game.getBLOCK_SIZE() - 6,
-						-360 + game.getBLOCK_SIZE(), 50 + rnd.nextInt(40), 0));
+						-360 + game.getBLOCK_SIZE() / 2, 50 + rnd.nextInt(40), 0));
 			else
 				game.getAllElements().add(game.makeWall((game.getBLOCK_SIZE()) * l2 + l2 + game.getBLOCK_SIZE() - 6,
-						-360 + game.getBLOCK_SIZE(), 180 + rnd.nextInt(91), 0));
+						-360 + game.getBLOCK_SIZE() / 2, 180 + rnd.nextInt(91), 0));
 		}
 	}
 
+	/**
+	 * This method generates the chain of blocks, i.e. the complete row is filled
+	 * with blocks, making sure that at least 2 blocks are having value less than
+	 * snake's current length. It is made private so that it cannot be called by
+	 * another class except the Animation class itself.
+	 */
 	private void genChainOfBlocks() {
 		for (int i = 0; i < 5; i++) {
 			layer[i] = 1;
@@ -128,9 +192,19 @@ public class Animation extends AnimationTimer implements Serializable {
 		last = 0;
 	}
 
+	/**
+	 * This method generates a single independent block in the row at a random x
+	 * coordinate. It is made private so that it cannot be called by another class
+	 * except the Animation class itself.
+	 * 
+	 * @param object_exist
+	 *            is an array list of integers, which stores all the possible
+	 *            location of a row at which some object exists. (possible locations
+	 *            are just 5, since at max 5 blocks can be displayed in 1 row)
+	 */
 	private void genSingleBlock(ArrayList<Integer> object_exist) {
 		int l1 = rnd.nextInt(5);
-		int ball_count = rnd.nextInt(4);
+		int ball_count = rnd.nextInt(3);
 
 		object_exist.add(l1);
 		layer[l1] = 1;
@@ -144,6 +218,17 @@ public class Animation extends AnimationTimer implements Serializable {
 		genBalls(ball_count, object_exist);
 	}
 
+	/**
+	 * This function generates balls on the game screen at random x coordinates. It
+	 * is made private so that it cannot be called by another class except the
+	 * Animation class itself.
+	 * 
+	 * @param ball_count
+	 *            stores the number of balls that need to be generated in the row.
+	 * @param object_exist
+	 *            stores the x coordinates at which already some object exist and
+	 *            hence ball can't be generated at that coordinate.
+	 */
 	private void genBalls(int ball_count, ArrayList<Integer> object_exist) {
 		while (ball_count > 0) {
 			int x_loc = rnd.nextInt(5);
@@ -157,6 +242,16 @@ public class Animation extends AnimationTimer implements Serializable {
 		}
 	}
 
+	/**
+	 * This function is used to generate 2 independent blocks on the game screen in
+	 * one row. It is made private so that it cannot be called by another class
+	 * except the Animation class itself.
+	 * 
+	 * @param object_exist
+	 *            is an array list of integers, which stores all the possible
+	 *            location of a row at which some object exists. (possible locations
+	 *            are just 5, since at max 5 blocks can be displayed in 1 row)
+	 */
 	private void gen2Blocks(ArrayList<Integer> object_exist) {
 		int ball_count = rnd.nextInt(3);
 
@@ -182,6 +277,16 @@ public class Animation extends AnimationTimer implements Serializable {
 		genBalls(ball_count, object_exist);
 	}
 
+	/**
+	 * This function decides which power up to generate and how many should be
+	 * generated in a row. It then calls the displayPowerUp function to display them
+	 * on the screen. It is made private so that it cannot be called by another
+	 * class except the Animation class itself.
+	 * 
+	 * @param object_exist
+	 *            stores the x coordinates at which already some object exist and
+	 *            hence powerUp can't be generated at that coordinate.
+	 */
 	private void generatePowerUps(ArrayList<Integer> object_exist) {
 		int numOfPowerUps = 1 + rnd.nextInt(2);
 		int x_dist = rnd.nextInt(5);
@@ -192,8 +297,8 @@ public class Animation extends AnimationTimer implements Serializable {
 
 		int which_powerUp = rnd.nextInt(20);
 		displayPowerUp(which_powerUp, x_dist);
-		
-		if(which_powerUp>=1 && which_powerUp<=7) {
+
+		if (which_powerUp >= 1 && which_powerUp <= 7) {
 			which_powerUp = 1;
 		}
 
@@ -204,12 +309,12 @@ public class Animation extends AnimationTimer implements Serializable {
 					x_dist = rnd.nextInt(5);
 				}
 				int secondPowerUp = rnd.nextInt(20);
-				if(secondPowerUp>=1 && secondPowerUp<=7) {
+				if (secondPowerUp >= 1 && secondPowerUp <= 7) {
 					secondPowerUp = 1;
 				}
 				while (secondPowerUp == which_powerUp) {
 					secondPowerUp = rnd.nextInt(20);
-					if(secondPowerUp>=1 && secondPowerUp<=7) {
+					if (secondPowerUp >= 1 && secondPowerUp <= 7) {
 						secondPowerUp = 1;
 					}
 				}
@@ -218,6 +323,13 @@ public class Animation extends AnimationTimer implements Serializable {
 		}
 	}
 
+	/**
+	 * It is used to randomize every element of the game screen. It call the
+	 * functions genWalls(), genChainOfBlocks(), genSingleBlock(), gen2Blocks() and
+	 * generatePowerUps internally to display them on game screen. It is made
+	 * private so that it cannot be called by another class except the Animation
+	 * class itself.
+	 */
 	private void randomizeScreen() {
 		genWalls();
 
@@ -236,23 +348,28 @@ public class Animation extends AnimationTimer implements Serializable {
 			last = 0;
 			repeat -= 1;
 
-			if (object_exist.size() < 5 && rnd.nextInt(2)==1)
+			if (object_exist.size() < 5 && rnd.nextInt(2) == 1)
 				generatePowerUps(object_exist);
 		}
 	}
 
+	/**
+	 * This method overrides the handle method of AnimationTimerClass. It is going
+	 * to be called in every frame while the animation timer is active. This defines
+	 * whole functionality of the game such as rendering, collision, updation, etc.
+	 */
 	@Override
 	public void handle(long currentNanoTime) {
 		game.addSpeed(2 * game.getSnake().getScore());
 		game.setSpeedToDefault();
 		this.currentNanoTime = currentNanoTime;
 		double elapsedTime;
-		if (flag.value == 1) {
-			delay.value = currentNanoTime - lastNanoTime.value;
-			flag.value = 0;
-			elapsedTime = (currentNanoTime - lastNanoTime.value - delay.value) / 1000000000.0;
+		if (flag == 1) {
+			delay = currentNanoTime - lastNanoTime;
+			flag = 0;
+			elapsedTime = (currentNanoTime - lastNanoTime - delay) / 1000000000.0;
 		} else {
-			elapsedTime = (currentNanoTime - lastNanoTime.value) / 1000000000.0;
+			elapsedTime = (currentNanoTime - lastNanoTime) / 1000000000.0;
 		}
 		last += elapsedTime;
 
@@ -260,7 +377,7 @@ public class Animation extends AnimationTimer implements Serializable {
 			randomizeScreen();
 		}
 
-		lastNanoTime.value = currentNanoTime;
+		lastNanoTime = currentNanoTime;
 
 		addElements();
 
@@ -338,26 +455,38 @@ public class Animation extends AnimationTimer implements Serializable {
 		if (game.getSnake().isShieldActive()) {
 			displayShield();
 		}
-		if(game.getSnake().isDoubleScoreActive()) {
+		if (game.getSnake().isDoubleScoreActive()) {
 			displayDoubleScore();
 		}
 		game.getGc().setFont(f);
 	}
 
+	/**
+	 * This method displays the remaining time for which the double score power up
+	 * is active. It displays the double score power up image on the top of the
+	 * screen as well. It is made private so that it cannot be called by another
+	 * class except the Animation class itself.
+	 */
 	private void displayDoubleScore() {
 		Shield s = new Shield(game.getScreenCoordinates());
-		s.setImage(
-				new Image("file:images/double_score.png", game.getBallSize() * 1.5, game.getBallSize() * 1.5, false, false));
+		s.setImage(new Image("file:images/double_score.png", game.getBallSize() * 1.5, game.getBallSize() * 1.5, false,
+				false));
 		s.setImagePath("file:images/shield.png");
-		s.setPosition(game.getScreenCoordinates()[0] + 175 + game.getBallSize()/2 + 10,
+		s.setPosition(game.getScreenCoordinates()[0] + 175 + game.getBallSize() / 2 + 10,
 				game.getScreenCoordinates()[2] + 20);
 		s.setVelocity(0, 0);
 		s.render(game.getGc());
 		String doubleScoreText = String.valueOf(game.getSnake().getDoubleScoreTime());
-		game.getGc().strokeText(doubleScoreText, game.getScreenCoordinates()[0] + 185 + 10 + game.getBallSize()/2,
+		game.getGc().strokeText(doubleScoreText, game.getScreenCoordinates()[0] + 185 + 10 + game.getBallSize() / 2,
 				game.getScreenCoordinates()[2] + 15);
 	}
 
+	/**
+	 * This method displays the remaining time for which the shield power up is
+	 * active. It displays the shield image on the top of the screen as well. It is
+	 * made private so that it cannot be called by another class except the
+	 * Animation class itself.
+	 */
 	private void displayShield() {
 		Shield s = new Shield(game.getScreenCoordinates());
 		s.setImage(
@@ -372,6 +501,12 @@ public class Animation extends AnimationTimer implements Serializable {
 				game.getScreenCoordinates()[2] + 15);
 	}
 
+	/**
+	 * This method displays the remaining time for which the display magnet power up
+	 * is active. It also displays the magnet image on the top of the screen as
+	 * well. It is made private so that it cannot be called by another class except
+	 * the Animation class itself.
+	 */
 	private void displayMagnet() {
 		Magnet m = new Magnet(game.getScreenCoordinates());
 		m.setImage(
@@ -384,6 +519,9 @@ public class Animation extends AnimationTimer implements Serializable {
 		game.getGc().strokeText(magnetText, game.getScreenCoordinates()[0] + 110, game.getScreenCoordinates()[2] + 15);
 	}
 
+	/**
+	 * It adds the elements to be added to the allElements list in addElementsList.
+	 */
 	private void addElements() {
 		Iterator<Sprite> addElementsIter = addElements.iterator();
 		while (addElementsIter.hasNext()) {
@@ -393,6 +531,15 @@ public class Animation extends AnimationTimer implements Serializable {
 		}
 	}
 
+	/**
+	 * It is called when the snake collides with the block. It destroys the block
+	 * and decreases the length of the snake depending upon various conditions.
+	 * 
+	 * @param temp
+	 *            is the Block object which collides with the snake.
+	 * @param allElementsIter
+	 *            is the iterator on allElements list.
+	 */
 	private void onBlockAction(Block temp, Iterator<Sprite> allElementsIter) {
 		if (game.getSnake().isShieldActive()) {
 			temp.destroy();
@@ -414,7 +561,7 @@ public class Animation extends AnimationTimer implements Serializable {
 					for (int i = 0; i < temp.getNumber(); i++) {
 						game.getSnake().decreaseLength();
 					}
-					//game.getSnake().decreaseLength();
+					// game.getSnake().decreaseLength();
 					game.getSnake().incrementScore(temp.getNumber());
 					game.setSpeedToDefault();
 				} else if (temp.getNumber() <= 5) {
@@ -444,6 +591,10 @@ public class Animation extends AnimationTimer implements Serializable {
 		}
 	}
 
+	/**
+	 * This method deletes the resume file, which stores the state of game object
+	 * when the game was abruptly closed by the player.
+	 */
 	private void deleteResumeFileIfExists() {
 		try {
 			Files.deleteIfExists(Paths.get("resume.txt"));
@@ -456,6 +607,14 @@ public class Animation extends AnimationTimer implements Serializable {
 		}
 	}
 
+	/**
+	 * This methods simulates the movement of coin towards the snake, if the magnet
+	 * power up is active.
+	 * 
+	 * @param coin
+	 *            contains the reference of the coin which needs to be attracted
+	 *            towards the snake.
+	 */
 	private void attractCoinIfMagnetActive(Coin coin) {
 		if (game.getSnake().magnetIntersects(coin)) {
 			double disX = game.getSnake().positionX - coin.positionX;
@@ -464,5 +623,36 @@ public class Animation extends AnimationTimer implements Serializable {
 		} else {
 			coin.setVelocity(0, game.getSpeed());
 		}
+	}
+
+	/**
+	 * This function return the current system time, recorded and saved in the
+	 * currentNanoTime variable of the class.
+	 * 
+	 * @return the current system time, recorded and saved in the currentNanoTime
+	 *         variable of the class.
+	 */
+	public long getCurrentNanoTime() {
+		return currentNanoTime;
+	}
+
+	/**
+	 * This method is used by other classes, mainly Game class, to set the value of
+	 * the last system recorded time of the last frame.
+	 * 
+	 * @param last_nano_time
+	 */
+	public void setLastNanoTime(long last_nano_time) {
+		lastNanoTime = last_nano_time;
+	}
+
+	/**
+	 * This method is used by other classes, mainly Game class, to set the value of
+	 * the flag variable, if the game is paused any time during the game play.
+	 * 
+	 * @param flag
+	 */
+	public void setFlag(int flag) {
+		this.flag = flag;
 	}
 }
